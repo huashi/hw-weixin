@@ -138,6 +138,14 @@ angular.module("starter.services",[])
                     }
                 });
                 return a;
+            },
+            getNewsById:function(id){
+                for(var i=0;i<messages.length;i++) {
+                    if (messages[i].id == id) {
+                        return messages[i];
+                    }
+                }
+                return {};
             }
         }
     })

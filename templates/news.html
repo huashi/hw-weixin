@@ -1,0 +1,50 @@
+<ion-view view-title="新闻内容">
+    <ion-content class="padding" has-bouncing="false" style="top: 25px;">
+
+        <div class="list card">
+            <div class="item item-body book-cover">
+                <img src="img/ionic.png">
+            </div>
+
+            <div class="item tabs tabs-secondary ">
+                <div class="tab-item">
+                    <i class="assertive ion-social-yen">{{News.contents}}</i>
+                </div>
+                <a class="tab-item has-badge" href="#">
+                    <i class=" ion-thumbsup assertive">
+                        <span class="badge badge-assertive ">{{News.username}}</span>
+                    </i>
+                </a>
+            </div>
+            <div class="item item-body">
+                <div>
+                    POST /AhiWebService.asmx HTTP/1.1
+                    Host: localhost
+                    Content-Type: text/xml; charset=utf-8
+                    Content-Length: length
+                    SOAPAction: "http://tempuri.org/GetAgencyByID"
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="list card">
+            <div class="item item-divider">网友留言</div>
+            <div class="item item-body ">
+                <div class="list">
+                    <div class="item no-padding" ng-repeat="comment in commentList">
+                        <h3> {{comment.cnt}}</h3>
+                        <div style="text-align: right">
+                            <span>{{comment.date}}</span>&nbsp;
+                            <span>{{comment.date}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </ion-content>
+
+</ion-view>
