@@ -1,0 +1,74 @@
+<ion-view  view-title="检疫档案" class="has-subheader"  >
+
+    <div id="search-box" class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入区划名称" ng-model="searchReg"
+                   ng-change="doSearch(this)">
+            <i class="icon ion-ios-close-empty " ng-click="clearSearch()"></i>
+
+        </div>
+
+
+        <div class="button-bar">
+            <button class="button button-assertive icon-left ion-search" ng-click="openQuery()">
+                更多
+            </button>
+
+            <button class="button button-positive icon-left ion-android-add" ng-click="doBackDrop()">
+                新增
+            </button>
+        </div>
+
+
+
+
+    </div>
+
+    <ion-content  class="has-subheader">
+
+        <!--class="no-header"-->
+        <!--<div class="bar bar-header  bar-royal">-->
+            <!--<a href="#/app/capture" class="button button-icon icon ion-gear-a">-->
+            <!--</a>-->
+            <!--<h1 class="title">Header</h1>-->
+            <!--<a href="#/app/playlists" class="button button-icon icon ion-heart"></a>-->
+        <!--</div>-->
+
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doScroll()">
+        </ion-refresher>
+
+
+            <div class="item">
+                <span>共找到55条发放记录</span>
+            </div>
+
+
+
+            <ion-list >
+            <ion-item class="item item-remove-animate  item-avatar item-icon-right" ng-repeat="item in fyList" href="#/app/fysearch/{{item.region}}">
+                <img src="img/{{item.color}}">
+
+                <h2> 区划：{{item.region}}</h2>
+
+                <p>组社：{{item.zs}}</p>
+
+                <p>发放日：{{item.date}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    删除
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    免疫
+                </ion-option-button>
+                </ion-item>
+                </ion-list>
+
+    </ion-content>
+    <div class="bar bar-footer bar-stable">
+        <div class="title"> <button ng-click="openQuery()" class="button button-icon icon ion-search"></button></div>
+    </div>
+</ion-view>

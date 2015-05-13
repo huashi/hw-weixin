@@ -1,0 +1,103 @@
+<ion-view title="档案详情"  >
+    <!--data-tap-disabled="true" 阻止滚动等效果具体参考官网javascript->tap。 -->
+    <ion-content>
+        <form ng-submit="">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">养殖户类型</span>
+                    <input type="text">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">区划</span>
+                    <input type="text" >
+                </label>
+
+                    <div class="item item-input  item-select">
+                        <div class="input-label">
+                            组/社
+                        </div>
+                        <select>
+                            <option>组1</option>
+                            <option selected>组2</option>
+                            <option>组3</option>
+                        </select>
+                    </div>
+                <label class="item item-input">
+                    <span class="input-label">散养户/养殖场</span>
+                    <input type="text" value="散养户">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">发放人</span>
+                    <input type="text" >
+                </label>
+
+
+                <!--<div class="  item-stacked-label ">-->
+                    <!--<span class="input-label">发放日期1</span>-->
+                    <!--<input pickadate  ng-model="gg"  class="hide-on-keyboard-open"-->
+                         <!--min-date="'2010-01-01'" max-date="'2018-01-01'" default-date="'2015-01-01'">-->
+                <!--</div>-->
+
+                <div class="item item-input">
+                    <span class="input-label">是否关闭</span>
+                <label class="  toggle">
+
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+
+                </div>
+
+
+                    <label class="item item-radio">
+                        <input type="radio" name="group">
+                        <div class="item-content">
+                            Go
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                <label class="item item-radio">
+                    <input type="radio" name="group">
+                    <div class="item-content">
+                        Go222
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+
+
+                <label class="item item-input  ">
+                    <span class="input-label">时间</span>
+                    <input type="date"   class="hide-on-keyboard-open">
+                </label>
+                <!--<input type="date"-->
+
+                <label class="item item-input">
+                    <span class="input-label">备注</span>
+                    <input type="text" ng-model="data.wifi" >
+                </label>
+
+                <label class="item">
+                    <button class="button button-positive button-full  " type="submit">确定</button>
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="John">
+                </label>
+
+                <label class="item">
+                    <button class="button   ion-chevron-right  " type="submit">
+                       Home
+                    </button>
+                </label>
+
+                <label class="item">
+                    <button on-hold="onHold()" class="button">长按</button>
+                </label>
+
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

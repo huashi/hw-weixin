@@ -1,0 +1,45 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">搜索条件</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeQuery()">关闭</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doQuery()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">区划</span>
+                    <input type="text" ng-model="loginData.username">
+                </label>
+
+
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            组/社
+                        </div>
+                        <select>
+                            <option>组1</option>
+                            <option selected>组2</option>
+                            <option>组3</option>
+                        </select>
+                    </label>
+              
+
+                <label class="item item-input">
+                    <span class="input-label">发放人</span>
+                    <input type="text" ng-model="loginData.password">
+                </label>
+
+                <label class="item item-in">
+                    <span class="input-label">发放日</span>
+                    <input type="text" ng-model="loginData.password">
+                </label>
+
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit">确定</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</ion-modal-view>

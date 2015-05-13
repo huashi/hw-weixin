@@ -1,0 +1,71 @@
+<ion-view view-title="移动平台">
+    <ion-content has-bouncing="true">
+        <div class="card">
+            <div class="item item-avatar">
+                <img src="img/unknow.gif">
+
+                <h2>张三</h2>
+
+                <p>登陆账号：100000000001</p>
+            </div>
+
+            <div class="item item-divider">
+                I'm a Header in a Card!
+            </div>
+            <div class="item item-text-wrap">
+                This is a basic Card with some text.
+            </div>
+            <div class="item item-divider">
+                I'm a Footer in a Card!
+            </div>
+
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-home"></i>
+                Enter home address
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios7-telephone"></i>
+                Enter phone number
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-wifi"></i>
+                Enter wireless password
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-card"></i>
+                Enter card information
+            </a>
+        </div>
+        <div class="card">
+            <div class="item item-body">
+                <ion-list>
+
+                    <a class="item item-remove-animate item-avatar item-icon-right"
+                       ng-repeat="cat in getAll()" href="#/app/fy-search">
+
+                        <img ng-src="img/test.jpg">
+                        {{cat.title}}
+
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                        <span class="badge badge-assertive ">65</span>
+                         <span class="item-note item-icon-right">
+                          里面有更精彩内容
+                     </span>
+                    </a>
+
+                </ion-list>
+
+            </div>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <button class="button button-clear">Left</button>
+        <div class="title"> <button ng-click="show()"  class="button button-icon icon  ion-chevron-up"></button></div>
+       <button class="button button-clear">Right</button>
+    </div>
+</ion-view>

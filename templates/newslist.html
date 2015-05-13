@@ -1,0 +1,15 @@
+<ion-view view-title="新闻列表">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right"
+                      type="item-text-wrap"   ng-repeat="news in newsList" href="#/app/newslist/{{news.id}}">
+                {{news.title}}
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+
+        <div class="item tabs tabs-secondary tabs-icon-left" ng-style="{'display':display}">
+            <button class="button button-outline  button-block button-small" ng-click="getPageNews()">加载更多...</button>
+        </div>
+    </ion-content>
+</ion-view>
