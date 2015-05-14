@@ -250,8 +250,8 @@ $scope.onHold=function(){
         $scope.getPageNews();
     })
     .controller("NewsCtrl", function($scope, $stateParams, NewsSvc) {
-        var id = Chats.get($stateParams.newsId);
-        $scope.News=newsSve.getNewsById(id);
+        var id = $stateParams.newsId;
+        $scope.News=NewsSvc.getNewsById(id);
         $scope.commentList=[{cnt:"好好",time:"2015-41-2"},
             {cnt:"好好",time:"2015-41-2"},{cnt:"好好",time:"2015-41-2"},
             {cnt:"好好",time:"2015-41-2"},{cnt:"好好",time:"2015-41-2"}];

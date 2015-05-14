@@ -140,9 +140,9 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services","s
             })
             .state("app.news",{
                 url:"/newslist/:newsId",
-                view:{
+                views:{
                     "menuContent":{
-                        templateUrl:"templates/news",
+                        templateUrl:"templates/news.html",
                         controller:"NewsCtrl"
                     }
                 }
