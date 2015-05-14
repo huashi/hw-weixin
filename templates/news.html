@@ -30,6 +30,22 @@
         </div>
 
         <div class="list card">
+
+        </div>
+        <div class="item item-divider">相关阅读</div>
+        <div class="item item-body ">
+            <div class="list">
+                <div class="item no-padding" ng-repeat="comment in commentList">
+                    <h3> {{comment.cnt}}</h3>
+                    <div style="text-align: right">
+                        <span>{{comment.date}}</span>&nbsp;
+                        <span>{{comment.date}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list card">
             <div class="item item-divider">网友留言</div>
             <div class="item item-body ">
                 <div class="list">
