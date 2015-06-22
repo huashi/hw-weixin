@@ -4,10 +4,10 @@
         <div class="list card">
             <div class="item item-body">
                 <h2>测试系统测试系统测试系统测试系统.</h2>
-                <i class="assertive">
+                <i class="assertive small-title">
                     来自：法制日报
                 </i>
-                <i class="ion-android-mail assertive" style="float: right;">
+                <i class="ion-android-mail assertive small-title" style="float: right;">
                     {{News.id}}
                 </i>
             </div>
@@ -23,6 +23,7 @@
 
 
         </div>
+        <div class="list card">
         <div class="item item-divider">相关阅读</div>
         <div class="item item-body ">
             <div class="list">
@@ -35,9 +36,21 @@
                 </div>
             </div>
         </div>
-
+</div>
         <div class="list card">
-            <div class="item item-divider">网友留言</div>
+            <div class="item item-divider">网友留言<i class="icon ion-email assertive small-title" style="float: right;">发表评论</i></div>
+            <div class="item item-body ">
+                <div class="list">
+                    <div class="item no-padding">
+                        <textarea placeholder="我来说两句"></textarea>
+                        <div>
+                            <button class="button-clear">取消</button>
+                            <button class="button button-small button-assertive">发送</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             <div class="item item-body ">
                 <div class="list">
                     <div class="item no-padding" ng-repeat="comment in commentList">

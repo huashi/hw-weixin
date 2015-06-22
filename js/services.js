@@ -36,13 +36,12 @@ angular.module("starter.services",[])
     })
 .factory("FyList",function(){
         var fyList=[
-            {color:"test1.jpg",region:"四川省成都市武侯区红牌楼街道",zs:"一组",date:"2014/8/3 12:20:00"},
-            {color:"test1.jpg",region:"四川省成都市武侯区红牌楼街道1",zs:"一组1",date:"2014/8/3 12:20:00"},
-            {color:"test2.jpg",region:"四川省成都市武侯区红牌楼街道2",zs:"一组2",date:"2014/8/3 12:20:00"},
-            {color:"test2.jpg",region:"四川省成都市武侯区红牌楼街道3",zs:"一组3",date:"2014/8/3 12:20:00"},
-            {color:"test2.jpg",region:"四川省成都市武侯区红牌楼街道4",zs:"一组4",date:"2014/8/3 12:20:00"},
-            {color:"test2.jpg",region:"四川省成都市武侯区红牌楼街道5",zs:"一组5",date:"2014/8/3 12:20:00"},
-            {color:"test2.jpg",region:"四川省成都市武侯区红牌楼街道6",zs:"一组6",date:"2014/8/3 12:20:00"}
+            {color:"test1.jpg",region:"第一步：将适量胡萝卜磨碎，将芹菜和西红柿切丁",zs:"一组",date:"2014/8/3 12:20:00"},
+            {color:"test1.jpg",region:"第二步：加热煎锅，放少许花生油，加入一些葱花翻炒一会，不停翻炒防止葱花煎焦",zs:"一组1",date:"2014/8/3 12:20:00"},
+            {color:"test1.jpg",region:"第三步：倒入西红柿，继续翻炒",zs:"一组2",date:"2014/8/3 12:20:00"},
+            {color:"test1.jpg",region:"第四步：2分钟后，加入一些你喜欢的调味料，继续翻炒",zs:"一组3",date:"2014/8/3 12:20:00"},
+            {color:"test1.jpg",region:"第五步：接下来倒入芹菜丁、胡萝卜，也可以根据自己喜好加入一些豌豆或者豆腐调味",zs:"一组4",date:"2014/8/3 12:20:00"},
+            {color:"test1.jpg",region:"第六步：大火继续翻炒，一道美味、营养的小菜马上就可以享用了~~",zs:"一组2",date:"2014/8/3 12:20:00"}
         ];
         return{
             all:function(){
