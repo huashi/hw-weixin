@@ -7,3 +7,57 @@
 .small-title{
     font-size: small;
 }
+
+.txtaeara {
+    border-radius: 0;
+    width: 100%;
+    height: 60px;
+    color: #cbcbcb;
+    font-size: 12px;
+    padding: 8px;
+    line-height: 18px;
+    border: 1px solid #f2f2f2;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.texteara::after {
+    position: absolute;
+    width: 17px;
+    height: 10px;
+    top: 0;
+    right: 16px;
+    content: " ";
+    background: url("../img/youhuashuo.png") no-repeat;
+    background-size: 17px 10px;
+}
+.youhuashuo{
+    color: red;
+    font-size: small;
+}
+.ipt-cancel {
+    color: #343142;
+    font-size: 14px;
+    border: 1px solid #a5a5a5;
+    background: #fff;
+    width: 85px;
+    height: 30px;
+    line-height: 28px;
+    -webkit-appearance: none;
+    outline: 0;
+    border-radius: 0;
+}
+.ipt-go {
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid #fb453a;
+    background: #fb453a;
+    width: 85px;
+    height: 30px;
+    line-height: 28px;
+    float: right;
+    -webkit-appearance: none;
+    outline: 0;
+    border-radius: 0;
+}

@@ -2,7 +2,7 @@
     <ion-content has-bouncing="true">
         <div class="card">
             <div class="item item-divider">
-               案件标题
+                案件标题
             </div>
             <div class="item item-text-wrap">
                 案件主体
@@ -17,7 +17,7 @@
                 <ion-list>
 
                     <a class="item item-remove-animate item-avatar item-icon-right"
-                      href="#/app/fy-search">
+                       href="#/app/fy-search">
                         解决方案1
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -30,19 +30,25 @@
 
         <div class="list card">
             <div class="item item-divider">网友留言
-            <a class="" style="float: right;" href="#">我有话说</a>
+                <a class="youhuashuo" style="float: right; text-decoration: none" href="#">我有话说</a>
             </div>
 
             <div class="item item-body">
-                <textarea cols="30" rows="5" style="border: 1px solid #000000"></textarea>
-                <button class="button button-small" type="submit">取  消</button>
-                <button class="button button-positive button-small  " type="submit">确  定</button>
+
+                <div class="texteara" style="display: block;">
+                    <textarea class="txtaeara" name="content"  id="commentTextarea">我来说两句</textarea>
+
+                    <p><input id="cancel_pl" class="ipt-cancel" type="button" value="取消">
+                        <input class="ipt-go"   type="submit"   value="发送"></p>
+                </div>
+
             </div>
 
             <div class="item item-body ">
                 <div class="list">
                     <div class="item no-padding" ng-repeat="message in messages">
                         <h3> {{message.contents}}</h3>
+
                         <div style="text-align: right">
                             <span>{{message.username}}</span>&nbsp;
                             <span>{{message.time}}</span>
@@ -52,7 +58,9 @@
             </div>
 
             <div class="item tabs tabs-secondary tabs-icon-left" ng-style="{'display':display}">
-                <button class="button button-outline  button-block button-small" ng-click="getMessages()">加载更多...{{display}}</button>
+                <button class="button button-outline  button-block button-small" ng-click="getMessages()">
+                    加载更多...{{display}}
+                </button>
             </div>
         </div>
 
