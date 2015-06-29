@@ -257,4 +257,13 @@ $scope.onHold=function(){
             {cnt:"好好",time:"2015-41-2"},{cnt:"好好",time:"2015-41-2"}];
     })
 
+.controller("LawCaseCtrl",function($scope,LawCase){
+        $scope.MyLawCase=LawCase.getMyLawCase();
+    })
+    .controller("LawCaseDetailsCtrl",function($scope, $stateParams,LawCase){
+        var lcId=$stateParams.lcId;
+        $scope.LawCase;
+        $scope.Solution;
+        $scope.Comments;
+    })
 ;

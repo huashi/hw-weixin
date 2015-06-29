@@ -78,42 +78,6 @@ angular.module("starter.services",[])
             contents: "还可以，凑合吧",
             time: "2015-01-01 12:01:12",
             username: "张三"
-        },{
-            id: 4,
-            row: 4,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        },{
-            id: 5,
-            row: 5,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        },{
-            id: 6,
-            row: 6,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        },{
-            id: 7,
-            row: 7,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        },{
-            id: 8,
-            row: 8,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        },{
-            id: 9,
-            row: 9,
-            contents: "还可以，凑合吧",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
         }];
         return{
             all:function(){
@@ -147,4 +111,36 @@ angular.module("starter.services",[])
                 return {};
             }
         }
+    })
+.factory("LawCase",function(AppHttp){
+        var caseList = [{
+            id: 1,
+            title: "我的第一个案件",
+            contents: "还可以，凑合吧",
+            time: "2015-01-01 12:01:12",
+            username: "张三"
+        },{
+            id: 2,
+            title: "我的第二个案件",
+            contents: "还可以，凑合吧",
+            time: "2015-01-01 12:01:12",
+            username: "张三"
+        },{
+            id: 3,
+            title: "我的第三个案件",
+            contents: "还可以，凑合吧",
+            time: "2015-01-01 12:01:12",
+            username: "张三"
+        }];
+        return{
+            getMyLawCase:function(){
+                var a=[];
+                caseList.forEach(function(e,i){
+                    if(e.id>=2){
+                        a.push(e);
+                    }
+                });
+                return a;
+            }
+        };
     })

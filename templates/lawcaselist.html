@@ -1,0 +1,27 @@
+<ion-view view-title="我的案件">
+    <ion-content>
+        <div class="card">
+            <div class="item item-body">
+                <ion-list>
+
+                    <a class="item item-remove-animate item-avatar item-icon-right"
+                       ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.id}}">
+
+                        <img ng-src="img/test.jpg">
+                        {{lc.title}}
+
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                        <span class="badge badge-assertive ">65</span>
+                         <span class="item-note item-icon-right">
+                          里面有更精彩内容
+                     </span>
+                    </a>
+
+                </ion-list>
+
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>
