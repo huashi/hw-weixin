@@ -7,7 +7,12 @@
 .small-title{
     font-size: small;
 }
-
+textarea {
+    resize: none;
+    font-size: 100%;
+    vertical-align: middle;
+    outline: 0;
+}
 .txtaeara {
     border-radius: 0;
     width: 100%;
@@ -60,4 +65,213 @@
     -webkit-appearance: none;
     outline: 0;
     border-radius: 0;
+}
+.caseTitle{
+    font-size: 20px;
+    font-weight: bold;
+}
+.cmnt_base .cmnt_top {
+    padding: 5px 30px 0 5px;
+}
+.cmnt_base .cmnt_top {
+    line-height: 24px;
+    font-size: 12px;
+    margin: 0 0 2px;
+    color: #333;
+}
+.cmnt_base .cmnt_top span {
+    padding-left: 0;
+    background: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.cmnt_top .cmnt_source {
+    display: block;
+    color: #999;
+    font-size: 10px;
+    height: 16px;
+    line-height: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.cmnt_base .cmnt_top code {
+    font-size: 12px;
+    color: #8b8b7e;
+    top: 7px;
+    width: 30px;
+    text-align: center;
+}
+.cmnt_top code {
+    font-size: 10px;
+    color: #999;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    width: 45px;
+    text-align: right;
+}
+.cmnt_top span:first-child {
+    display: block;
+    color: #3990e6;
+    position: relative;
+    padding-left: 38px;
+    background: url(../images/all.png) no-repeat;
+    background-size: 100px auto;
+    background-position: 0 -336px;
+}
+.cmnt_base {
+    clear: both;
+    overflow: hidden;
+    padding: 0 4px;
+    border: 1px solid #e8e8de;
+    margin: 4px 0;
+    background: #fdfdf6;
+}
+.cmnt_top {
+    clear: both;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    color: #00a0fe;
+    margin: 14px 0 -8px -38px;
+    position: relative;
+}
+
+.cmnt_top span:first-child {
+    display: block;
+    color: #3990e6;
+    position: relative;
+    padding-left: 38px;
+    background: url(../images/all.png) no-repeat;
+    background-size: 100px auto;
+    background-position: 0 -336px;
+}
+
+.cmnt_top .cmnt_nick {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    font-style: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.cmnt_top .cmnt_nick em {
+    display: inline-block;
+    font-size: 10px;
+    color: #aaa;
+    margin-left: 4px;
+    font-style: normal;
+}
+
+.cmnt_text {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: justify;
+    color: #333;
+    padding: 2px 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    margin-top: 2px;
+}
+
+.cmnt_op_bottom {
+    clear: both;
+    font-size: 10px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    position: relative;
+    color: #aaa;
+}
+.cmnt_op {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    text-align: right;
+    overflow: visible;
+}
+.cmnt_op a.cmntico {
+    padding-left: 22px;
+    color: #aaa;
+    margin-left: 10px;
+    background-position: 0 -69px;
+    position: relative;
+    padding-right: 12px;
+}
+.cmnt_op a, .cmnt_op_all a {
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    line-height: 16px;
+}
+.cmnt_op a, .cmnt_op_all a {
+    background: url(../images/all.png) no-repeat;
+    background-size: 100px auto;
+    color: #aaa;
+}
+.clearfix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.cmnt_item {
+    clear: both;
+    overflow: hidden;
+    padding: 0 0 12px 38px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    margin:1px;
+}
+.foot_comment {
+    height: 48px;
+    border-top: 1px solid #cdcdcd;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(249,249,249,.9);
+    z-index: 900;
+}
+.foot_commentcont {
+    clear: both;
+    padding: 9px 0 9px 20px;
+    display: -webkit-box;
+    display: box;
+}
+.foot_cmt_input {
+    -webkit-box-flex: 2;
+    flex: 2;
+    margin: 0;
+    height: 28px;
+    line-height: 28px;
+    background: #fff;
+    border: 1px solid #cccccc;
+    color: #666;
+    border-radius: 2px;
+}
+.foot_cmt_input p {
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.cmntarea textarea {
+    border: none;
+    font-size: 16px;
+    height: 80px;
+    padding: 5px 10px;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }

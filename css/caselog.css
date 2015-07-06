@@ -1,0 +1,79 @@
+// Place all the styles related to the xckb controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body, div, p, ul, ol, li, textarea, form, input, h1, h2, h3, h4, h5, dl, dt, dd, img, section, article, aside, header, footer, nav, figure, hgroup{margin:0;padding:0;}
+body{font-family:"\5FAE\8F6F\96C5\9ED1", Helvetica,serif;min-width:320px;-webkit-text-size-adjust:none;font-size:14px;color:#5b5b5b;overflow:hidden;-webkit-backface-visibility:hidden;}
+input, button, select, textarea{font-size:15px;font-family: Helvetica,serif;color:#383838;}
+ul, ol, li{list-style:none;}
+a{text-decoration:none;color:#5b5b5b;}
+img{border:0; max-width:100%;display:block;}
+section, article, aside, header, footer, nav, figure, hgroup{display:block;}
+i, cite, em, var, address{font-style:normal;}
+table{border-collapse:collapse;border-spacing:0;}
+
+body{background-size: 100% auto;}
+
+#wrap{max-width:640px;margin:0 auto;padding-bottom:30px;}
+
+.logo{width:90px;margin:12px auto 0;overflow:hidden; height: 80px; }
+.timeBox{margin:0 12px;position:relative;margin-bottom:10px;overflow:hidden;}
+.timeBox h1{line-height:30px;color:#515151;font-size:14px;font-family:Arial;font-weight:normal;}
+.timeBox .star{width:43px;height:10px; margin-bottom:5px;}
+.timeBox .star img{width:10px;margin:0 auto;}
+
+.timeline{width:43px; height:86%; position:absolute;left:0;top:45px;z-index:-5}
+.line{width:5px;height:100%;background:#fff;margin:0 auto;border: 1px solid #eee;border-radius:15px;-webkit-border-radius:15px; box-sizing:border-box; }
+
+.item0{margin-bottom:10px;}
+.item0 .txt{width:67.5%;padding:10px;border-radius:5px;-webkit-border-radius:5px;position:relative;display:inline-block;}
+.item0 h2{color:#505050;font-size:14px;font-family:"Microsoft yahei";font-weight:normal; margin-bottom:5px;}
+.item0 span.sj{width:0; height:0;border-width:8px;position:absolute;}
+.item0 .pic{width:43px;display:inline-block;vertical-align:top; margin-top:10px;}
+
+.item1{margin-left:52px;}
+.item1 .txt{border:1px solid #b9b9b9;background:#e7e7e7;margin-right:10px;}
+.item1 span.sj{top:8px;border-style:dashed dashed dashed solid;overflow:hidden;}
+.item1 span.sj1{right:-16px; border-color:transparent transparent transparent #b9b9b9;}
+.item1 span.sj2{right:-15px; border-color:transparent transparent transparent #e7e7e7;}
+.item1 li{width:31.333333%; height:30%; line-height:30%; display:inline-block; display:table-cell; vertical-align:middle; float:left;background:#b4cddd;margin:5px 2px 0px 2px; text-align:center; }
+.item1 li a{ width:100%; height:100%; line-height:100%; display:table-cell; vertical-align:middle;text-align:center; overflow:hidden; }
+.item1 li img{ vertical-align:middle; }
+
+.item2 .txt,.item3 .txt,.item4 .txt,.item5 .txt{border:1px solid #c7c7c1;background:#ffffff;box-shadow:0 1px 3px #cbcbbd;}
+.item2 span.sj{top:15px;border-style:dashed solid dashed dashed;overflow:hidden;}
+.item2 span.sj1,.item3 span.sj1,.item4 span.sj1,.item5 span.sj1{left:-16px; border-color:transparent #c7c7c1 transparent transparent;}
+.item2 span.sj2,.item3 span.sj2,.item4 span.sj2,.item5 span.sj2{left:-15px; border-color:transparent #ffffff transparent transparent;}
+.item2 .pic,.item3 .pic,.item4 .pic,.item5 .pic{margin-right:7px;}
+.item2 h2,.item1 h2,.item3 h2,.item5 h2{ margin-bottom:0px;}
+
+.item3 .txt{border:1px solid #c7c7c1;background:#ffffff;}
+.item3 .tp{background:#b4cddd;overflow:hidden;text-align:ceter;}
+.item3 h2{line-height:30px;text-align:center; margin-bottom:0px; }
+.item3 p{color:#8e8e8e;font-size:12px;font-family:"Microsoft yahei";border-top:1px solid #b5b5b5;padding-top:10px;}
+.item3 .link{text-align:right;margin-top:5px;}
+.item3 .link a{text-align:right;color:#386ea5;font-size:12px;font-family:"Microsoft yahei";}
+.item3 span.sj{top:43px;border-style:dashed solid dashed dashed;overflow:hidden;}
+.item3 .pic{margin-top:39px;}
+
+.item4 .tp{width:52px;height:52px;background:#b4cddd;float:left;margin-right:8px;overflow:hidden}
+.item4 p{color:#8e8e8e;font-size:12px;font-family:"Microsoft yahei";}
+.item4 .link{position:absolute;bottom:10px;right:10px;}
+.item4 .link a{line-height:15px;text-align:right;color:#386ea5;font-size:12px;font-family:"Microsoft yahei";}
+.item4 span.sj{top:23px;border-style:dashed solid dashed dashed;overflow:hidden;}
+.item4 .pic{margin-top:19px;}
+
+
+.item5 .txt{border:1px solid #c7c7c1;background:#ffffff;}
+.item5 .tp{background:#b4cddd;overflow:hidden;text-align:ceter;}
+.item5 p{color:#8e8e8e;font-size:12px;font-family:"Microsoft yahei";border-top:1px solid #b5b5b5;padding-top:10px;}
+.item5 .link{text-align:right;margin-top:5px;}
+.item5 .link a{text-align:right;color:#386ea5;font-size:12px;font-family:"Microsoft yahei";}
+.item5 span.sj{top:43px;border-style:dashed solid dashed dashed;overflow:hidden;}
+.item5 .pic{margin-top:39px;}
+
+.item5 li{width:31.333333%; height:30%; line-height:30%; display:inline-block; display:table-cell; vertical-align:middle; float:left;background:#b4cddd;margin:5px 2px 0px 2px; text-align:center; }
+.item5 li a{ width:100%; height:100%; line-height:100%; display:table-cell; vertical-align:middle;text-align:center; overflow:hidden; }
+.item5 li img{ vertical-align:middle; }
+
+.more{ width:60%; margin:10px auto; height:32px; line-height:32px; border-radius:4px; background:#fff; border:1px solid #c7c7c1; text-align:center; box-shadow:0 1px 3px #cbcbbd; }

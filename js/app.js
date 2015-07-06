@@ -165,6 +165,24 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services","s
                     }
                 }
             })
+            .state("app.caselog",{
+                url:"/caselog",
+                views:{
+                    "menuContent":{
+                        templateUrl:"templates/caselog.html",
+                        controller:"CaseLogCtrl"
+                    }
+                }
+            })
+            .state("app.q2lawer",{
+            url:"/q2lawer",
+                views:{
+                "menuContent":{
+                    templateUrl:"templates/Q2Lawer.html",
+                        controller:"Q2LawerCtrl"
+                }
+            }
+        })
 
 
         // if none of the above states are matched, use this as the fallback
