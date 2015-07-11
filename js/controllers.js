@@ -395,4 +395,24 @@ angular.module('starter.controllers', [])
             }, 1000);
         };
     })
+    .controller("Calculator01Ctrl",function($scope, $ionicScrollDelegate){
+        $scope.scrollTop = function() {
+            $ionicScrollDelegate.scrollTop(true);
+        };
+
+        $scope.getScrollPosition = function() {
+            //monitor the scroll
+            $scope.moveData = $ionicScrollDelegate.getScrollPosition().top;
+            console.log($scope.moveData);
+            if($scope.moveData>=50){
+                $('.back-top').fadeIn();
+            }else if($scope.moveData<50){
+                $('.back-top').hide();
+            }
+
+        };
+    })
+    .controller("SetupCtrl",function($scope, $ionicScrollDelegate){
+
+    })
 ;

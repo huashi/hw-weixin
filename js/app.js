@@ -1,9 +1,9 @@
 /**
  * Created by Administrator on 2015/3/31.
  */
-angular.module('starter', ['ionic', 'starter.controllers', "starter.services","starter.common"])
+angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "starter.common"])
 
-    .run( function ($ionicPlatform, $ionicPopup, $rootScope, $location) {
+    .run(function ($ionicPlatform, $ionicPopup, $rootScope, $location) {
 //todo 暂时不起作用
         //主页面显示退出提示框
         $ionicPlatform.registerBackButtonAction(function (e) {
@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services","s
         }, 101);
 
     })
-    .config(function ($stateProvider, $urlRouterProvider,$ionicConfigProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         $ionicConfigProvider.platform.ios.tabs.style('standard');
         $ionicConfigProvider.platform.ios.tabs.position('bottom');
@@ -128,61 +128,80 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services","s
                     }
                 }
             })
-            .state("app.newsList",{
-                url:"/newslist",
-                views:{
-                    "menuContent":{
-                        templateUrl:"templates/newslist.html",
-                        controller:"NewsListCtrl"
+            .state("app.newsList", {
+                url: "/newslist",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/newslist.html",
+                        controller: "NewsListCtrl"
                     }
                 }
 
             })
-            .state("app.news",{
-                url:"/newslist/:newsId",
-                views:{
-                    "menuContent":{
-                        templateUrl:"templates/news.html",
-                        controller:"NewsCtrl"
+            .state("app.news", {
+                url: "/newslist/:newsId",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/news.html",
+                        controller: "NewsCtrl"
                     }
                 }
             })
-            .state("app.lawcaselist",{
-                url:"/lawcaselist",
-                views:{
-                    "menuContent":{
-                        templateUrl:"templates/lawcaselist.html",
-                        controller:"LawCaseCtrl"
+            .state("app.lawcaselist", {
+                url: "/lawcaselist",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lawcaselist.html",
+                        controller: "LawCaseCtrl"
                     }
                 }
             })
-            .state("app.lawcase-details",{
-                url:"/lawcase-details/:lcId",
-                views:{
-                    "menuContent":{
-                        templateUrl:"templates/lawcase-details.html",
-                        controller:"LawCaseDetailsCtrl"
+            .state("app.lawcase-details", {
+                url: "/lawcase-details/:lcId",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lawcase-details.html",
+                        controller: "LawCaseDetailsCtrl"
                     }
                 }
             })
-            .state("app.caselog",{
-                url:"/caselog",
-                views:{
-                    "menuContent":{
-                        templateUrl:"templates/caselog.html",
-                        controller:"CaseLogCtrl"
+            .state("app.caselog", {
+                url: "/caselog",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/caselog.html",
+                        controller: "CaseLogCtrl"
                     }
                 }
             })
-            .state("app.q2lawer",{
-            url:"/q2lawer",
-                views:{
-                "menuContent":{
-                    templateUrl:"templates/Q2Lawer.html",
-                        controller:"Q2LawerCtrl"
+            .state("app.q2lawer", {
+                url: "/q2lawer",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/Q2Lawer.html",
+                        controller: "Q2LawerCtrl"
+                    }
                 }
-            }
-        })
+            })
+            .state("app.calculator01", {
+                url: "/calculator01",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/calculator-01.html",
+                        controller: "Calculator01Ctrl"
+                    }
+                }
+            })
+            .state("app.setup", {
+                url: "/setup",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/setup.html",
+                        controller: "SetupCtrl"
+                    }
+                }
+            })
+        ;
 
 
         // if none of the above states are matched, use this as the fallback

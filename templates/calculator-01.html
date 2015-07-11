@@ -1,0 +1,113 @@
+<ion-view id="top" title="交通事故赔偿速算">
+    <!--data-tap-disabled="true" 阻止滚动等效果具体参考官网javascript->tap。 -->
+    <ion-content on-scroll="getScrollPosition()">
+
+        <form ng-submit="">
+            <div class="list card">
+                <div class="item item-divider">
+                    <h3>基本信息</h3>
+                </div>
+                <div class="item item-body">
+                    <label class="item item-input">
+                        <span class="input-label">受害人姓名</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">受害人年龄</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">月固定收入</span>
+                        <input type="text">
+                    </label>
+                </div>
+            </div>
+
+            <div class="list card">
+                <div class="item item-divider">
+                    <h3>基本项目</h3>
+                </div>
+                <div class="item item-body">
+                    <label class="item item-input">
+                        <span class="input-label">医疗费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">误工费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">护理费</span>
+                        <input type="text">
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="list card">
+                <div class="item item-divider">
+                    <h3>伤残结果</h3>
+                </div>
+                <div class="item item-body">
+                    <label class="item item-input">
+                        <span class="input-label">医疗费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">误工费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">护理费</span>
+                        <input type="text">
+                    </label>
+                </div>
+            </div>
+
+            <div class="list card">
+                <div class="item item-divider">
+                    <h3>死亡结果</h3>
+                </div>
+                <div class="item item-body">
+                    <label class="item item-input">
+                        <span class="input-label">医疗费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">误工费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">护理费</span>
+                        <input type="text">
+                    </label>
+                </div>
+            </div>
+
+            <div class="list card">
+                <div class="item item-divider">
+                    <h3>其它</h3>
+                </div>
+                <div class="item item-body">
+                    <label class="item item-input">
+                        <span class="input-label">医疗费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">误工费</span>
+                        <input type="text">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">护理费</span>
+                        <input type="text">
+                    </label>
+                </div>
+            </div>
+
+        </form>
+
+
+    </ion-content>
+    <a class="back-top button ion-chevron-up"  ng-click="scrollTop()" ></a>
+
+</ion-view>
