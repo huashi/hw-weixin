@@ -1,25 +1,33 @@
-<ion-view view-title="我的案件">
-    <ion-content>
-        <div class="card">
-            <div class="item item-body">
-                <ion-list>
+<ion-view view-title="我的案件" class="has-subheader">
 
-                    <a class="item  item-icon-right"
-                       ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.id}}">
+    <div id="search-box" class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="searchReg"
+                   ng-change="doSearch(this)">
+
+        </div>
+    </div>
+    <ion-content class="has-subheader">
+
+        <ion-list>
+            <ion-item
+                    ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.id}}">
                     <span class="caseTitle">
                         {{lc.LC_Name}}
                     </span>
-                        <i class="icon ion-chevron-right icon-accessory"></i>
-                         <span class="item-note item-icon-right">
-                           {{lc.OccurDate}}
+                         <span class="item-note">
+                          已结案
                      </span>
-                    </a>
 
-                </ion-list>
+            </ion-item>
 
-            </div>
+        </ion-list>
+        <div  ng-style="{'display':display}">
+            <button class="button button-outline  button-block button-small" ng-click="getMyLawCase()">
+                加载更多...
+            </button>
         </div>
-
     </ion-content>
 
 </ion-view>

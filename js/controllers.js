@@ -257,8 +257,26 @@ angular.module('starter.controllers', [])
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
     })
 
-    .controller("LawCaseCtrl", function ($scope, LawCase) {
-        $scope.MyLawCase = LawCase.getMyLawCase();
+    .controller("LawCaseCtrl", function ($scope,$stateParams, LawCase) {
+        var userid=$stateParams.uid;
+        var start=1,end= 10,isAll=false;
+        $scope.MyLawCase=[];
+        $scope.display="";
+        $scope.getMyLawCase=function(){
+            if(!isAll) {
+                var tem = LawCase.getMyLawCase(userid,start, end);
+                if(!tem||tem.length==0){
+                    isAll=true;
+                    $scope.display="none";
+                    return;
+                }
+                $scope.MyLawCase=$scope.MyLawCase.concat(tem);
+                start = end;
+                end *=2;
+            }
+        };
+        $scope.getMyLawCase();
+
     })
     .controller("LawCaseDetailsCtrl", function ($scope, $stateParams, CommentsSvc) {
         var lcId = $stateParams.lcId;
@@ -413,6 +431,27 @@ angular.module('starter.controllers', [])
         };
     })
     .controller("SetupCtrl",function($scope, $ionicScrollDelegate){
+
+    })
+    .controller("GetHelpCtrl", function ($scope,$stateParams, LawCase) {
+        var userid=$stateParams.uid;
+        var start=1,end= 10,isAll=false;
+        $scope.MyLawCase=[];
+        $scope.display="";
+        $scope.getMyLawCase=function(){
+            if(!isAll) {
+                var tem = LawCase.getMyLawCase(1);
+                if(!tem||tem.length==0){
+                    isAll=true;
+                    $scope.display="none";
+                    return;
+                }
+                $scope.MyLawCase=$scope.MyLawCase.concat(tem);
+                start = end;
+                end *=2;
+            }
+        };
+        $scope.getMyLawCase();
 
     })
 ;

@@ -121,27 +121,78 @@ angular.module("starter.services", [])
         var caseList = [{
             id: 1,
             LC_Name: "我的第一个案件",
-            Describe: "还可以，凑合吧",
-            OccurDate: "2015-01-01",
-            username: "张三"
+            username: "张三",
+            userid:1
         }, {
             id: 2,
             LC_Name: "胡宗明与王志友医疗事故损害赔偿纠纷上诉案",
-            Describe: "还可以，凑合吧",
-            OccurDate: "2015-01-01",
-            username: "张三"
+            username: "张三",
+            userid:1
         }, {
             id: 3,
-            LC_Name: "交通事故损害赔偿纠纷上诉案",
-            Describe: "还可以，凑合吧",
-            OccurDate: "2013-01-01",
-            username: "张三"
-        }];
+            LC_Name: "交通事故损害赔偿纠纷上诉案1",
+            username: "李四",
+            userid:2
+        }, {
+            id: 4,
+            LC_Name: "交通事故损害赔偿纠纷上诉案2",
+            username: "李四",
+            userid:2
+        }, {
+            id: 5,
+            LC_Name: "交通事故损害赔偿纠纷上诉案3",
+            username: "李四",
+            userid:2
+        }, {
+            id: 6,
+            LC_Name: "交通事故损害赔偿纠纷上诉案4",
+            username: "李四",
+            userid:2
+        }, {
+            id: 7,
+            LC_Name: "交通事故损害赔偿纠纷上诉案5",
+            username: "李四",
+            userid:2
+        }, {
+            id: 8,
+            LC_Name: "交通事故损害赔偿纠纷上诉案6",
+            username: "李四",
+            userid:2
+        }, {
+            id: 9,
+            LC_Name: "交通事故损害赔偿纠纷上诉案7",
+            username: "李四",
+            userid:2
+        }, {
+            id: 10,
+            LC_Name: "交通事故损害赔偿纠纷上诉案8",
+            username: "李四",
+            userid:2
+        }, {
+            id: 11,
+            LC_Name: "交通事故损害赔偿纠纷上诉案9",
+            username: "李四",
+            userid:2
+        }, {
+            id: 12,
+            LC_Name: "交通事故损害赔偿纠纷上诉案10",
+            username: "李四",
+            userid:2
+        }, {
+            id: 13,
+            LC_Name: "交通事故损害赔偿纠纷上诉案11",
+            username: "李四",
+            userid:2
+        }
+
+        ];
         return {
-            getMyLawCase: function () {
+            getMyLawCase: function (uid,start,end) {
                 var a = [];
+                var s=start|| 0,end=end||9999;
+
                 caseList.forEach(function (e, i) {
-                    if (e.id >= 2) {
+                    if ((!uid||e.userid == uid)&&e.id && e.id >= s && e.id < end) {
                         a.push(e);
                     }
                 });
@@ -153,55 +204,55 @@ angular.module("starter.services", [])
         var messages = [{
             id: 1,
             row: 1,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 2,
             row: 2,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 3,
             row: 3,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 4,
             row: 4,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 5,
             row: 5,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 6,
             row: 6,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 7,
             row: 7,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 8,
             row: 8,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 9,
             row: 9,
-            C_Content: "还可以，凑合吧",
+            C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }];

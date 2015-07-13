@@ -1,0 +1,38 @@
+<ion-view view-title="填写申请">
+    <ion-content has-bouncing="true">
+        <div class="card">
+            <div class="item item-divider">
+                选择案件
+            </div>
+            <ion-list>
+                <ion-item  ng-repeat="lc in MyLawCase">
+
+                    <ion-checkbox ng-model="isChecked"> {{lc.LC_Name}}</ion-checkbox>
+
+                </ion-item>
+
+            </ion-list>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                申请信息
+            </div>
+            <label class="item item-input">
+                <span class="input-label">申请理由</span>
+                <input type="text" ng-model="loginData.username" placeholder="">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">所需金额（元）</span>
+                <input type="text" ng-model="loginData.username" placeholder="">
+            </label>
+        </div>
+        <div class="list-inset">
+        <button class="button button-positive button-full">
+            提交申请
+        </button>
+            </div>
+    </ion-content>
+
+</ion-view>
+
+

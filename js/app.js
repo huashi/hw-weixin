@@ -201,6 +201,24 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
+            .state("app.help-note", {
+                url: "/help-note",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/gethelp-note.html",
+                        controller: ""
+                    }
+                }
+            })
+            .state("app.gethelp", {
+                url: "/gethelp",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/gethelp.html",
+                        controller: "GetHelpCtrl"
+                    }
+                }
+            })
         ;
 
 
