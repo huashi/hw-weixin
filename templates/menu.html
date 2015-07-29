@@ -12,40 +12,39 @@
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
 
-    <ion-side-menu side="left">
+    <ion-side-menu side="left" class="positive-bg">
+        <header class="bar bar-header bar-positive">
+            <h1 class="title">HONGWEI-APP</h1>
+        </header>
+        <ion-content has-bouncing="false"  class="has-header ">
+            <ion-list >
+                    <a class="item positive-bg light"
+                       ui-sref="app.catalogs"  ui-sref-active="active"  nav-clear menu-close href="#/app/catalogs" style="border: none;" >
+                        <i class="icon ion-home padding-right"></i>
+                        首页</a>
 
-        <ion-content has-bouncing="false">
-            <ion-list>
-                <ion-item class="item-avatar item-icon-right" nav-clear menu-close ng-click="login()">
-                    <img src="img/unknow.gif">
-                    <h2>张三</h2>
-                    <p>会员用户</p>
-                    <i class="icon ion-chevron-right icon-accessory"></i>
-                </ion-item>
-                <ion-item nav-clear menu-close href="#/app/catalogs">
-                    首页
-                </ion-item>
-                <ion-item nav-clear menu-close href="#/app/caselog">
-                    案件进展
-                </ion-item>
-                <ion-item  nav-clear menu-close href="#/app/lawcaselist">
-                    我的案件
-                </ion-item>
+                <a class="item positive-bg light"  ui-sref="app.lawcaselist"  ui-sref-active="active"
+                   nav-clear menu-close href="#/app/lawcaselist" style="border: none;" >
+                    <i class="icon ion-ios-world-outline padding-right"></i>
+                    所有案件</a>
+                <a class="item positive-bg light"  ui-sref="app.newsList"  ui-sref-active="active"
+                   nav-clear menu-close href="#/app/newslist" style="border: none;" >
+                    <i class="icon ion-speakerphone padding-right"></i>
+                    新闻报道</a>
+                <a class="item positive-bg light"  ui-sref="app.calculator01"  ui-sref-active="active"
+                   nav-clear menu-close href="#/app/calculator01" style="border: none;" >
+                    <i class="icon ion-calculator padding-right"></i>
+                    赔偿金计算</a>
+                <a class="item positive-bg light"  ui-sref="app.lawcaselist1"  ui-sref-active="active"
+                   nav-clear menu-close href="#/app/lawcaselist1" style="border: none;" >
+                    <i class="icon ion-chatboxes padding-right"></i>
+                    知识问答</a>
+                <a class="item positive-bg light"  ui-sref="app.setup"  ui-sref-active="active"
+                   nav-clear menu-close href="#/app/setup" style="border: none;" >
+                    <i class="icon ion-person padding-right"></i>
+                    个人中心</a>
 
-                <ion-item  nav-clear menu-close href="#/app/newslist">
-                   新闻报道
-                </ion-item>
 
-                <ion-item  nav-clear menu-close href="#/app/calculator01">
-                    赔偿金计算
-                </ion-item>
-
-                <ion-item  nav-clear menu-close href="#/app/lawcaselist">
-                    知识问答
-                </ion-item>
-                <ion-item  nav-clear menu-close href="#/app/setup">
-                    个人中心
-                </ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>
