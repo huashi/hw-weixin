@@ -249,12 +249,52 @@ angular.module('starter.controllers', [])
         };
         $scope.getPageNews();
     })
-    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc) {
+    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc,CommentsSvc) {
         var id = $stateParams.newsId;
         $scope.News = NewsSvc.getNewsById(id);
         $scope.commentList = [{cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
+
+        var start = 1, end = 5, isAll = false;
+        $scope.newsList = [];
+        $scope.Comments=[];
+        $scope.display = "";
+        $scope.queryVal = "";
+
+        $scope.doSearch = function () {
+            var query = $scope.queryVal;
+            $scope.newsList = NewsSvc.search(query);
+
+        };
+        $scope.getPageNews = function () {
+            if (!isAll) {
+                var tem = NewsSvc.getPageNews(start, end);
+                if (!tem || tem.length == 0) {
+                    isAll = true;
+                    $scope.display = "none";
+                    return;
+                }
+                $scope.newsList = $scope.newsList.concat(tem);
+                start = end;
+                end += 5;
+            }
+        };
+        $scope.getPageNews();
+        $scope.getMessages=function(){
+            if(!isAll) {
+                var tem = CommentsSvc.getPageMessage(start, end);
+                if(!tem||tem.length==0){
+                    isAll=true;
+                    $scope.display="none";
+                    return;
+                }
+                $scope.Comments=$scope.Comments.concat(tem);
+                start = end;
+                end += 5;
+            }
+        };
+        $scope.getMessages();
     })
 
     .controller("LawCaseCtrl", function ($scope,$stateParams, LawCase) {
@@ -454,4 +494,64 @@ angular.module('starter.controllers', [])
         $scope.getMyLawCase();
 
     })
+
+    .controller('ChatforLCCtrl', function($scope, $timeout, $ionicScrollDelegate) {
+
+        $scope.showTime = true;
+
+        var alternate,
+            isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+
+        $scope.sendMessage = function() {
+
+            if(!$scope.data.message) return;
+
+            alternate = !alternate;
+
+            var d = new Date();
+            d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
+
+            $scope.messages.push({
+                userId: alternate ? '12345' : '54321',
+                text: $scope.data.message,
+                time: d
+            });
+
+            delete $scope.data.message;
+            $ionicScrollDelegate.scrollBottom(true);
+
+        };
+
+        $scope.inputKeydown=function(){
+            var evt=window.event;
+            if(evt.which==13||evt.keyCode==13) {
+                $scope.sendMessage();
+                $scope.closeKeyboard();
+            }
+        }
+
+        $scope.inputUp = function() {
+            if (isIOS) $scope.data.keyboardHeight = 216;
+            $timeout(function() {
+                $ionicScrollDelegate.scrollBottom(true);
+            }, 300);
+
+        };
+
+        $scope.inputDown = function() {
+            if (isIOS) $scope.data.keyboardHeight = 0;
+            $ionicScrollDelegate.resize();
+        };
+
+        $scope.closeKeyboard = function() {
+            // cordova.plugins.Keyboard.close();
+        };
+
+
+        $scope.data = {};
+        $scope.myId = '12345';
+        $scope.messages = [];
+
+    });
+
 ;

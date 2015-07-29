@@ -219,6 +219,16 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
+
+            .state("app.chatforLC", {
+                url: "/chatforLC",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/chatforLC.html",
+                        controller: "ChatforLCCtrl"
+                    }
+                }
+            })
         ;
 
 

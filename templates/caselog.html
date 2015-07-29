@@ -1,18 +1,33 @@
 <ion-view view-title="案件进展"  >
     <ion-nav-buttons side="right">
-        <a  class="button button-icon ion-chatbox-working " id="home-points"   href="#/app/q2lawer"></a>
+        <a  class="button button-icon ion-chatbox-working " id="home-points"   href="#/app/chatforLC"></a>
     </ion-nav-buttons>
 
     <link href="../css/caselog.css" type="text/css" rel="stylesheet">
     <link href="../css/swipebox.css" type="text/css" rel="stylesheet">
+
+
     <ion-content has-bouncing="true">
-        <body bgcolor="#d9dacb">
+        <ion-scroll zooming="true" direction="x" >
+
+        <div id="process" class="section4" overflow-scroll="true">
+            <div class="node fore ready"><ul><li class="tx1">&nbsp;</li><li class="tx2">立案</li><li id="track_time_0" class="tx3">2015-07-17</li></ul></div>
+            <div class="proce ready"><ul><li class="tx1">&nbsp;</li></ul></div>
+            <div class="node ready"><ul><li class="tx1">&nbsp;</li><li class="tx2">受审</li><li class="tx3">&nbsp;</li></ul></div>
+            <div class="proce wait"><ul><li class="tx1">&nbsp;</li></ul></div>
+            <div class="node wait"><ul><li class="tx1">&nbsp;</li><li class="tx2">开庭</li><li class="tx3">&nbsp;</li></ul></div>
+            <div class="proce wait"><ul><li class="tx1">&nbsp;</li></ul></div>
+            <div class="node wait"><ul><li class="tx1">&nbsp;</li><li class="tx2">判断</li><li class="tx3">&nbsp;</li></ul></div>
+            <div class="proce wait"><ul><li class="tx1">&nbsp;</li></ul></div>
+            <div class="node wait"><ul><li class="tx1">&nbsp;</li><li class="tx2">结束</li><li class="tx3">&nbsp;</li></ul></div>
+        </div>
+
+            </ion-scroll>
         <div id="wrap">
-            <div class="logo"></div>
             <div id="maindata"></div>
             <div class="more" ng-click="loadPage()">展开所有...</div>
         </div>
 
-        </body>
+
     </ion-content>
 </ion-view>

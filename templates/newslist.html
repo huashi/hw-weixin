@@ -1,4 +1,4 @@
-<ion-view view-title="新闻列表">
+<ion-view view-title="法律新闻">
     <ion-content>
         <ion-list>
             <ion-item class=" item-icon-right"
@@ -7,5 +7,10 @@
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>
+        <div  ng-style="{'display':display}">
+            <button class="button button-outline  button-block button-small" ng-click="getPageNews()">
+                查看更多新闻...
+            </button>
+        </div>
     </ion-content>
 </ion-view>

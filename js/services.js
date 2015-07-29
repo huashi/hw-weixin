@@ -68,22 +68,44 @@ angular.module("starter.services", [])
         var messages = [{
             id: 1,
             row: 1,
-            contents: "还可以，凑合吧",
+            contents: "男子银行兑换残币 被要出示“残币证明”",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 2,
             row: 2,
-            contents: "还可以，凑合吧",
+            contents: "河南洛阳：每天10元高温津贴拿到的并不多",
             time: "2015-01-01 12:01:12",
             username: "张三"
         }, {
             id: 3,
             row: 3,
-            contents: "还可以，凑合吧",
+            contents: "乌鲁木齐一乘客落两万险被人拿走 司机机智讨回并送还",
             time: "2015-01-01 12:01:12",
             username: "张三"
-        }];
+        }
+            , {
+                id: 4,
+                row: 4,
+                contents: "公交司机座椅后贴条：乱吐痰猪狗不如",
+                time: "2015-01-01 12:01:12",
+                username: "张三"
+            }
+            , {
+                id: 5,
+                row: 5,
+                contents: "四川男子抢劫后让店员报警 警方：不作死就不会死",
+                time: "2015-01-01 12:01:12",
+                username: "张三"
+            }
+            , {
+                id: 6,
+                row: 6,
+                contents: "广东一男子因“偷手机”被拘 状告公安获赔2000多元",
+                time: "2015-01-01 12:01:12",
+                username: "张三"
+            }
+        ];
         return {
             all: function () {
                 return fyList;
@@ -122,77 +144,77 @@ angular.module("starter.services", [])
             id: 1,
             LC_Name: "我的第一个案件",
             username: "张三",
-            userid:1
+            userid: 1
         }, {
             id: 2,
             LC_Name: "胡宗明与王志友医疗事故损害赔偿纠纷上诉案",
             username: "张三",
-            userid:1
+            userid: 1
         }, {
             id: 3,
             LC_Name: "交通事故损害赔偿纠纷上诉案1",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 4,
             LC_Name: "交通事故损害赔偿纠纷上诉案2",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 5,
             LC_Name: "交通事故损害赔偿纠纷上诉案3",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 6,
             LC_Name: "交通事故损害赔偿纠纷上诉案4",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 7,
             LC_Name: "交通事故损害赔偿纠纷上诉案5",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 8,
             LC_Name: "交通事故损害赔偿纠纷上诉案6",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 9,
             LC_Name: "交通事故损害赔偿纠纷上诉案7",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 10,
             LC_Name: "交通事故损害赔偿纠纷上诉案8",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 11,
             LC_Name: "交通事故损害赔偿纠纷上诉案9",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 12,
             LC_Name: "交通事故损害赔偿纠纷上诉案10",
             username: "李四",
-            userid:2
+            userid: 2
         }, {
             id: 13,
             LC_Name: "交通事故损害赔偿纠纷上诉案11",
             username: "李四",
-            userid:2
+            userid: 2
         }
 
         ];
         return {
-            getMyLawCase: function (uid,start,end) {
+            getMyLawCase: function (uid, start, end) {
                 var a = [];
-                var s=start|| 0,end=end||9999;
+                var s = start || 0, end = end || 9999;
 
                 caseList.forEach(function (e, i) {
-                    if ((!uid||e.userid == uid)&&e.id && e.id >= s && e.id < end) {
+                    if ((!uid || e.userid == uid) && e.id && e.id >= s && e.id < end) {
                         a.push(e);
                     }
                 });
@@ -310,8 +332,8 @@ angular.module("starter.services", [])
         };
         return {
             all: function () {
-                var d=new Array();
-                d=data;
+                var d = new Array();
+                d = data;
                 return d;
             }
         }
