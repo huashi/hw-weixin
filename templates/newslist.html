@@ -1,10 +1,33 @@
 <ion-view view-title="法律新闻">
-    <ion-content>
+
+    <div id="search-box" class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="searchReg"
+                   ng-change="doSearch(this)">
+
+        </div>
+
+        <div class="button-bar">
+
+            <select class="item " style="border: none;margin-left: 1em;">
+                <option selected>全部来源</option>
+                <option>法制日报</option>
+                <option>人民法院报</option>
+                <option>中保险报</option>
+                <option>其它</option>
+            </select>
+        </div>
+    </div>
+    <ion-content  class="has-subheader">
         <ion-list>
             <ion-item class=" item-icon-right"
                       type="item-text-wrap"   ng-repeat="news in newsList" href="#/app/newslist/{{news.id}}">
                 {{news.contents}}
                 <i class="icon ion-chevron-right icon-accessory"></i>
+                 <span class="item-note">
+                          {{news.time}}
+                     </span>
             </ion-item>
         </ion-list>
         <div  ng-style="{'display':display}">

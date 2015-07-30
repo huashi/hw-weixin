@@ -5,7 +5,7 @@ angular.module("starter.common", [])
     .factory("AppData", function () {
         return {
             User: {
-                ID: 0,
+                ID: 1,
                 Name: "Î´µÇÂ¼",
                 Photo: "",
                 Type: 0,

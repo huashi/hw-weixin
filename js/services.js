@@ -69,40 +69,40 @@ angular.module("starter.services", [])
             id: 1,
             row: 1,
             contents: "男子银行兑换残币 被要出示“残币证明”",
-            time: "2015-01-01 12:01:12",
+            time: "2015-05-01",
             username: "张三"
         }, {
             id: 2,
             row: 2,
             contents: "河南洛阳：每天10元高温津贴拿到的并不多",
-            time: "2015-01-01 12:01:12",
+            time: "2015-02-01",
             username: "张三"
         }, {
             id: 3,
             row: 3,
             contents: "乌鲁木齐一乘客落两万险被人拿走 司机机智讨回并送还",
-            time: "2015-01-01 12:01:12",
+            time: "2015-01-01",
             username: "张三"
         }
             , {
                 id: 4,
                 row: 4,
                 contents: "公交司机座椅后贴条：乱吐痰猪狗不如",
-                time: "2015-01-01 12:01:12",
+                time: "2015-01-01",
                 username: "张三"
             }
             , {
                 id: 5,
                 row: 5,
                 contents: "四川男子抢劫后让店员报警 警方：不作死就不会死",
-                time: "2015-01-01 12:01:12",
+                time: "2014-01-01",
                 username: "张三"
             }
             , {
                 id: 6,
                 row: 6,
                 contents: "广东一男子因“偷手机”被拘 状告公安获赔2000多元",
-                time: "2015-01-01 12:01:12",
+                time: "2013-01-01",
                 username: "张三"
             }
         ];
@@ -338,3 +338,34 @@ angular.module("starter.services", [])
             }
         }
     })
+.factory("ChatSvc",function(){
+        var messages = [{
+            userId: 1,
+            text: "张律师现在什么情况了？",
+            time: "2015-01-01 12:01:12",
+            username: "张三"
+        }, {
+            userId: 2,
+            text: "一切正常",
+            time: "2015-01-02 12:01:12",
+            username: "张律师"
+        }, {
+            userId: 2,
+            text: "不要着急",
+            time: "2015-01-03 12:01:12",
+            username: "张律师"
+        }, {
+            userId: 1,
+            text: "谢谢",
+            time: "2015-01-04 12:01:12",
+            username: "张三"
+        }
+        ];
+
+        return {
+            all: function () {
+                return messages;
+            }
+        }
+    })
+

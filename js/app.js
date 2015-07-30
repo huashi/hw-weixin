@@ -148,10 +148,19 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.lawcaselist", {
-                url: "/lawcaselist",
+                url: "/lawcaselist/:sign",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lawcaselist.html",
+                        controller: "LawCaseCtrl"
+                    }
+                }
+            })
+            .state("app.mylawlist", {
+                url: "/mylawlist/:sign",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/mylawlist.html",
                         controller: "LawCaseCtrl"
                     }
                 }
@@ -166,7 +175,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.caselog", {
-                url: "/caselog",
+                url: "/caselog/:lcId",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/caselog.html",
@@ -226,6 +235,27 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     "menuContent": {
                         templateUrl: "templates/chatforLC.html",
                         controller: "ChatforLCCtrl"
+                    }
+                }
+            })
+
+
+            .state("app.websites", {
+                url: "/websites",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/websites.html",
+                        controller: ""
+                    }
+                }
+            })
+
+            .state("app.undowork", {
+                url: "/undowork",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/undowork.html",
+                        controller: ""
                     }
                 }
             })

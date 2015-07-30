@@ -249,16 +249,16 @@ angular.module('starter.controllers', [])
         };
         $scope.getPageNews();
     })
-    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc,CommentsSvc) {
+    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc) {
         var id = $stateParams.newsId;
         $scope.News = NewsSvc.getNewsById(id);
         $scope.commentList = [{cnt: "好好", time: "2015-41-2"},
-            {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"},
+            {cnt: "好好", time: "2015-1-2"}, {cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
 
         var start = 1, end = 5, isAll = false;
         $scope.newsList = [];
-        $scope.Comments=[];
+        $scope.Comments = [];
         $scope.display = "";
         $scope.queryVal = "";
 
@@ -281,15 +281,15 @@ angular.module('starter.controllers', [])
             }
         };
         $scope.getPageNews();
-        $scope.getMessages=function(){
-            if(!isAll) {
+        $scope.getMessages = function () {
+            if (!isAll) {
                 var tem = CommentsSvc.getPageMessage(start, end);
-                if(!tem||tem.length==0){
-                    isAll=true;
-                    $scope.display="none";
+                if (!tem || tem.length == 0) {
+                    isAll = true;
+                    $scope.display = "none";
                     return;
                 }
-                $scope.Comments=$scope.Comments.concat(tem);
+                $scope.Comments = $scope.Comments.concat(tem);
                 start = end;
                 end += 5;
             }
@@ -297,23 +297,24 @@ angular.module('starter.controllers', [])
         $scope.getMessages();
     })
 
-    .controller("LawCaseCtrl", function ($scope,$stateParams, LawCase) {
-        var userid=$stateParams.uid;
-        var start=1,end= 10,isAll=false;
-        $scope.MyLawCase=[];
-        $scope.display="";
-        $scope.getMyLawCase=function(){
-            if(!isAll) {
-                var tem = LawCase.getMyLawCase(userid,start, end);
-                if(!tem||tem.length==0){
-                    isAll=true;
-                    $scope.display="none";
-                    return;
-                }
-                $scope.MyLawCase=$scope.MyLawCase.concat(tem);
-                start = end;
-                end *=2;
+    .controller("LawCaseCtrl", function ($scope, $stateParams, LawCase, AppData) {
+
+        var start = 1, end = 10, ismy = ($stateParams.sign == "my");
+        $scope.MyLawCase = [];
+        $scope.display = "";
+        $scope.navTitle=ismy?"我的案件":"所有案件";
+        $scope.getMyLawCase = function () {
+            var uid = ismy ? AppData.User.ID : 0;
+            var tem = LawCase.getMyLawCase(uid, start, end);
+            if (!tem || tem.length == 0) {
+                isAll = true;
+                $scope.display = "none";
+                return;
             }
+            $scope.MyLawCase = $scope.MyLawCase.concat(tem);
+            start = end;
+            end *= 2;
+
         };
         $scope.getMyLawCase();
 
@@ -323,31 +324,32 @@ angular.module('starter.controllers', [])
         $scope.LawCase;
         $scope.Solution;
 
-        var start=1,end= 5,isAll=false;
-        $scope.Comments=[];
-        $scope.lcId=1;
-        $scope.display="";
-        $scope.getMessages=function(){
-            if(!isAll) {
+        var start = 1, end = 5, isAll = false;
+        $scope.Comments = [];
+        $scope.lcId = 1;
+        $scope.display = "";
+        $scope.getMessages = function () {
+            if (!isAll) {
                 var tem = CommentsSvc.getPageMessage(start, end);
-                if(!tem||tem.length==0){
-                    isAll=true;
-                    $scope.display="none";
+                if (!tem || tem.length == 0) {
+                    isAll = true;
+                    $scope.display = "none";
                     return;
                 }
-                $scope.Comments=$scope.Comments.concat(tem);
+                $scope.Comments = $scope.Comments.concat(tem);
                 start = end;
                 end += 5;
             }
         };
         $scope.getMessages();
     })
-    .controller("CaseLogCtrl",function($scope,$window,CaseLogSvc){
+    .controller("CaseLogCtrl", function ($scope, $window, CaseLogSvc) {
 
-        $scope.LogList="";
-        $scope.loadPage=loadPage;
+        $scope.LogList = "";
+        $scope.loadPage = loadPage;
 
         var page = 1, total = 0;
+
         function getList(data) {
             if (!data) {
                 $('.more').html('数据已经全部加载完').show();
@@ -404,13 +406,14 @@ angular.module('starter.controllers', [])
                 $('#maindata').append(append_str);
             }
         }
+
         function loadPage() {
             if (total > 0 && page > total) {
                 $('.more').html('数据已经全部加载完').show();
                 return false;
             }
 
-            var R=CaseLogSvc.all();
+            var R = CaseLogSvc.all();
             if (total == 0) {
                 total = R.pages.total;
             }
@@ -426,7 +429,7 @@ angular.module('starter.controllers', [])
         });
 
     })
-    .controller("Q2LawerCtrl",function($scope,$ionicModal){
+    .controller("Q2LawerCtrl", function ($scope, $ionicModal) {
         $ionicModal.fromTemplateUrl('templates/comment-area.html', {
             scope: $scope
         }).then(function (modal) {
@@ -453,58 +456,58 @@ angular.module('starter.controllers', [])
             }, 1000);
         };
     })
-    .controller("Calculator01Ctrl",function($scope, $ionicScrollDelegate){
-        $scope.scrollTop = function() {
+    .controller("Calculator01Ctrl", function ($scope, $ionicScrollDelegate) {
+        $scope.scrollTop = function () {
             $ionicScrollDelegate.scrollTop(true);
         };
 
-        $scope.getScrollPosition = function() {
+        $scope.getScrollPosition = function () {
             //monitor the scroll
             $scope.moveData = $ionicScrollDelegate.getScrollPosition().top;
             console.log($scope.moveData);
-            if($scope.moveData>=50){
+            if ($scope.moveData >= 50) {
                 $('.back-top').fadeIn();
-            }else if($scope.moveData<50){
+            } else if ($scope.moveData < 50) {
                 $('.back-top').hide();
             }
 
         };
     })
-    .controller("SetupCtrl",function($scope, $ionicScrollDelegate){
+    .controller("SetupCtrl", function ($scope, $ionicScrollDelegate) {
 
     })
-    .controller("GetHelpCtrl", function ($scope,$stateParams, LawCase) {
-        var userid=$stateParams.uid;
-        var start=1,end= 10,isAll=false;
-        $scope.MyLawCase=[];
-        $scope.display="";
-        $scope.getMyLawCase=function(){
-            if(!isAll) {
+    .controller("GetHelpCtrl", function ($scope, $stateParams, LawCase) {
+        var userid = $stateParams.uid;
+        var start = 1, end = 10, isAll = false;
+        $scope.MyLawCase = [];
+        $scope.display = "";
+        $scope.getMyLawCase = function () {
+            if (!isAll) {
                 var tem = LawCase.getMyLawCase(1);
-                if(!tem||tem.length==0){
-                    isAll=true;
-                    $scope.display="none";
+                if (!tem || tem.length == 0) {
+                    isAll = true;
+                    $scope.display = "none";
                     return;
                 }
-                $scope.MyLawCase=$scope.MyLawCase.concat(tem);
+                $scope.MyLawCase = $scope.MyLawCase.concat(tem);
                 start = end;
-                end *=2;
+                end *= 2;
             }
         };
         $scope.getMyLawCase();
 
     })
 
-    .controller('ChatforLCCtrl', function($scope, $timeout, $ionicScrollDelegate) {
+    .controller('ChatforLCCtrl', function ($scope, $timeout, $ionicScrollDelegate,ChatSvc,AppData) {
 
         $scope.showTime = true;
 
         var alternate,
             isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
-        $scope.sendMessage = function() {
+        $scope.sendMessage = function () {
 
-            if(!$scope.data.message) return;
+            if (!$scope.data.message) return;
 
             alternate = !alternate;
 
@@ -522,35 +525,35 @@ angular.module('starter.controllers', [])
 
         };
 
-        $scope.inputKeydown=function(){
-            var evt=window.event;
-            if(evt.which==13||evt.keyCode==13) {
+        $scope.inputKeydown = function () {
+            var evt = window.event;
+            if (evt.which == 13 || evt.keyCode == 13) {
                 $scope.sendMessage();
                 $scope.closeKeyboard();
             }
         }
 
-        $scope.inputUp = function() {
+        $scope.inputUp = function () {
             if (isIOS) $scope.data.keyboardHeight = 216;
-            $timeout(function() {
+            $timeout(function () {
                 $ionicScrollDelegate.scrollBottom(true);
             }, 300);
 
         };
 
-        $scope.inputDown = function() {
+        $scope.inputDown = function () {
             if (isIOS) $scope.data.keyboardHeight = 0;
             $ionicScrollDelegate.resize();
         };
 
-        $scope.closeKeyboard = function() {
+        $scope.closeKeyboard = function () {
             // cordova.plugins.Keyboard.close();
         };
 
 
         $scope.data = {};
-        $scope.myId = '12345';
-        $scope.messages = [];
+        $scope.myId =  AppData.User.ID;
+        $scope.messages = ChatSvc.all();
 
     });
 

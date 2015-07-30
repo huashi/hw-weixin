@@ -12,7 +12,7 @@
 
         <ion-list>
             <ion-item
-                    ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.id}}">
+                    ng-repeat="lc in MyLawCase" href="#/app/caselog/{{lc.id}}">
                     <span class="caseTitle">
                         {{lc.LC_Name}}
                     </span>
@@ -23,11 +23,7 @@
             </ion-item>
 
         </ion-list>
-        <div  ng-style="{'display':display}">
-            <button class="button button-outline  button-block button-small" ng-click="getMyLawCase()">
-                加载更多...
-            </button>
-        </div>
+
     </ion-content>
 
 </ion-view>

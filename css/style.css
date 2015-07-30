@@ -598,3 +598,36 @@ ol, ul {
     border-radius: 10px;
     text-align: left;
     max-width: 240px; }
+
+/**
+websites
+**/
+.ws-content{
+    background:url("../img/nav/tm.png") center center no-repeat;
+    -webkit-background-size:36px;
+    display: block;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 9px;
+}
+.wsWrap a{
+    font-size: 17px;
+    height: 36px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    padding-left: 60px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    text-decoration: none;
+    color: #222;
+    line-height: 37px;
+}
+.wsWrap .row{
+    height: 50px;
+}
+
+.wsWrap .row,.wsWrap .col{
+    padding-left: 0;
+}
