@@ -302,7 +302,7 @@ angular.module('starter.controllers', [])
         var start = 1, end = 10, ismy = ($stateParams.sign == "my");
         $scope.MyLawCase = [];
         $scope.display = "";
-        $scope.navTitle=ismy?"我的案件":"所有案件";
+        $scope.navTitle = ismy ? "我的案件" : "所有案件";
         $scope.getMyLawCase = function () {
             var uid = ismy ? AppData.User.ID : 0;
             var tem = LawCase.getMyLawCase(uid, start, end);
@@ -498,7 +498,7 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('ChatforLCCtrl', function ($scope, $timeout, $ionicScrollDelegate,ChatSvc,AppData) {
+    .controller('ChatforLCCtrl', function ($scope, $timeout, $ionicScrollDelegate, ChatSvc, AppData) {
 
         $scope.showTime = true;
 
@@ -552,9 +552,112 @@ angular.module('starter.controllers', [])
 
 
         $scope.data = {};
-        $scope.myId =  AppData.User.ID;
+        $scope.myId = AppData.User.ID;
         $scope.messages = ChatSvc.all();
 
-    });
+    })
 
+    .controller("RelatedCaseCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
+        $scope.getAll = function () {
+            return Catalogs.all();
+        };
+
+        $ionicPopover.fromTemplateUrl('modallist.html', {
+            scope: $scope,
+        }).then(function(popover) {
+            $scope.modal = popover;
+        });
+
+        $scope.show = function (e) {
+            $scope.modal.show();
+        };
+
+        $scope.closeSelectModal = function () {
+            $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function (id) {
+            $scope.modal.remove();
+        });
+
+        $scope.clickItem = function (item) {
+            var index = $parse($attrs.ngSelectedId);
+            index.assign($scope.$parent, item[$attrs.ngItemId]);
+
+            var value = $parse($attrs.ngSelectedValue);
+            value.assign($scope.$parent, item[$attrs.ngItemName]);
+
+            $scope.closeSelectModal();
+        };
+
+    })
+    .controller("MainViewCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
+        $scope.getAll = function () {
+            return Catalogs.all();
+        };
+
+        $ionicPopover.fromTemplateUrl('modallist.html', {
+            scope: $scope,
+        }).then(function(popover) {
+            $scope.modal = popover;
+        });
+
+        $scope.show = function (e) {
+            $scope.modal.show();
+        };
+
+        $scope.closeSelectModal = function () {
+            $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function (id) {
+            $scope.modal.remove();
+        });
+
+        $scope.clickItem = function (item) {
+            var index = $parse($attrs.ngSelectedId);
+            index.assign($scope.$parent, item[$attrs.ngItemId]);
+
+            var value = $parse($attrs.ngSelectedValue);
+            value.assign($scope.$parent, item[$attrs.ngItemName]);
+
+            $scope.closeSelectModal();
+        };
+
+    })
+
+    .controller("LegalBasisCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
+        $scope.getAll = function () {
+            return Catalogs.all();
+        };
+
+        $ionicPopover.fromTemplateUrl('modallist.html', {
+            scope: $scope,
+        }).then(function(popover) {
+            $scope.modal = popover;
+        });
+
+        $scope.show = function (e) {
+            $scope.modal.show();
+        };
+
+        $scope.closeSelectModal = function () {
+            $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function (id) {
+            $scope.modal.remove();
+        });
+
+        $scope.clickItem = function (item) {
+            var index = $parse($attrs.ngSelectedId);
+            index.assign($scope.$parent, item[$attrs.ngItemId]);
+
+            var value = $parse($attrs.ngSelectedValue);
+            value.assign($scope.$parent, item[$attrs.ngItemName]);
+
+            $scope.closeSelectModal();
+        };
+
+    })
 ;

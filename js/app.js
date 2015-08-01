@@ -249,7 +249,51 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
-
+            .state("app.lcRelatedCase", {
+                url: "/lcRelatedCase",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lcRelatedCase.html",
+                        controller: "RelatedCaseCtrl"
+                    }
+                }
+            })
+            .state("app.lcMainView", {
+                url: "/lcMainView",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lcMainView.html",
+                        controller: "MainViewCtrl"
+                    }
+                }
+            })
+            .state("app.lcLegalBasis", {
+                url: "/lcLegalBasis",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lcLegalBasis.html",
+                        controller: "LegalBasisCtrl"
+                    }
+                }
+            })
+            .state("app.lcFoucs", {
+                url: "/lcFoucs",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lcFoucs.html",
+                        controller: ""
+                    }
+                }
+            })
+            .state("app.lcJudgeGist", {
+                url: "/lcJudgeGist",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lcJudgeGist.html",
+                        controller: ""
+                    }
+                }
+            })
             .state("app.undowork", {
                 url: "/undowork",
                 views: {

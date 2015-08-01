@@ -610,6 +610,7 @@ websites
     width: 36px;
     height: 36px;
     left: 9px;
+    border-radius: 50%;
 }
 .wsWrap a{
     font-size: 17px;
@@ -617,17 +618,63 @@ websites
     display: block;
     overflow: hidden;
     position: relative;
-    padding-left: 60px;
+    padding-left: 50px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     text-decoration: none;
-    color: #222;
+    color: ##387ef5;
     line-height: 37px;
 }
 .wsWrap .row{
     height: 50px;
+    margin-bottom: 1em;
 }
 
 .wsWrap .row,.wsWrap .col{
     padding-left: 0;
+}
+/**
+Ïà¹Ø°¸Àý
+**/
+.selectWrap{
+    font-size: 1px;
+
+}
+.selectWrap .title{
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+}
+.selectWrap .value{
+    color: #aaa;
+    font-size: 14px;
+}
+.selectWrap .primarytitle{
+    font-size: 16px;
+    color: #387ef5;;
+}
+.selectWrap .selected{
+    margin-left: -15px;
+}
+.selectWrap .selected:before{
+    content: "\f120";
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+}
+.selectWrap a{
+    border-color: #ddd;
+}
+.pagetitle{
+    font-weight: bold;
+    font-size: 18px;
 }
