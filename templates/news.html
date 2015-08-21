@@ -3,41 +3,37 @@
 
         <div class="list card">
             <div class="item item-body">
-                <h2>四川男子抢劫后让店员报警 警方：不作死就不会死</h2>
+                <h2>{{News.title}}</h2>
                 <i class="assertive small-title">
-                    2015-07-01
+                    {{News.date}}
                 </i>
                 <i class="assertive small-title">
-                    来自：法制日报
+                    来自：{{News.source}}
                 </i>
                 <a class="ion-star assertive title " style="float: right;">
                     {{News.id}}
                 </a>
             </div>
-            <div class="item item-body">
-                <div>
-                    原标题：安岳男子抢劫后让店员报警 警方：不作死就不会死
-                    四川新闻网成都7月13日讯 （记者漆奇）“我要抢钱，你们快点打110报警，我就是想坐牢……”7月11日中午12点50分左右，一名戴着墨镜，身穿青绿色T恤、黑色长裤，背着黑色双肩包的年轻男子走进成都市北大街一家眼镜店，在持刀抢走1700余元现金后，威胁店员赶快报警，随后乘坐三轮车离开了现场。7月13日下午，四川新闻网记者从成都市青羊区公安分局草市街派出所获悉，犯罪嫌疑人已被警方抓获。
-                    13日中午1点10分左右，青羊区公安分局草市街派出所办案民警，在文殊坊附近抓获11日持刀抢劫眼镜店的犯罪嫌疑人。四川新闻网记者了解到，犯罪嫌疑人姓姜，28岁，四川安岳人。姜某某在被警方抓获后，对自己持刀抢劫的事实供认不讳。
-                    13日下午5点过，四川新闻网记者在派出所采访到了犯罪嫌疑人姜某某。“喝了点酒，当时想如果逃了可以构成犯罪，就逃了。”姜某某说，自己抢劫是由于家庭和经济原因，当时只想进监狱坐牢。四川新闻网记者了解到，姜某某在抢劫后并未挥霍抢来的1700余元，两天多时间里，他仅花了其中100元钱。
-                    办案民警对姜某某这种因自身不满情绪而报复社会、挑衅警方的行为表示“不作死就不会死”。据了解，姜某某持刀抢劫将面临三年以上有期徒刑。目前，案件正在进一步调查当中。
+            <div class="item-body">
+                <div ng-bind-html="News.content">
+
                 </div>
             </div>
 
 
         </div>
         <div class="list card">
-        <div class="item item-divider">相关阅读</div>
-        <div class="item item-body ">
-            <ion-list>
-                <ion-item class=" item-icon-right"
-                          type="item-text-wrap"   ng-repeat="news in newsList" href="#/app/newslist/{{news.id}}">
-                    {{news.contents}}
-                    <i class="icon ion-chevron-right icon-accessory"></i>
-                </ion-item>
-            </ion-list>
+            <div class="item item-divider">相关阅读</div>
+            <div class="item item-body ">
+                <ion-list>
+                    <ion-item class=" item-icon-right"
+                              type="item-text-wrap" ng-repeat="news in News.reletedNews" href="#/app/newslist/{{news.id}}">
+                        {{$index+1}}、{{news.title}}
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
         </div>
-</div>
         <div class="list card">
             <div class="item item-divider">网友留言
                 <a class="youhuashuo" style="float: right; text-decoration: none" href="#">我有话说</a>

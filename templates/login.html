@@ -1,28 +1,27 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title">登陆</h1>
-        <div class="buttons">
-            <button class="button button-clear" ng-click="closeLogin()">取消</button>
-        </div>
-    </ion-header-bar>
-    <ion-content>
+<ion-view  view-title="登录页面">
+    <ion-content class="content padding" has-bouncing="false">
+        <div class="error" ng-show="formModel.error" ng-model="formModel.error">{{formModel.error}}</div>
         <form ng-submit="doLogin()">
             <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">用户名</span>
-                    <input type="text" ng-model="loginData.username" placeholder="手机号或者身份证号">
+                <label class="item item-input item-floating-label item-md-input">
+                    <span class="input-label">登录账号</span>
+                    <input class="md-input" type="text"  placeholder="手机号或者用户名" autocorrect="off" autocapitalize="off" ng-model="formModel.uname">
+                    <div class="highlight"></div>
                 </label>
-                <label class="item item-input">
-                    <span class="input-label">密码</span>
-                    <input type="password" ng-model="loginData.password">
+
+
+                <label class="item item-input item-floating-label item-md-input">
+                    <span class="input-label">登录密码</span>
+                    <input class="md-input" type="password" placeholder="登录密码" ng-model="formModel.pass">
+                    <div class="highlight"></div>
                 </label>
-                <label class="item">
-                    <button class="button button-block button-positive" type="submit">登 陆</button>
-                </label>
-                <label class="item">
-                    <button class="button button-block button-assertive ">注 册</button>
-                </label>
+
+
+                <input type="submit"  ng-disabled="!(formModel.pass && formModel.uname)" class="button button-block button-positive view-button" value="登 录">
+
+                <!--<input type="submit" ng-disabled="!(formModel.pass && formModel.uname)" class="button button-block button-positive view-button" value="登 录">-->
+
             </div>
         </form>
     </ion-content>
-</ion-modal-view>
+</ion-view>

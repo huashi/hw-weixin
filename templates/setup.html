@@ -72,6 +72,8 @@
         <div class="card">
             <div class="item item-body">
                 <ion-list>
+
+
                     <a class="item item-icon-right"
                        href="#">
                         <i class="ion-wrench menu-icon"></i>
@@ -83,6 +85,14 @@
 
             </div>
         </div>
+
+        <ion-list>
+            <lable class="item item-icon-right">
+                <button class="button button-positive button-full" ng-show="!isLogined" type="submit" ng-click="goToLogin()">登录</button>
+                <button class="button button-positive button-full" ng-show="isLogined" type="submit" ng-click="goToSignout()">注销</button>
+            </lable>
+
+        </ion-list>
 
     </ion-content>
 

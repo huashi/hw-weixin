@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
         }, 101);
 
     })
-    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider,$provide) {
 
         $ionicConfigProvider.platform.ios.tabs.style('standard');
         $ionicConfigProvider.platform.ios.tabs.position('bottom');
@@ -91,7 +91,15 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
-
+            .state('app.login', {
+                url: "/login",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/login.html",
+                        controller: 'LoginCtrl'
+                    }
+                }
+            })
             .state('app.single', {
                 url: "/playlists/:playlistId",
                 views: {
@@ -250,7 +258,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.lcRelatedCase", {
-                url: "/lcRelatedCase",
+                url: "/lcRelatedCase/:sNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lcRelatedCase.html",
@@ -259,7 +267,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.lcMainView", {
-                url: "/lcMainView",
+                url: "/lcMainView/:sNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lcMainView.html",
@@ -268,7 +276,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.lcLegalBasis", {
-                url: "/lcLegalBasis",
+                url: "/lcLegalBasis/:sNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lcLegalBasis.html",
@@ -277,20 +285,20 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.lcFoucs", {
-                url: "/lcFoucs",
+                url: "/lcFoucs/:sNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lcFoucs.html",
-                        controller: ""
+                        controller: "SFocusCtrl"
                     }
                 }
             })
             .state("app.lcJudgeGist", {
-                url: "/lcJudgeGist",
+                url: "/lcJudgeGist/:sNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/lcJudgeGist.html",
-                        controller: ""
+                        controller: "SJudgeGistCtrl"
                     }
                 }
             })
@@ -308,4 +316,30 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/catalogs');
+
+        $provide.decorator('$ionicLoading', function($delegate, $timeout) {
+            var show = $delegate.show;
+            var hide = $delegate.hide;
+            var hidePromise;
+
+            $delegate.show = function() {
+                if ( arguments[0] && arguments[0].duration !== undefined ) {
+                    $timeout.cancel(hidePromise);
+                    hidePromise = $timeout( $delegate.hide, arguments[0].duration );
+                    delete arguments[0].duration;
+                }
+                document.body.classList.add('loading-open');
+                return show.apply($delegate, arguments);
+            };
+            $delegate.hide = function() {
+                document.body.classList.remove('loading-open');
+                return hide.apply($delegate, arguments);
+            };
+            return $delegate;
+        });
+
     })
+.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+})
+

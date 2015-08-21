@@ -11,8 +11,14 @@ angular.module("starter.common", [])
                 Type: 0,
                 RealName: "ÄäÃû"
             },
-            Ajax:{
-                Url:""
+            ApiUrl:"http://localhost:8633/"
+
+        }
+    }
+) .factory("AppTools", function (AppData) {
+        return {
+            IsAuthenticatedUser:function(){
+            return AppData.User.ID>0&&localStorage.isAuthenticated == "true";
             }
         }
     }
@@ -20,7 +26,7 @@ angular.module("starter.common", [])
         return {
             ajax_post: function (data,sucessCb,failedCb) {
                 var config = {
-                    url: AppData.Ajax.Url,
+                    url: AppData.ApiUrl,
                     method: "post",
                     data: data,
                     cache:false
@@ -35,7 +41,7 @@ angular.module("starter.common", [])
             },
             ajax_get: function (data,sucessCb,failedCb) {
                 var config = {
-                    url: AppData.Ajax.Url,
+                    url: AppData.ApiUrl,
                     method: "get",
                     data: data,
                     cache:false
@@ -49,6 +55,21 @@ angular.module("starter.common", [])
 
             }
         }
-    })
-
+    }).factory('$localstorage', ['$window', function($window) {
+        return {
+            set: function(key, value) {
+                $window.localStorage[key] = value;
+            },
+            get: function(key, defaultValue) {
+                return $window.localStorage[key] || defaultValue;
+            },
+            setObject: function(key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function(key) {
+                return JSON.parse($window.localStorage[key] || '{}');
+            }
+        }
+    }])
 ;
+

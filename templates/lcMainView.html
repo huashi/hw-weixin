@@ -6,21 +6,11 @@
 
     <ion-content has-bouncing="false" style="padding: 0 10px;">
         <div class="pagetitle">
-            鸿唯维权信息网
+            {{rcSelected.title}}
         </div>
         <hr>
-        <div class="">
-            <p>&nbsp; &nbsp; &nbsp; &nbsp;构成交通肇事罪，被害人家属主张要求精神损害赔偿的法律依据充足。刑事责任与民事责任是两种不同的法律责任，被追究刑事责任是承担刑法上的法律责任，属于公权力的范畴，不等于对受害人精神损害的民事赔偿。最高人民法院《关于人民法院是否受理刑事案件被害人提起精神损害赔偿民事诉讼问题的批复》（法释[2002]17号），并未规定受害人未提起刑事附带民事诉讼而直接提起民事诉讼时，受害人不得主张精神损害赔偿。构成犯罪的侵权行为远比一般侵权行为严重，后者受害人可以主张精神赔偿而前者却不能，有违公平、正义的价值理念。<br>
+        <div class=""  ng-bind-html="rcSelected.detail">
 
-            <p>&nbsp; &nbsp; &nbsp; &nbsp;在交通肇事罪中被害人及其家属所遭受的肉体及精神伤害普遍比较严重，交通肇事司机被判刑后，尽管已使死者近亲属在一定程度上得到精神慰藉，但仍不足以抚慰受害人的精神痛苦和精神创伤，刑事处罚也无法完全替代受害人因交通事故所造成的精神损害，死者近亲属在另行提起的民事赔偿诉讼中一并提出精神抚慰金赔偿要求的，法院应判决支持，这种精神损害抚慰金是利益均衡的需要。</p><p></p><br><p><b>编者后语</b></p>
-
-            <p><b>&nbsp; &nbsp; </b>完全支持交通事故中司机构成犯罪受害人主张精神抚慰金的请求。可惜的是目前大多数法院在审理交通事故肇事罪附带民事赔偿中，不支持受害人提出精神抚慰金，甚至在一些法院在交通案件刑事诉讼审理后，赔偿权利人单独提起民事诉讼中请求的精神抚慰金赔偿也不支持。欢迎各位朋友对此作出进一步探讨，提供更多相关案例、观点，以求实现公平、公正。</p>
-
-
-
-
-
-            <br></p>
         </div>
     </ion-content>
 
@@ -29,14 +19,11 @@
         <ion-popover-view style="margin-top:0;width: 50%">
             <ion-content has-bouncing="false">
                 <div class="selectWrap">
-                    <a class="item" href="#" style="padding-bottom: 0;">
+                    <a class="item item-text-wrap" href="#" style="padding-bottom: 0;"  ng-repeat="rc in rcList"
+                       data-id="{{rc.id}}" ng-click="clickItem(rc.id)">
 
-                        <p class="primarytitle  selected ">鸿唯维权信息网</p>
+                        <p class="primarytitle" ng-class="{selected:rcSelected.id==rc.id}">{{rc.title}}</p>
 
-                    </a>
-                    <a class="item" href="#" style="padding-bottom: 0;">
-
-                        <p class="primarytitle   ">中国法院网</p>
                     </a>
 
                 </div>

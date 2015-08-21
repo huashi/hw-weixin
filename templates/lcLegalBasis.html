@@ -1,4 +1,4 @@
-<ion-view view-title="相关案例">
+<ion-view view-title="法律依据">
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-more " id="home-points"
                 ng-click="modal.show($event)"></button>
@@ -6,12 +6,8 @@
 
     <ion-content has-bouncing="false" style="padding: 0 10px;">
 
-        <div class="">
-            <p>最高人民法院《关于适用&lt;中华人民共和国刑事诉讼法&gt;的解释》(2013年1月1日  法释[2012]21号）第一百五十五条 第三款 &nbsp;&nbsp;驾驶机动车致人伤亡或者造成公私财产重大损失，构成犯罪的，依照《中华人民共和国道路交通安全法》第七十六条的规定确定赔偿责任。附带民事诉讼当事人就民事赔偿问题达成调解、和解协议的，赔偿范围、数额不受第二款、第三款规定的限制。
+        <div class=""  ng-bind-html="rcSelected.detail">
 
-
-
-                <br></p>
         </div>
     </ion-content>
 
@@ -20,18 +16,11 @@
         <ion-popover-view style="margin-top:0;width: 90%">
             <ion-content has-bouncing="false">
                 <div class="selectWrap">
-                    <a class="item" href="#" style="padding-bottom: 0;">
+                    <a class="item item-text-wrap" href="#" style="padding-bottom: 0;" ng-repeat="rc in rcList"
+                       data-id="{{rc.id}}" ng-click="clickItem(rc.id)">
 
-                        <p class="primarytitle  selected ">最高人民法院《关于适用<中华人民共和国刑事诉讼法>的解释》(2013年1月1日  法释[2012]21号）第一百五十五条 第三款</p>
+                        <p class="primarytitle " ng-class="{selected:rcSelected.id==rc.id}">{{rc.title}}</p>
 
-                    </a>
-                    <a class="item" href="#" style="padding-bottom: 0;">
-                        <p class="primarytitle   ">最高人民法院《关于适用<中华人民共和国刑事诉讼法>的解释》(2013年1月1日  法释[2012]21号）第一百五十五条 第三款</p>
-
-                    </a>
-                    <a class="item" href="#" style="padding-bottom: 0;">
-
-                        <p class="primarytitle   ">最高人民法院《关于适用<中华人民共和国刑事诉讼法>的解释》(2013年1月1日  法释[2012]21号）第一百五十五条 第三款</p>
                     </a>
                 </div>
             </ion-content>

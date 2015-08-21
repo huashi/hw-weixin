@@ -3,18 +3,18 @@
     <div id="search-box" class="bar bar-subheader item-input-inset">
         <div class="item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
-            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="searchReg"
-                   ng-change="doSearch(this)">
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchNews(keyWords)">
 
         </div>
 
         <div class="button-bar">
 
-            <select class="item " style="border: none;margin-left: 1em;">
-                <option selected>全部来源</option>
-                <option>法制日报</option>
-                <option>人民法院报</option>
-                <option>中保险报</option>
+            <select class="item " ng-change="onSelectSearchNews()" ng-model="SourceId" style="border: none;margin-left: 1em;">
+                <option selected value="0">全部来源</option>
+                <option value="1">法制日报</option>
+                <option value="2">人民法院报</option>
+                <option value="3">中国保险报</option>
                 <option>其它</option>
             </select>
         </div>
@@ -23,14 +23,14 @@
         <ion-list>
             <ion-item class=" item-icon-right"
                       type="item-text-wrap"   ng-repeat="news in newsList" href="#/app/newslist/{{news.id}}">
-                {{news.contents}}
+                {{news.title}}
                 <i class="icon ion-chevron-right icon-accessory"></i>
                  <span class="item-note">
-                          {{news.time}}
+                          {{news.date}}
                      </span>
             </ion-item>
         </ion-list>
-        <div  ng-style="{'display':display}">
+        <div  ng-show="display">
             <button class="button button-outline  button-block button-small" ng-click="getPageNews()">
                 查看更多新闻...
             </button>

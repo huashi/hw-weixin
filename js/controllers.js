@@ -2,7 +2,6 @@
  * Created by Administrator on 2015/3/31.
  */
 angular.module('starter.controllers', [])
-
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $q) {
         // Form data for the login modal
         $scope.loginData = {};
@@ -42,7 +41,9 @@ angular.module('starter.controllers', [])
     })
     .controller("PlaylistCtrl", function () {
     })
-    .controller("CatalogsCtrl", function ($scope, $ionicActionSheet, Catalogs) {
+    .controller("CatalogsCtrl", function ($scope, $ionicActionSheet, $ionicHistory, Catalogs) {
+
+        //  $ionicHistory.clearHistory();
         $scope.getAll = function () {
             return Catalogs.all();
         };
@@ -224,63 +225,65 @@ angular.module('starter.controllers', [])
         });
     })
     .controller("NewsListCtrl", function ($scope, NewsSvc) {
-        var start = 1, end = 5, isAll = false;
+        var pageIndex = 1, pageSize = 10, isAll = false;
         $scope.newsList = [];
-        $scope.display = "";
-        $scope.queryVal = "";
+        $scope.display = true;
+        $scope.keyWords = "";
+        $scope.SourceId=0;
 
         $scope.doSearch = function () {
             var query = $scope.queryVal;
             $scope.newsList = NewsSvc.search(query);
 
         };
+
         $scope.getPageNews = function () {
             if (!isAll) {
-                var tem = NewsSvc.getPageNews(start, end);
-                if (!tem || tem.length == 0) {
-                    isAll = true;
-                    $scope.display = "none";
-                    return;
-                }
-                $scope.newsList = $scope.newsList.concat(tem);
-                start = end;
-                end += 5;
+                 NewsSvc.getPageNews(pageIndex, pageSize,$scope.SourceId,$scope.keyWords).then(function(tem){
+                     if (!tem || tem.length < 1) {
+                         isAll = true;
+                         $scope.display=false;
+                         return;
+                     }
+                     $scope.newsList = $scope.newsList.concat(tem);
+                     pageIndex++;
+                 });
+
             }
         };
-        $scope.getPageNews();
+
+        $scope.onSelectSearchNews=function(){
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.newsList = [];
+            $scope.display = true;
+            $scope.getPageNews();
+        }
+        $scope.onInputSearchNews=function(dom){
+
+                pageIndex = 1, pageSize = 10, isAll = false;
+                $scope.newsList = [];
+                $scope.display = true;
+                $scope.getPageNews();
+
+        }
+        $scope.onSelectSearchNews();
     })
     .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc) {
         var id = $stateParams.newsId;
-        $scope.News = NewsSvc.getNewsById(id);
+         NewsSvc.getNewsById(id).then(function(news){
+             $scope.News=news;
+        });
+
         $scope.commentList = [{cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-1-2"}, {cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
 
-        var start = 1, end = 5, isAll = false;
-        $scope.newsList = [];
+
+
         $scope.Comments = [];
         $scope.display = "";
         $scope.queryVal = "";
-
-        $scope.doSearch = function () {
-            var query = $scope.queryVal;
-            $scope.newsList = NewsSvc.search(query);
-
-        };
-        $scope.getPageNews = function () {
-            if (!isAll) {
-                var tem = NewsSvc.getPageNews(start, end);
-                if (!tem || tem.length == 0) {
-                    isAll = true;
-                    $scope.display = "none";
-                    return;
-                }
-                $scope.newsList = $scope.newsList.concat(tem);
-                start = end;
-                end += 5;
-            }
-        };
-        $scope.getPageNews();
+       var isAll=false,start= 1,end=5;
         $scope.getMessages = function () {
             if (!isAll) {
                 var tem = CommentsSvc.getPageMessage(start, end);
@@ -296,52 +299,67 @@ angular.module('starter.controllers', [])
         };
         $scope.getMessages();
     })
+    .controller("LawCaseCtrl", function ($scope, $stateParams, LawCaseSvc, AppData) {
 
-    .controller("LawCaseCtrl", function ($scope, $stateParams, LawCase, AppData) {
-
-        var start = 1, end = 10, ismy = ($stateParams.sign == "my");
+        var pageIndex = 1, pageSize = 10, isAll = false, ismy = ($stateParams.sign == "my");
         $scope.MyLawCase = [];
-        $scope.display = "";
+        $scope.display = true;
         $scope.navTitle = ismy ? "我的案件" : "所有案件";
-        $scope.getMyLawCase = function () {
+        $scope.keyWords="";
+        $scope.orderType=0;
+
+        function getMyLawCase() {
             var uid = ismy ? AppData.User.ID : 0;
-            var tem = LawCase.getMyLawCase(uid, start, end);
-            if (!tem || tem.length == 0) {
-                isAll = true;
-                $scope.display = "none";
-                return;
-            }
-            $scope.MyLawCase = $scope.MyLawCase.concat(tem);
-            start = end;
-            end *= 2;
+            isAll = true;
+            $scope.display=false;
+            LawCaseSvc.getAllLawCase(1, 1000,$scope.keyWords).then(function(tem){
+                if (!tem || tem.length < 1) {
+                    return;
+                }
+                $scope.MyLawCase = $scope.MyLawCase.concat(tem);
+
+            });
+        }
+
+        function getAllLawCase(){
+            LawCaseSvc.getAllLawCase(pageIndex, pageSize,$scope.keyWords).then(function(tem){
+                if (!tem || tem.length < 1) {
+                    isAll = true;
+                    $scope.display=false;
+                    return;
+                }
+                $scope.MyLawCase = $scope.MyLawCase.concat(tem);
+                pageIndex++;
+            });
+        }
+
+        $scope.loadLCPages=function(){
+            ismy?getMyLawCase():getAllLawCase();
+        }
+
+        $scope.onInputSearchLC=function(dom){
+
+                pageIndex = 1, pageSize = 10, isAll = false;
+                $scope.MyLawCase = [];
+                $scope.display = true;
+                $scope.loadLCPages();
 
         };
-        $scope.getMyLawCase();
+
+        $scope.loadLCPages();
 
     })
-    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams, CommentsSvc) {
+    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams,LawCaseSvc, CommentsSvc) {
         var lcId = $stateParams.lcId;
         $scope.LawCase;
-        $scope.Solution;
-
-        var start = 1, end = 5, isAll = false;
-        $scope.Comments = [];
         $scope.lcId = 1;
         $scope.display = "";
-        $scope.getMessages = function () {
-            if (!isAll) {
-                var tem = CommentsSvc.getPageMessage(start, end);
-                if (!tem || tem.length == 0) {
-                    isAll = true;
-                    $scope.display = "none";
-                    return;
-                }
-                $scope.Comments = $scope.Comments.concat(tem);
-                start = end;
-                end += 5;
-            }
+        $scope.getLawCaseByLcNo = function (no) {
+            LawCaseSvc.getLawCaseByLcNo(no).then(function(lc){
+                $scope.LawCase=lc;
+            });
         };
-        $scope.getMessages();
+        $scope.getLawCaseByLcNo(lcId);
     })
     .controller("CaseLogCtrl", function ($scope, $window, CaseLogSvc) {
 
@@ -473,8 +491,37 @@ angular.module('starter.controllers', [])
 
         };
     })
-    .controller("SetupCtrl", function ($scope, $ionicScrollDelegate) {
+    .controller("SetupCtrl", function ($scope, $state, AppTools) {
 
+        $scope.loginData = {};
+
+        $scope.isLogined = AppTools.IsAuthenticatedUser();
+
+        $scope.goToSignout = goToSignout;
+        $scope.goToLogin = goToLogin;
+
+//----------------------------------------------------------------------------/
+
+        //if ( localStorage.isAuthenticated == "true" ) {
+        //    $state.go('UserAppsView');
+        //} else {
+        //    ionic.Platform.ready(function(){
+        //        if ( ionic.Platform.isWebView() ) navigator.splashscreen.hide();
+        //    });
+        //}
+
+//----------------------------------------------------------------------------/
+
+        function goToSignout() {
+            //$http.get(HOST_NAME + '/logout');
+            localStorage.clear();
+            localStorage.isAuthenticated = false;
+            $state.go('/');
+        }
+
+        function goToLogin() {
+            $state.go('app.login');
+        }
     })
     .controller("GetHelpCtrl", function ($scope, $stateParams, LawCase) {
         var userid = $stateParams.uid;
@@ -497,7 +544,6 @@ angular.module('starter.controllers', [])
         $scope.getMyLawCase();
 
     })
-
     .controller('ChatforLCCtrl', function ($scope, $timeout, $ionicScrollDelegate, ChatSvc, AppData) {
 
         $scope.showTime = true;
@@ -556,15 +602,14 @@ angular.module('starter.controllers', [])
         $scope.messages = ChatSvc.all();
 
     })
-
-    .controller("RelatedCaseCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
-        $scope.getAll = function () {
-            return Catalogs.all();
-        };
+    .controller("RelatedCaseCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+        var sNo = $stateParams.sNo;
+         $scope.rcList=[];
+         $scope.rcSelected={};
 
         $ionicPopover.fromTemplateUrl('modallist.html', {
             scope: $scope,
-        }).then(function(popover) {
+        }).then(function (popover) {
             $scope.modal = popover;
         });
 
@@ -580,25 +625,29 @@ angular.module('starter.controllers', [])
             $scope.modal.remove();
         });
 
-        $scope.clickItem = function (item) {
-            var index = $parse($attrs.ngSelectedId);
-            index.assign($scope.$parent, item[$attrs.ngItemId]);
-
-            var value = $parse($attrs.ngSelectedValue);
-            value.assign($scope.$parent, item[$attrs.ngItemName]);
-
+        $scope.clickItem = function (id) {
+            for(var i=0;i<$scope.rcList.length;i++){
+                if($scope.rcList[i].id==id){
+                    $scope.rcSelected=$scope.rcList[i];
+                }
+            }
             $scope.closeSelectModal();
         };
+
+        SolutionSvc.getRelatedCase(sNo).then(function(data){
+            $scope.rcList=data;
+            $scope.rcSelected=data[0];
+        });
 
     })
-    .controller("MainViewCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
-        $scope.getAll = function () {
-            return Catalogs.all();
-        };
+    .controller("MainViewCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+        var sNo = $stateParams.sNo;
+        $scope.rcList=[];
+        $scope.rcSelected={};
 
         $ionicPopover.fromTemplateUrl('modallist.html', {
             scope: $scope,
-        }).then(function(popover) {
+        }).then(function (popover) {
             $scope.modal = popover;
         });
 
@@ -614,50 +663,120 @@ angular.module('starter.controllers', [])
             $scope.modal.remove();
         });
 
-        $scope.clickItem = function (item) {
-            var index = $parse($attrs.ngSelectedId);
-            index.assign($scope.$parent, item[$attrs.ngItemId]);
-
-            var value = $parse($attrs.ngSelectedValue);
-            value.assign($scope.$parent, item[$attrs.ngItemName]);
-
+        $scope.clickItem = function (id) {
+            for(var i=0;i<$scope.rcList.length;i++){
+                if($scope.rcList[i].id==id){
+                    $scope.rcSelected=$scope.rcList[i];
+                }
+            }
             $scope.closeSelectModal();
         };
+
+        SolutionSvc.getMainView(sNo).then(function(data){
+            $scope.rcList=data;
+            $scope.rcSelected=data[0];
+        });
+
+    })
+    .controller("LegalBasisCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+        var sNo = $stateParams.sNo;
+        $scope.rcList=[];
+        $scope.rcSelected={};
+
+        $ionicPopover.fromTemplateUrl('modallist.html', {
+            scope: $scope,
+        }).then(function (popover) {
+            $scope.modal = popover;
+        });
+
+        $scope.show = function (e) {
+            $scope.modal.show();
+        };
+
+        $scope.closeSelectModal = function () {
+            $scope.modal.hide();
+        };
+
+        $scope.$on('$destroy', function (id) {
+            $scope.modal.remove();
+        });
+
+        $scope.clickItem = function (id) {
+            for(var i=0;i<$scope.rcList.length;i++){
+                if($scope.rcList[i].id==id){
+                    $scope.rcSelected=$scope.rcList[i];
+                }
+            }
+            $scope.closeSelectModal();
+        };
+
+        SolutionSvc.getLegalBasis(sNo).then(function(data){
+            $scope.rcList=data;
+            $scope.rcSelected=data[0];
+        });
 
     })
 
-    .controller("LegalBasisCtrl", function ($scope, $ionicActionSheet, $ionicPopover, Catalogs) {
-        $scope.getAll = function () {
-            return Catalogs.all();
-        };
 
-        $ionicPopover.fromTemplateUrl('modallist.html', {
-            scope: $scope,
-        }).then(function(popover) {
-            $scope.modal = popover;
-        });
+    .controller("SFocusCtrl", function ($scope,$stateParams, SolutionSvc) {
+        var sNo = $stateParams.sNo;
+        $scope.Focus="";
+        SolutionSvc.getFocus(sNo).then(function(data){
+            $scope.Focus=data;
+        })
 
-        $scope.show = function (e) {
-            $scope.modal.show();
-        };
+    })
+    .controller("SJudgeGistCtrl", function ($scope,$stateParams, SolutionSvc) {
+        var sNo = $stateParams.sNo;
+        $scope.JudgeGist="";
+        SolutionSvc.getJudgeGist(sNo).then(function(data){
+            $scope.JudgeGist=data;
+        })
 
-        $scope.closeSelectModal = function () {
-            $scope.modal.hide();
-        };
+    })
 
-        $scope.$on('$destroy', function (id) {
-            $scope.modal.remove();
-        });
+    .controller("LoginCtrl", function ($scope, $ionicModal, $timeout, $http, $state, $ionicHistory, AppData, LoadingScreenService, authService) {
 
-        $scope.clickItem = function (item) {
-            var index = $parse($attrs.ngSelectedId);
-            index.assign($scope.$parent, item[$attrs.ngItemId]);
+        $scope.loginData = {};
 
-            var value = $parse($attrs.ngSelectedValue);
-            value.assign($scope.$parent, item[$attrs.ngItemName]);
+//----------------------------------------------------------------------------///
+        $scope.formModel = {};
+        $scope.doLogin = login;
 
-            $scope.closeSelectModal();
-        };
+
+        function login() {
+
+            var data = {
+                grant_type: "password",
+                userName: $scope.formModel.uname,
+                password: $scope.formModel.pass
+            }
+            authService.login(data, success, error);
+
+            function success() {
+                $ionicHistory.nextViewOptions({
+                    disableAnimate: false,
+                    disableBack: true
+                });
+                $state.go('app.catalogs', null, {location: 'replace'});
+
+            }
+
+            function error(data, status) {
+                $scope.formModel.errors = {};
+
+                //$ionicHistory.clearHistory()
+                // $ionicHistory.clearCache();
+
+                if (status == 401 || status == 400) {
+                    $scope.formModel.error = "用户名或者密码错误!!!";
+                } else if (status === 0 || status === 404) {
+                    $scope.formModel.error = "连接错误!!!";
+                } else {
+                    $scope.formModel.error = "意外错误!!!错误码：" + status;
+                }
+            }
+        }
 
     })
 ;

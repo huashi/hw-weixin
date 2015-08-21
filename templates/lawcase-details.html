@@ -2,11 +2,10 @@
     <ion-content has-bouncing="true">
         <div class="card">
             <div class="item item-divider caseTitle">
-                胡宗明与王志友医疗事故损害赔偿纠纷上诉案
+                {{LawCase.name}}
             </div>
             <div class="item item-text-wrap">
-                《胡贵云诉李仕兵等道路交通事故人身损害赔偿案》，案号：四川省天全县人民法院(2010)天全民初字第250号，载于《中国法院2012年度案例：道路交通纠纷》（185）。
-
+                {{LawCase.describe}}
             </div>
 
         </div>
@@ -17,33 +16,33 @@
             <div class="item item-body">
                 <ion-list>
 
-                    <a class="item item-remove-animate  item-icon-right"  href="#/app/lcFoucs">
+                    <a class="item item-remove-animate  item-icon-right"  ng-href="#/app/lcFoucs/{{LawCase.solutionNo}}">
                         争议焦点
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
-                    <a class="item item-remove-animate  item-icon-right"  href="#/app/lcJudgeGist">
+                    <a class="item item-remove-animate  item-icon-right"  ng-href="#/app/lcJudgeGist/{{LawCase.solutionNo}}">
                         裁判要旨
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
 
                     <a class="item item-remove-animate  item-icon-right"
-                       href="#/app/lcRelatedCase">
+                       ng-href="#/app/lcRelatedCase/{{LawCase.solutionNo}}">
                         相关案例
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
 
 
                     <a class="item item-remove-animate  item-icon-right"
-                       href="#/app/lcLegalBasis">
+                       ng-href="#/app/lcLegalBasis/{{LawCase.solutionNo}}">
                         法律依据
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
 
                     <a class="item item-remove-animate item-icon-right"
-                       href="#/app/lcMainView">
+                       ng-href="#/app/lcMainView/{{LawCase.solutionNo}}">
                         主流观点
                         <i class="icon ion-chevron-right icon-accessory"></i>
 

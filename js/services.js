@@ -2,6 +2,25 @@
  * Created by Administrator on 2015/3/31.
  */
 angular.module("starter.services", [])
+    .factory('localStorageService', ['$window', function($window) {
+        return {
+            set: function(key, value) {
+                $window.localStorage[key] = value;
+            },
+            get: function(key, defaultValue) {
+                return $window.localStorage[key] || defaultValue;
+            },
+            setObject: function(key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function(key) {
+                return JSON.parse($window.localStorage[key] || '{}');
+            },
+            remove:function(key){
+                $window.localStorage.removeItem(key);
+            }
+        }
+    }])
     .factory("Plays", function () {
         var plays = [
             {title: 'Reggae', id: 1},
@@ -64,48 +83,8 @@ angular.module("starter.services", [])
             }
         }
     })
-    .factory("NewsSvc", function (AppHttp) {
-        var messages = [{
-            id: 1,
-            row: 1,
-            contents: "男子银行兑换残币 被要出示“残币证明”",
-            time: "2015-05-01",
-            username: "张三"
-        }, {
-            id: 2,
-            row: 2,
-            contents: "河南洛阳：每天10元高温津贴拿到的并不多",
-            time: "2015-02-01",
-            username: "张三"
-        }, {
-            id: 3,
-            row: 3,
-            contents: "乌鲁木齐一乘客落两万险被人拿走 司机机智讨回并送还",
-            time: "2015-01-01",
-            username: "张三"
-        }
-            , {
-                id: 4,
-                row: 4,
-                contents: "公交司机座椅后贴条：乱吐痰猪狗不如",
-                time: "2015-01-01",
-                username: "张三"
-            }
-            , {
-                id: 5,
-                row: 5,
-                contents: "四川男子抢劫后让店员报警 警方：不作死就不会死",
-                time: "2014-01-01",
-                username: "张三"
-            }
-            , {
-                id: 6,
-                row: 6,
-                contents: "广东一男子因“偷手机”被拘 状告公安获赔2000多元",
-                time: "2013-01-01",
-                username: "张三"
-            }
-        ];
+    .factory("NewsSvc", function (AppData,$q,$http) {
+        var serviceBase = AppData.ApiUrl;
         return {
             all: function () {
                 return fyList;
@@ -120,105 +99,77 @@ angular.module("starter.services", [])
                 }
                 return ret;
             },
-            getPageNews: function (start, end) {
-                var a = [];
-                messages.forEach(function (e, i) {
-                    if (e.row && e.row >= start && e.row < end) {
-                        a.push(e);
-                    }
+            getPageNews: function (pageIndex, pageSize,SourceId,keyWords) {
+                var data = {pageIndex:pageIndex,pageSize:pageSize,SourceId:SourceId,keyWords:keyWords};
+
+                var deferred = $q.defer();
+
+                $http.get(serviceBase + 'api/News', {params:data}, { })
+                    .success(function (response) {
+                    deferred.resolve(response);
+
+                }).error(function (err, status) {
+                    deferred.reject(err);
                 });
-                return a;
+
+                return deferred.promise;
             },
             getNewsById: function (id) {
-                for (var i = 0; i < messages.length; i++) {
-                    if (messages[i].id == id) {
-                        return messages[i];
-                    }
-                }
-                return {};
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/News/'+id, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
             }
         }
     })
-    .factory("LawCase", function (AppHttp) {
-        var caseList = [{
-            id: 1,
-            LC_Name: "我的第一个案件",
-            username: "张三",
-            userid: 1
-        }, {
-            id: 2,
-            LC_Name: "胡宗明与王志友医疗事故损害赔偿纠纷上诉案",
-            username: "张三",
-            userid: 1
-        }, {
-            id: 3,
-            LC_Name: "交通事故损害赔偿纠纷上诉案1",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 4,
-            LC_Name: "交通事故损害赔偿纠纷上诉案2",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 5,
-            LC_Name: "交通事故损害赔偿纠纷上诉案3",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 6,
-            LC_Name: "交通事故损害赔偿纠纷上诉案4",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 7,
-            LC_Name: "交通事故损害赔偿纠纷上诉案5",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 8,
-            LC_Name: "交通事故损害赔偿纠纷上诉案6",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 9,
-            LC_Name: "交通事故损害赔偿纠纷上诉案7",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 10,
-            LC_Name: "交通事故损害赔偿纠纷上诉案8",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 11,
-            LC_Name: "交通事故损害赔偿纠纷上诉案9",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 12,
-            LC_Name: "交通事故损害赔偿纠纷上诉案10",
-            username: "李四",
-            userid: 2
-        }, {
-            id: 13,
-            LC_Name: "交通事故损害赔偿纠纷上诉案11",
-            username: "李四",
-            userid: 2
-        }
-
-        ];
+    .factory("LawCaseSvc", function ($q,$http,AppHttp,AppData) {
+        var serviceBase = AppData.ApiUrl;
         return {
-            getMyLawCase: function (uid, start, end) {
-                var a = [];
-                var s = start || 0, end = end || 9999;
+            getMyLawCase: function (uid) {
 
-                caseList.forEach(function (e, i) {
-                    if ((!uid || e.userid == uid) && e.id && e.id >= s && e.id < end) {
-                        a.push(e);
-                    }
-                });
-                return a;
+            },
+            getAllLawCase:function(pageIndex, pageSize,keyWords){
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LawCase', {params:data}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+        },
+            getMyLawCase:function(pageIndex, pageSize,keyWords){
+                var userid=AppData.User.ID;
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords,UserId:userid};
+
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LawCase/MyLC', {params:data}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getLawCaseByLcNo: function (no) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LawCase/GetByNo/'+no, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
             }
         };
     })
@@ -338,7 +289,7 @@ angular.module("starter.services", [])
             }
         }
     })
-.factory("ChatSvc",function(){
+    .factory("ChatSvc", function () {
         var messages = [{
             userId: 1,
             text: "张律师现在什么情况了？",
@@ -369,3 +320,388 @@ angular.module("starter.services", [])
         }
     })
 
+    .factory("SolutionSvc",function(AppData,$q,$http){
+        var serviceBase = AppData.ApiUrl;
+        return {
+            getFocus: function (sNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Solution/GetFocus/'+sNo, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getJudgeGist: function (sNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Solution/GetJudgeGist/'+sNo, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getRelatedCase: function (sNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Solution/GetRelatedCase/'+sNo, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getMainView: function (sNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Solution/GetMainView/'+sNo, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getLegalBasis: function (sNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Solution/GetLegalBasis/'+sNo, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+
+        }
+    })
+
+    .factory('LoadingScreenService', function ($rootScope, $document, $compile, $animate, $q, $timeout, $ionicLoading, $ionicTemplateLoader, $ionicPlatform) {
+        var animation = 'custom-fade-in';
+        var element, scope;
+        var updateInProgress = false;
+        var isShowing = false;
+
+        //var loadingPromise = $ionicTemplateLoader.load('templates/loadingscreen.html').then(
+        //    function(templateString){
+        //        scope = $rootScope.$new(true);
+        //        scope.data = {};
+        //        scope.data.percentage = "0";
+        //        element = $compile(templateString)(scope);
+        //    }
+        //);
+
+        var loadingPromise = $ionicLoading;
+
+
+        return {
+            show: show,
+            hide: hide,
+            toggleLoadingBar: toggleLoadingBar,
+            setPercentage: setPercentage,
+            fakeIncrement: fakeIncrement
+        };
+
+//----------------------------------------------------------------------------/
+
+        function show(showLoadingBar) {
+            loadingPromise.show({
+                content: 'Loading',
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 100,
+                showDelay: 0
+            });
+            isShowing = true;
+            //scope.showLoadingBar = showLoadingBar;
+            //
+            //$ionicPlatform.onHardwareBackButton(onHardwareBackButton);
+            //
+            //if( !element.parent().length ) {
+            //    $document[0].body.appendChild(element[0]);
+            //}
+            //isShowing = true;
+            //
+            //return $animate.addClass(element, animation);
+        }
+
+        function hide() {
+            var defer = $q.defer();
+
+            if (!isShowing) return defer.resolve();
+
+            loadingPromise.hide();
+            //loadingPromise.then(
+            //    function() {
+            //        if ( ionic.Platform.isWebView() ) cordova.plugins.Keyboard.close();
+            //
+            //        $ionicPlatform.offHardwareBackButton(onHardwareBackButton);
+            //
+            //        $animate.removeClass(element, animation).then(
+            //            function(){ defer.resolve(); },
+            //            function(){ defer.reject(); }
+            //        );
+            //
+            //        $timeout(function(){
+            //            scope.data.percentage = "0";
+            //        }, 1000);
+            //
+            //        isShowing = false;
+            //    }
+            //);
+
+            return defer.promise;
+        }
+
+        function toggleLoadingBar(show) {
+            scope.showLoadingBar = show;
+        }
+
+        function setPercentage(percentage) {
+            if (updateInProgress) return;
+
+            if (percentage == 1) {
+                scope.data.percentage = "100";
+                updateInProgress = false;
+                return;
+            }
+
+            updateInProgress = true;
+            $timeout(function () {
+                scope.data.percentage = Math.round(percentage * 100).toString();
+                updateInProgress = false;
+            }, 100);
+        }
+
+        function fakeIncrement() {
+            scope.data.percentage = (parseInt(scope.percentage) + 1).toString();
+            scope.$digest();
+        }
+
+//----------------------------------------------------------------------------/
+
+        function onHardwareBackButton() {
+            hide();
+        }
+
+    })
+
+    .factory('authService', ['$http', '$q', 'localStorageService', 'AppData','LoadingScreenService', function ($http, $q, localStorageService, AppData,LoadingScreenService) {
+
+        var serviceBase = AppData.ApiUrl;
+        var authServiceFactory = {};
+
+        var _authentication = {
+            isAuth: false,
+            userName: "",
+            userId:0,
+            useRefreshTokens: false
+        };
+
+        var _externalAuthData = {
+            provider: "",
+            userName: "",
+            externalAccessToken: ""
+        };
+
+        var _saveRegistration = function (registration) {
+
+            _logOut();
+
+            return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+                return response;
+            });
+
+        };
+
+        var _login = function (loginData,sucess,error) {
+            LoadingScreenService.show(false);
+            var data = "grant_type="+(loginData.grant_type||"password")+"&username=" + loginData.userName + "&password=" + loginData.password;
+
+
+            var deferred = $q.defer();
+
+            $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+                LoadingScreenService.hide();
+                if (loginData.useRefreshTokens) {
+                    localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: response.refresh_token, useRefreshTokens: true });
+                }
+                else {
+                    localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: "", useRefreshTokens: false });
+                }
+                _authentication.isAuth = true;
+                _authentication.userName = loginData.userName;
+                _authentication.userid=loginData.userid;
+                _authentication.useRefreshTokens = loginData.useRefreshTokennDs;
+
+                deferred.resolve(response);
+                if(typeof sucess=="function") sucess();
+
+            }).error(function (err, status) {
+                LoadingScreenService.hide();
+                _logOut();
+                if(typeof error=="function") error(err, status);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+
+        };
+
+        var _logOut = function () {
+
+            localStorageService.remove('authorizationData');
+
+            _authentication.isAuth = false;
+            _authentication.userName = "";
+            _authentication.userId=0;
+            _authentication.useRefreshTokens = false;
+
+        };
+
+        var _fillAuthData = function () {
+
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                _authentication.isAuth = true;
+                _authentication.userName = authData.userName;
+                _authentication.userId=authData.userid;
+                _authentication.useRefreshTokens = authData.useRefreshTokens;
+            }
+
+        };
+
+        var _refreshToken = function () {
+            var deferred = $q.defer();
+
+            var authData = localStorageService.get('authorizationData');
+
+            if (authData) {
+
+                if (authData.useRefreshTokens) {
+
+                    var data = "grant_type=refresh_token&refresh_token=" + authData.refreshToken + "&client_id=" + ngAuthSettings.clientId;
+
+                    localStorageService.remove('authorizationData');
+
+                    $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
+
+                        localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
+
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        _logOut();
+                        deferred.reject(err);
+                    });
+                }
+            }
+
+            return deferred.promise;
+        };
+
+        var _obtainAccessToken = function (externalData) {
+
+            var deferred = $q.defer();
+
+            $http.get(serviceBase + 'api/account/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
+
+                localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+                _authentication.isAuth = true;
+                _authentication.userName = response.userName;
+                _authentication.userId=response.userid;
+                _authentication.useRefreshTokens = false;
+
+                deferred.resolve(response);
+
+            }).error(function (err, status) {
+                _logOut();
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+
+        };
+
+        var _registerExternal = function (registerExternalData) {
+
+            var deferred = $q.defer();
+
+            $http.post(serviceBase + 'api/account/registerexternal', registerExternalData).success(function (response) {
+
+                localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+                _authentication.isAuth = true;
+                _authentication.userName = response.userName;
+                _authentication.useRefreshTokens = false;
+
+                deferred.resolve(response);
+
+            }).error(function (err, status) {
+                _logOut();
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+
+        };
+
+        authServiceFactory.saveRegistration = _saveRegistration;
+        authServiceFactory.login = _login;
+        authServiceFactory.logOut = _logOut;
+        authServiceFactory.fillAuthData = _fillAuthData;
+        authServiceFactory.authentication = _authentication;
+        authServiceFactory.refreshToken = _refreshToken;
+
+        authServiceFactory.obtainAccessToken = _obtainAccessToken;
+        authServiceFactory.externalAuthData = _externalAuthData;
+        authServiceFactory.registerExternal = _registerExternal;
+
+        return authServiceFactory;
+    }])
+
+    .factory('authInterceptorService', ['$q', '$injector','$location', 'localStorageService', function ($q, $injector,$location, localStorageService) {
+
+        var authInterceptorServiceFactory = {};
+
+        var _request = function (config) {
+
+            config.headers = config.headers || {};
+
+            var authData = localStorageService.get('authorizationData');
+            if (authData) {
+                config.headers.Authorization = 'Bearer ' + authData.token;
+            }
+
+            return config;
+        }
+
+        var _responseError = function (rejection) {
+            if (rejection.status === 401) {
+                var authService = $injector.get('authService');
+                var authData = localStorageService.get('authorizationData');
+
+
+                authService.logOut();
+                $location.path('/login');
+            }
+            return $q.reject(rejection);
+        }
+
+        authInterceptorServiceFactory.request = _request;
+        authInterceptorServiceFactory.responseError = _responseError;
+
+        return authInterceptorServiceFactory;
+    }]);

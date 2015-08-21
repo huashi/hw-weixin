@@ -3,18 +3,18 @@
     <div id="search-box" class="bar bar-subheader item-input-inset">
         <div class="item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
-            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="searchReg"
-                   ng-change="doSearch(this)">
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchLC(keyWords)">
 
         </div>
 
         <div class="button-bar">
 
-            <select class="item " style="border: none;margin-left: 1em;">
-                <option selected>默认排序</option>
-                <option>发生地</option>
-                <option>关注度</option>
-                <option>评论数</option>
+            <select class="item"  ng-model="orderType" style="border: none;margin-left: 1em;">
+                <option selected value="0">默认排序</option>
+                <option value="1">发生地</option>
+                <option value="2">关注度</option>
+                <option value="3">评论数</option>
             </select>
         </div>
     </div>
@@ -22,18 +22,18 @@
 
         <ion-list>
             <ion-item
-                    ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.id}}">
+                    ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.lcNo}}">
                     <span class="caseTitle">
-                        {{lc.LC_Name}}
+                        {{lc.name}}
                     </span>
                          <span class="item-note">
-                          已结案
+                          {{lc.stateName}}
                      </span>
 
             </ion-item>
 
         </ion-list>
-        <div  ng-style="{'display':display}">
+        <div  ng-show="display">
             <button class="button button-outline  button-block button-small" ng-click="getMyLawCase()">
                 加载更多...
             </button>
