@@ -312,7 +312,7 @@ angular.module('starter.controllers', [])
             var uid = ismy ? AppData.User.ID : 0;
             isAll = true;
             $scope.display=false;
-            LawCaseSvc.getAllLawCase(1, 1000,$scope.keyWords).then(function(tem){
+            LawCaseSvc.getMyLawCase(1, 1000,$scope.keyWords).then(function(tem){
                 if (!tem || tem.length < 1) {
                     return;
                 }
@@ -491,7 +491,7 @@ angular.module('starter.controllers', [])
 
         };
     })
-    .controller("SetupCtrl", function ($scope, $state, AppTools) {
+    .controller("SetupCtrl", function ($scope, $state,$ionicHistory, AppTools,localStorageService) {
 
         $scope.loginData = {};
 
@@ -514,9 +514,14 @@ angular.module('starter.controllers', [])
 
         function goToSignout() {
             //$http.get(HOST_NAME + '/logout');
-            localStorage.clear();
-            localStorage.isAuthenticated = false;
-            $state.go('/');
+            localStorageService.remove("authorizationData");
+            $ionicHistory.nextViewOptions({
+                disableAnimate: false,
+                disableBack: true
+            });
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache();
+            $state.go('app.catalogs', null, {location: 'replace'});
         }
 
         function goToLogin() {
@@ -758,6 +763,8 @@ angular.module('starter.controllers', [])
                     disableAnimate: false,
                     disableBack: true
                 });
+                $ionicHistory.clearHistory();
+                $ionicHistory.clearCache();
                 $state.go('app.catalogs', null, {location: 'replace'});
 
             }

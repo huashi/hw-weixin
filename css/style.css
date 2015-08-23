@@ -1,6 +1,9 @@
 body{
     font-family: 'microsoft yahei', »ªÎÄÏ¸ºÚ, Verdana, Arial, Helvetica, sans-serif;
 }
+.link-disabled{
+    pointer-events: none; opacity: 0.5;
+}
 .menu-icon{
     font-size: 1.5em;
 }

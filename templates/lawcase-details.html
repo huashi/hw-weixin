@@ -16,32 +16,32 @@
             <div class="item item-body">
                 <ion-list>
 
-                    <a class="item item-remove-animate  item-icon-right"  ng-href="#/app/lcFoucs/{{LawCase.solutionNo}}">
+                    <a class="item item-remove-animate  item-icon-right "  ng-class="{'link-disabled':(!LawCase.solutionNo)}" ng-href="#/app/lcFoucs/{{LawCase.solutionNo}}">
                         争议焦点
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
-                    <a class="item item-remove-animate  item-icon-right"  ng-href="#/app/lcJudgeGist/{{LawCase.solutionNo}}">
+                    <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"  ng-href="#/app/lcJudgeGist/{{LawCase.solutionNo}}">
                         裁判要旨
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
 
-                    <a class="item item-remove-animate  item-icon-right"
+                    <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcRelatedCase/{{LawCase.solutionNo}}">
                         相关案例
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
 
 
-                    <a class="item item-remove-animate  item-icon-right"
+                    <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcLegalBasis/{{LawCase.solutionNo}}">
                         法律依据
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
 
-                    <a class="item item-remove-animate item-icon-right"
+                    <a class="item item-remove-animate item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcMainView/{{LawCase.solutionNo}}">
                         主流观点
                         <i class="icon ion-chevron-right icon-accessory"></i>

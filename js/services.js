@@ -129,14 +129,12 @@ angular.module("starter.services", [])
     .factory("LawCaseSvc", function ($q,$http,AppHttp,AppData) {
         var serviceBase = AppData.ApiUrl;
         return {
-            getMyLawCase: function (uid) {
 
-            },
             getAllLawCase:function(pageIndex, pageSize,keyWords){
                 var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
 
                 var deferred = $q.defer();
-                $http.get(serviceBase + 'api/LawCase', {params:data}, { })
+                $http.get(serviceBase + 'api/LawCase/GetAllLcList', {params:data}, { })
                     .success(function (response) {
                         deferred.resolve(response);
 
@@ -151,7 +149,7 @@ angular.module("starter.services", [])
                 var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords,UserId:userid};
 
                 var deferred = $q.defer();
-                $http.get(serviceBase + 'api/LawCase/MyLC', {params:data}, { })
+                $http.get(serviceBase + 'api/LawCase/GetMyLcList', {params:data}, { })
                     .success(function (response) {
                         deferred.resolve(response);
 
@@ -529,16 +527,15 @@ angular.module("starter.services", [])
             LoadingScreenService.show(false);
             var data = "grant_type="+(loginData.grant_type||"password")+"&username=" + loginData.userName + "&password=" + loginData.password;
 
-
             var deferred = $q.defer();
 
             $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
                 LoadingScreenService.hide();
                 if (loginData.useRefreshTokens) {
-                    localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: response.refresh_token, useRefreshTokens: true });
+                    localStorageService.setObject('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: response.refresh_token, useRefreshTokens: true });
                 }
                 else {
-                    localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: "", useRefreshTokens: false });
+                    localStorageService.setObject('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: "", useRefreshTokens: false });
                 }
                 _authentication.isAuth = true;
                 _authentication.userName = loginData.userName;
@@ -680,8 +677,8 @@ angular.module("starter.services", [])
 
             config.headers = config.headers || {};
 
-            var authData = localStorageService.get('authorizationData');
-            if (authData) {
+            var authData = localStorageService.getObject('authorizationData');
+            if (authData&&authData.token) {
                 config.headers.Authorization = 'Bearer ' + authData.token;
             }
 
@@ -691,11 +688,8 @@ angular.module("starter.services", [])
         var _responseError = function (rejection) {
             if (rejection.status === 401) {
                 var authService = $injector.get('authService');
-                var authData = localStorageService.get('authorizationData');
-
-
                 authService.logOut();
-                $location.path('/login');
+                $location.path('app/login');
             }
             return $q.reject(rejection);
         }

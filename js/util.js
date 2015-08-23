@@ -15,10 +15,10 @@ angular.module("starter.common", [])
 
         }
     }
-) .factory("AppTools", function (AppData) {
+) .factory("AppTools", function (AppData,localStorageService) {
         return {
             IsAuthenticatedUser:function(){
-            return AppData.User.ID>0&&localStorage.isAuthenticated == "true";
+            return AppData.User.ID>0&&localStorageService.getObject("authorizationData").userName;
             }
         }
     }
