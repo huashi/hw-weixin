@@ -1,4 +1,9 @@
 <ion-view view-title="案件咨询" style="background: #F9F9F9">
+
+    <ion-nav-buttons side="right">
+        <a  class="button button-icon button-clear ion-refresh " id="home-points"   ng-click="loadHistory()"></a>
+    </ion-nav-buttons>
+
     <ion-content class="content-stable"
                  on-tap="showTime = !showTime">
 
@@ -7,11 +12,10 @@
              class="messages">
 
             <div class="message" ng-class="{'slide-right': showTime, '': !showTime}">
-                <span class="messagetext">{{ message.text }}</span>
+              {{(message.userId == myId?"我":(message.userName||"匿名"))+"："}}<span class="messagetext">{{ message.message }}</span>
             </div>
 
-            <div class="time" ng-class="{'slide-right': showTime, '': !showTime}">{{message.time}}</div>
-
+            <div class="time" ng-class="{'slide-right': showTime, '': !showTime}">{{message.createTime}}</div>
 
         </div>
 

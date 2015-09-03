@@ -19,7 +19,8 @@
                     <a class="item item-text-wrap" href="#" style="padding-bottom: 0;" ng-repeat="rc in rcList"
                        data-id="{{rc.id}}" ng-click="clickItem(rc.id)">
 
-                        <p class="primarytitle " ng-class="{selected:rcSelected.id==rc.id}">{{rc.title}}</p>
+                        <p class="primarytitle "><i class="selected" ng-if="rcSelected.id==rc.id"></i>
+                            <i> {{rc.title}}</i></p>
 
                     </a>
                 </div>

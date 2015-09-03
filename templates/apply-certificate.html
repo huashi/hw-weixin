@@ -1,0 +1,102 @@
+<ion-view view-title="申请认证" cache-view="true">
+    <!--cache-view="true"-->
+    <ion-content class="padding" has-bouncing="false">
+        <h4 >
+            请认真填写各项信息，我们会尽快审核，谢谢！
+        </h4>
+            <div class="list">
+
+
+                <div class="item item-divider">
+                    所在地区
+                </div>
+                <label class="item item-select">
+                    <span class="input-label">所在省：</span>
+                    <ion-select
+                            ng-model="my_array_used_to_iterate_through_items"
+                            selected-text="'Selected text for label'"
+                            multiple-select=true
+                            animate="slide-in-up"
+                            />
+                </label>
+
+                <label class="item  item-select">
+                    <div class="input-label">所在市：</div>
+                    <select >
+                        <option>Chrome Canary</option>
+                        <option>Firefox Nightly</option>
+                        <option>Chrome Canary</option>
+                        <option>Firefox Nightly</option>
+                        <option>Chrome Canary</option>
+                        <option>Firefox Nightly</option>
+                        <option>Chrome Canary</option>
+                    </select>
+                </label>
+
+                <div class="item item-divider">
+                    个人信息
+                </div>
+
+                <label class="item item-input">
+                    <span class="input-label">姓  名：</span>
+                    <input class="md-input" type="text"  autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.uname">
+
+                </label>
+                <label class="item item-select">
+                <span class="input-label">性  别：</span>
+                <select >
+                    <option selected>男</option>
+                    <option>女</option>
+
+                </select>
+
+            </label>
+
+                <label class="item item-input">
+                    <span class="input-label">联系方式：</span>
+                    <input class="md-input" type="text"  placeholder="邮箱、手机或QQ" autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.uname">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">执业证号：</span>
+                    <input class="md-input" type="password"  ng-model="formModel.pass">
+
+                </label>
+
+
+                <label class="item item-input">
+                    <span class="input-label">律师类型：</span>
+                    <input class="md-input" type="password"  ng-model="formModel.pass">
+
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">执业年限：</span>
+                    <input class="md-input" type="password" ng-model="formModel.pass">
+
+                </label>
+
+                <div class="list">
+
+                    <div class="item item-divider">
+                        专业方向
+                    </div>
+
+                    <ion-checkbox ng-model="pushNotification.checked">
+                        Push Notifications
+                    </ion-checkbox>
+
+                </div>
+
+                <input type="submit" ng-disabled="!(formModel.pass && formModel.uname)"
+                       class="button button-block button-positive view-button" value="提交审核">
+            </div>
+
+
+
+
+
+    </ion-content>
+</ion-view>

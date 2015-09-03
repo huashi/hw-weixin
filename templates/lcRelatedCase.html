@@ -21,12 +21,16 @@
                     <a class="item item-text-wrap" href="#" style="padding-bottom: 0;" ng-repeat="rc in rcList"
                             data-id="{{rc.id}}" ng-click="clickItem(rc.id)"
                             >
-                        <p class="primarytitle" ng-class="{selected:rcSelected.id==rc.id}">{{rc.title}}</p>
+                        <div class="primarytitle">
+                            <i class="selected" ng-if="rcSelected.id==rc.id"></i>
+                           <i> {{rc.title}}</i>
+                        </div>
                         <div class="value"><i class="title">审理法院：</i>{{rc.court}}</div>
                         <div class="value ">
                             <div class=""><i class="title">审结日期：</i>{{rc.date}}</div>
                             <div class=""><i class="title">审结流程：</i>{{rc.process}}</div>
                         </div>
+                        <div class="value"><i class="title">胜诉支持：</i>{{rc.isSupport?"支持":"不支持"}}</div>
                     </a>
                 </div>
             </ion-content>

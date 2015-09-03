@@ -1,10 +1,10 @@
-<ion-view view-title="我的案件" class="has-subheader">
+<ion-view view-title="案件列表" class="has-subheader">
 
     <div id="search-box" class="bar bar-subheader item-input-inset">
         <div class="item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
-            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="searchReg"
-                   ng-change="doSearch(this)">
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchLC(keyWords)">
 
         </div>
     </div>
@@ -12,12 +12,12 @@
 
         <ion-list>
             <ion-item
-                    ng-repeat="lc in MyLawCase" href="#/app/caselog/{{lc.id}}">
+                    ng-repeat="lc in MyLawCase" ng-href="#/app/caselog/{{lc.lcNo}}">
                     <span class="caseTitle">
-                        {{lc.LC_Name}}
+                         {{lc.name}}
                     </span>
                          <span class="item-note">
-                          已结案
+                          {{lc.stateName}}
                      </span>
 
             </ion-item>

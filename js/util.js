@@ -4,21 +4,34 @@
 angular.module("starter.common", [])
     .factory("AppData", function () {
         return {
-            User: {
-                ID: 1,
-                Name: "δ��¼",
-                Photo: "",
-                Type: 0,
-                RealName: "����"
-            },
-            ApiUrl:"http://localhost:8633/"
+            //User: {
+            //    ID: 1,
+            //    Name: "未登录",
+            //    Photo: "",
+            //    Type: 0,
+            //    RealName: "匿名",
+            //    role:[]
+            //},
+            ApiUrl:"http://localhost:8633/",
+            RemoteUrl:"http://localhost:3665/"
 
         }
     }
 ) .factory("AppTools", function (AppData,localStorageService) {
         return {
             IsAuthenticatedUser:function(){
-            return AppData.User.ID>0&&localStorageService.getObject("authorizationData").userName;
+            return !!localStorageService.getObject("authorizationData").userName;
+            },
+            getCurrentUser:function(){
+                var user={};
+                var ls=localStorageService.getObject("authorizationData");
+                if(ls){
+                    user.name=ls.userName||"未登录";
+                    user.type=ls.userType;
+                    user.realName=ls.realName||"匿名";
+                    user.id=ls.userId;
+                }
+                return user;
             }
         }
     }

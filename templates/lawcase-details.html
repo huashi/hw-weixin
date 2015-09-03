@@ -1,7 +1,7 @@
 <ion-view view-title="案件详情">
     <ion-content has-bouncing="true">
         <div class="card">
-            <div class="item item-divider caseTitle">
+            <div class="item item-divider positive-bg caseTitle">
                 {{LawCase.name}}
             </div>
             <div class="item item-text-wrap">
@@ -10,18 +10,20 @@
 
         </div>
         <div class="card">
-            <div class="item item-divider">
+            <div class="item item-divider positive-bg">
                 解决方案
             </div>
             <div class="item item-body">
                 <ion-list>
 
                     <a class="item item-remove-animate  item-icon-right "  ng-class="{'link-disabled':(!LawCase.solutionNo)}" ng-href="#/app/lcFoucs/{{LawCase.solutionNo}}">
+                        <i class="ion-qr-scanner menu-icon padding-right"></i>
                         争议焦点
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
                     </a>
                     <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"  ng-href="#/app/lcJudgeGist/{{LawCase.solutionNo}}">
+                        <i class="ion-ios-paper-outline menu-icon padding-right"></i>
                         裁判要旨
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -29,6 +31,7 @@
 
                     <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcRelatedCase/{{LawCase.solutionNo}}">
+                        <i class="ion-ios-list-outline menu-icon padding-right"></i>
                         相关案例
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
@@ -36,6 +39,7 @@
 
                     <a class="item item-remove-animate  item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcLegalBasis/{{LawCase.solutionNo}}">
+                        <i class="ion-ios-folder-outline menu-icon padding-right"></i>
                         法律依据
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -43,6 +47,7 @@
 
                     <a class="item item-remove-animate item-icon-right"  ng-class="{'link-disabled':(!LawCase.solutionNo)}"
                        ng-href="#/app/lcMainView/{{LawCase.solutionNo}}">
+                        <i class="ion-ios-chatboxes-outline menu-icon padding-right"></i>
                         主流观点
                         <i class="icon ion-chevron-right icon-accessory"></i>
 
@@ -51,20 +56,20 @@
                 </ion-list>
 
                 <div class="item tabs tabs-secondary ">
-                    <a class="tab-item has-badge" href="#">
+                    <a class="tab-item has-badge" href="javascript:void(0)" ng-click="unlikeLc()">
                         <i class=" ion-thumbsdown assertive">
-                            68
+                            {{lcFav.unlikeCount}}
                         </i>
                     </a>
-                    <a class="tab-item has-badge" href="#">
+                    <a class="tab-item has-badge" href="javascript:void(0)" ng-click="likeLc()">
                         <i class=" ion-thumbsup assertive">
-                            900
+                            {{lcFav.likeCount}}
                         </i>
                     </a>
 
-                    <a class="tab-item has-badge" href="#">
+                    <a class="tab-item has-badge" href="javascript:void(0)" ng-click="addFavorite()">
                         <i class=" ion-eye assertive">
-                            26
+                            {{lcFav.favCount}} <i class="small-title" ng-if="lcFav.isMyFav">已关注</i>
                         </i>
                     </a>
                 </div>
@@ -72,11 +77,11 @@
         </div>
 
         <div class="list card">
-            <div class="item item-divider">网友留言
-                <a class="youhuashuo" style="float: right; text-decoration: none" href="#">我有话说</a>
+            <div class="item item-divider positive-bg">网友留言
+                <a class="youhuashuo" style="float: right; text-decoration: none" href="javascript:void(0)" ng-click="sayWords=!sayWords">我有话说</a>
             </div>
 
-            <div class="item item-body">
+            <div class="item item-body" ng-show="sayWords">
 
                 <div class="texteara" style="display: block;">
                     <textarea class="txtaeara" name="content" id="commentTextarea">我来说两句</textarea>

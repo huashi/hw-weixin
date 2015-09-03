@@ -229,7 +229,7 @@ angular.module('starter.controllers', [])
         $scope.newsList = [];
         $scope.display = true;
         $scope.keyWords = "";
-        $scope.SourceId=0;
+        $scope.SourceId = 0;
 
         $scope.doSearch = function () {
             var query = $scope.queryVal;
@@ -239,51 +239,67 @@ angular.module('starter.controllers', [])
 
         $scope.getPageNews = function () {
             if (!isAll) {
-                 NewsSvc.getPageNews(pageIndex, pageSize,$scope.SourceId,$scope.keyWords).then(function(tem){
-                     if (!tem || tem.length < 1) {
-                         isAll = true;
-                         $scope.display=false;
-                         return;
-                     }
-                     $scope.newsList = $scope.newsList.concat(tem);
-                     pageIndex++;
-                 });
+                NewsSvc.getPageNews(pageIndex, pageSize, $scope.SourceId, $scope.keyWords).then(function (tem) {
+                    if (!tem || tem.length < 1) {
+                        isAll = true;
+                        $scope.display = false;
+                        return;
+                    }
+                    $scope.newsList = $scope.newsList.concat(tem);
+                    pageIndex++;
+                });
 
             }
         };
 
-        $scope.onSelectSearchNews=function(){
+        $scope.onSelectSearchNews = function () {
             pageIndex = 1, pageSize = 10, isAll = false;
             $scope.newsList = [];
             $scope.display = true;
             $scope.getPageNews();
         }
-        $scope.onInputSearchNews=function(dom){
+        $scope.onInputSearchNews = function (dom) {
 
-                pageIndex = 1, pageSize = 10, isAll = false;
-                $scope.newsList = [];
-                $scope.display = true;
-                $scope.getPageNews();
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.newsList = [];
+            $scope.display = true;
+            $scope.getPageNews();
 
         }
         $scope.onSelectSearchNews();
     })
-    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc) {
+    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc,FavoriteSvc) {
         var id = $stateParams.newsId;
-         NewsSvc.getNewsById(id).then(function(news){
-             $scope.News=news;
+        $scope.sayWords=false;
+        NewsSvc.getNewsById(id).then(function (news) {
+            $scope.News = news;
         });
+
+        $scope.addFavorite=function(){
+            if($scope.News.isMyFav){
+                return;
+            }
+          var data={};
+            data.keyId= $scope.News.id;
+            data.type=1;
+
+            FavoriteSvc.addFavorite(data).then(function(res){
+               if(res=="1"){
+                   $scope.News.isMyFav=true;
+                   $scope.News.favCount++;
+               }
+            });
+        };
 
         $scope.commentList = [{cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-1-2"}, {cnt: "好好", time: "2015-41-2"},
             {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
 
 
-
         $scope.Comments = [];
         $scope.display = "";
         $scope.queryVal = "";
-       var isAll=false,start= 1,end=5;
+        var isAll = false, start = 1, end = 5;
         $scope.getMessages = function () {
             if (!isAll) {
                 var tem = CommentsSvc.getPageMessage(start, end);
@@ -305,14 +321,13 @@ angular.module('starter.controllers', [])
         $scope.MyLawCase = [];
         $scope.display = true;
         $scope.navTitle = ismy ? "我的案件" : "所有案件";
-        $scope.keyWords="";
-        $scope.orderType=0;
+        $scope.keyWords = "";
+        $scope.orderType = 0;
 
         function getMyLawCase() {
-            var uid = ismy ? AppData.User.ID : 0;
             isAll = true;
-            $scope.display=false;
-            LawCaseSvc.getMyLawCase(1, 1000,$scope.keyWords).then(function(tem){
+            $scope.display = false;
+            LawCaseSvc.getMyLawCase(1, 1000, $scope.keyWords).then(function (tem) {
                 if (!tem || tem.length < 1) {
                     return;
                 }
@@ -321,11 +336,11 @@ angular.module('starter.controllers', [])
             });
         }
 
-        function getAllLawCase(){
-            LawCaseSvc.getAllLawCase(pageIndex, pageSize,$scope.keyWords).then(function(tem){
+        function getAllLawCase() {
+            LawCaseSvc.getAllLawCase(pageIndex, pageSize, $scope.keyWords).then(function (tem) {
                 if (!tem || tem.length < 1) {
                     isAll = true;
-                    $scope.display=false;
+                    $scope.display = false;
                     return;
                 }
                 $scope.MyLawCase = $scope.MyLawCase.concat(tem);
@@ -333,117 +348,159 @@ angular.module('starter.controllers', [])
             });
         }
 
-        $scope.loadLCPages=function(){
-            ismy?getMyLawCase():getAllLawCase();
+        $scope.loadLCPages = function () {
+            ismy ? getMyLawCase() : getAllLawCase();
         }
 
-        $scope.onInputSearchLC=function(dom){
+        $scope.onInputSearchLC = function (dom) {
 
-                pageIndex = 1, pageSize = 10, isAll = false;
-                $scope.MyLawCase = [];
-                $scope.display = true;
-                $scope.loadLCPages();
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.MyLawCase = [];
+            $scope.display = true;
+            $scope.loadLCPages();
 
         };
 
         $scope.loadLCPages();
 
     })
-    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams,LawCaseSvc, CommentsSvc) {
+    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams, LawCaseSvc, CommentsSvc,FavoriteSvc) {
         var lcId = $stateParams.lcId;
+        $scope.sayWords=false;
         $scope.LawCase;
         $scope.lcId = 1;
         $scope.display = "";
+        $scope.lcFav={};
         $scope.getLawCaseByLcNo = function (no) {
-            LawCaseSvc.getLawCaseByLcNo(no).then(function(lc){
-                $scope.LawCase=lc;
+            LawCaseSvc.getLawCaseByLcNo(no).then(function (lc) {
+                $scope.LawCase = lc;
             });
         };
+
+     function getLcFavorite(){
+         LawCaseSvc.getLawCaseFavorite(lcId).then(function(res){
+             $scope.lcFav=res;
+         })
+     }
+        $scope.addFavorite= function () {
+            if($scope.lcFav.isMyFav){
+                return;
+            }
+            var data={};
+            data.keyId= lcId;
+            data.type=2;
+
+            FavoriteSvc.addFavorite(data).then(function(res){
+                if(res=="1"){
+                    $scope.lcFav.isMyFav=true;
+                    $scope.lcFav.favCount++;
+                }
+            });
+        };
+
+        $scope.likeLc=function(){
+            var data={};
+            data.lcNo=lcId;
+            data.vote=1;
+            LawCaseSvc.voteLawCase(data).then(function(res){
+                if(res!=0){
+                    if(res==1){
+                        $scope.lcFav.unlikeCount--;
+                        $scope.lcFav.likeCount++;
+                    }
+                    else if(res==2){
+                        $scope.lcFav.likeCount++;
+                    }
+                }
+            });
+        };
+
+        $scope.unlikeLc=function(){
+            var data={};
+            data.lcNo=lcId;
+            data.vote=0;
+            LawCaseSvc.voteLawCase(data).then(function(res){
+                if(res!=0){
+                    if(res==1){
+                        $scope.lcFav.unlikeCount++;
+                        $scope.lcFav.likeCount--;
+                    }
+                    else if(res==2){
+                        $scope.lcFav.unlikeCount++;
+                    }
+                }
+            });
+        };
+
         $scope.getLawCaseByLcNo(lcId);
+        getLcFavorite();
     })
-    .controller("CaseLogCtrl", function ($scope, $window, CaseLogSvc) {
-
+    .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppData, CaseLogSvc) {
+        var lcNo = $stateParams.lcNo;
+        var rUrl = AppData.RemoteUrl;
         $scope.LogList = "";
-        $scope.loadPage = loadPage;
+        $scope.loadAllLog = loadAllLog;
+        $scope.isShowBtn = true;
+        $scope.logStates = [];
+        $scope.lcNo = lcNo;
+        function loadSates() {
+            CaseLogSvc.getLogState(lcNo).then(function (data) {
+                $scope.logStates = data;
+            });
+        }
 
-        var page = 1, total = 0;
+        function loadAllLog() {
+            CaseLogSvc.getAllLogs(lcNo).then(function (data) {
+                getList(data);
+            });
+            $scope.isShowBtn = false;
+        }
 
         function getList(data) {
-            if (!data) {
-                $('.more').html('数据已经全部加载完').show();
-                return false;
-            }
-            for (var date in data) {
-
+            for (var i = 0; i < data.length; i++) {
+                var date = data[i].date;
                 var append_str = '';
-                append_str += '<div class="timeBox"><h1>' + date + '</h1><div class="star"><img src="http://mat1.gtimg.com/cd/2015/xckb/time_star.png"></div><div class="timeline"><div class="line"></div></div><div class="txtBox">';
+                append_str += '<div class="timeBox"><h1>' + date + '</h1><div class="star"><img src="/img/caselog/time_star.png"></div><div class="timeline"><div class="line"></div></div><div class="txtBox">';
 
-                var tempData = data[date];
+                var tempData = data[i].logs;
                 for (var j = 0; j < tempData.length; j++) {
-
-
-                    var author = '/img/caselog/' + tempData[j].author;
-
+                    var author = '/img/caselog/';
                     switch (parseInt(tempData[j].type)) {
-                        case 1:
-                            append_str += '<div class="item0 item1"><div class="txt"><h2>' + tempData[j].content + '</h2><span class="sj sj1"></span><span class="sj sj2"></span></div><div class="pic"><img src="' + author + '"></div></div>';
-                            break;
                         case 2:
-                            var piclist = tempData[j].piclist.split(',');
-                            var piclist_str = '';
-                            for (var a = 0; a < piclist.length; a++) {
-                                piclist_str += '<li><a href="' + piclist[a] + '" class="swipebox" title=""><img src="' + piclist[a] + '" alt="image"></a></li>';
-                            }
-                            append_str += '<div class="item0 item1"><div class="txt"><h2>' + tempData[j].content + '</h2><ul>' + piclist_str + '</ul><span class="sj sj1"></span><span class="sj sj2"></span></div><div class="pic"><img src="' + author + '"></div></div>';
+                            author += "lsxx.png";
+                            append_str += '<div class="item0 item1"><div class="txt"><h2>' + tempData[j].text + '</h2><span class="sj sj1"></span><span class="sj sj2"></span></div><div class="pic"><img src="' + author + '"></div></div>';
                             break;
-                        case 3:
-                            append_str += '<div class="item0 item2"><div class="pic"><img src="' + author + '"></div><div class="txt"><h2>' + tempData[j].content + '</h2><span class="sj sj1"></span><span class="sj sj2"></span></div></div>';
-                            break;
-                        case 4:
-                            append_str += '<div class="item0 item3"><div class="pic"><img src="' + author + '"></div><div class="txt"><div class="tp"><img src="' + tempData[j].pic + '"></div><h2>' + tempData[j].title + '</h2><p>' + tempData[j].content + '</p><span class="sj sj1"></span><span class="sj sj2"></span><div class="link"><a href="' + tempData[j].link + '">全文</a></div></div></div>';
-                            break;
-                        case 5:
-                            append_str += '<div class="item0 item4"><div class="pic"><img src="' + author + '"></div><div class="txt"><h2>' + tempData[j].title + '</h2><div class="tp"><img src="' + tempData[j].pic + '"></div><p>' + tempData[j].content + '</p><div class="link"><a href="' + tempData[j].link + '">全文</a></div><span class="sj sj1"></span><span class="sj sj2"></span></div></div>';
-                            break;
-                        case 6:
-                            var piclist = tempData[j].piclist.split(',');
+                        case 1:
+                            author += "ajjz.png";
+                            var piclist = tempData[j].images.split('|');
                             var piclist_str = '';
                             for (var a = 0; a < piclist.length; a++) {
 
-                                piclist[a] = "/img/caselog/content/" + piclist[a];
+                                var img = rUrl + "Files/LogImg/" + piclist[a];
 
-                                piclist_str += '<li><a href="' + piclist[a] + '" class="swipebox" title=""><img src="' + piclist[a] + '" alt="image"></a></li>';
+                                piclist_str += '<li><a href="' + img + '" class="swipebox" title=""><img src="' + img + '" alt="image"></a></li>';
                             }
-                            append_str += '<div class="item0 item5"><div class="pic"><img src="' + author + '"></div><div class="txt"><h2>' + tempData[j].content + '</h2><ul>' + piclist_str + '</ul><span class="sj sj1"></span><span class="sj sj2"></span></div></div>';
+                            append_str += '<div class="item0 item5"><div class="pic"><img src="' + author + '"></div><div class="txt"><h2>' + tempData[j].text + '</h2><ul>' + piclist_str + '</ul><span class="sj sj1"></span><span class="sj sj2"></span></div></div>';
                             break;
                         default:
                             break;
                     }
                 }
                 append_str += '</div></div>';
-                $('#maindata').append(append_str);
+                $('#maindata').empty().append(append_str);
             }
         }
 
         function loadPage() {
-            if (total > 0 && page > total) {
-                $('.more').html('数据已经全部加载完').show();
-                return false;
-            }
-
-            var R = CaseLogSvc.all();
-            if (total == 0) {
-                total = R.pages.total;
-            }
-            if (R.list && R.pages.page <= R.pages.total) {
-                getList(R.list);
-                page++;
-            }
+            CaseLogSvc.getRecentlyLog(lcNo).then(function (data) {
+                getList(data);
+            });
         }
 
         $(document).ready(function () {
             loadPage();
             $('.swipebox').swipebox();
+            loadSates();
         });
 
     })
@@ -491,8 +548,9 @@ angular.module('starter.controllers', [])
 
         };
     })
-    .controller("SetupCtrl", function ($scope, $state,$ionicHistory, AppTools,localStorageService) {
+    .controller("SetupCtrl", function ($scope, $state, $ionicHistory, $window, AppTools, localStorageService) {
 
+        $scope.User = AppTools.getCurrentUser();
         $scope.loginData = {};
 
         $scope.isLogined = AppTools.IsAuthenticatedUser();
@@ -521,61 +579,62 @@ angular.module('starter.controllers', [])
             });
             $ionicHistory.clearHistory();
             $ionicHistory.clearCache();
-            $state.go('app.catalogs', null, {location: 'replace'});
+            //$state.go('app.catalogs', null, {location: 'replace'});
+            $window.location.reload(true);
         }
 
         function goToLogin() {
             $state.go('app.login');
         }
     })
-    .controller("GetHelpCtrl", function ($scope, $stateParams, LawCase) {
+    .controller("GetHelpCtrl", function ($scope, $stateParams, LawCaseSvc) {
         var userid = $stateParams.uid;
-        var start = 1, end = 10, isAll = false;
+        var start = 1, end = 10;
         $scope.MyLawCase = [];
         $scope.display = "";
         $scope.getMyLawCase = function () {
-            if (!isAll) {
-                var tem = LawCase.getMyLawCase(1);
-                if (!tem || tem.length == 0) {
-                    isAll = true;
-                    $scope.display = "none";
-                    return;
-                }
-                $scope.MyLawCase = $scope.MyLawCase.concat(tem);
-                start = end;
-                end *= 2;
-            }
+                var tem = LawCaseSvc.getMyLawCase().then(function (res) {
+                    $scope.MyLawCase=res;
+                    $scope.MyLawCase.error=!res.length;
+                });
+
         };
         $scope.getMyLawCase();
 
     })
-    .controller('ChatforLCCtrl', function ($scope, $timeout, $ionicScrollDelegate, ChatSvc, AppData) {
-
+    .controller('ChatforLCCtrl', function ($scope, $timeout, $stateParams, $ionicScrollDelegate, ChatSvc, AppTools) {
+        $scope.messages = [];
+        var lcNo = $stateParams.lcNo;
         $scope.showTime = true;
-
-        var alternate,
-            isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+        var user = AppTools.getCurrentUser();
+        var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         $scope.sendMessage = function () {
-
             if (!$scope.data.message) return;
-
-            alternate = !alternate;
-
             var d = new Date();
             d = d.toLocaleTimeString().replace(/:\d+ /, ' ');
 
-            $scope.messages.push({
-                userId: alternate ? '12345' : '54321',
-                text: $scope.data.message,
-                time: d
+            var data = {
+                message: $scope.data.message,
+                lcNo: lcNo
+            };
+
+            ChatSvc.sendMessage(data).then(function (response) {
+                var r = response;
+                $scope.messages.push({
+                    userId: user.id,
+                    message: data.message,
+                    createTime: d
+                });
             });
 
             delete $scope.data.message;
             $ionicScrollDelegate.scrollBottom(true);
 
         };
-
+        ChatSvc.getHistory(lcNo).then(function (response) {
+            $scope.messages = response;
+        });
         $scope.inputKeydown = function () {
             var evt = window.event;
             if (evt.which == 13 || evt.keyCode == 13) {
@@ -601,16 +660,22 @@ angular.module('starter.controllers', [])
             // cordova.plugins.Keyboard.close();
         };
 
+        function loadHistory() {
+            ChatSvc.getHistory(lcNo).then(function (response) {
+                $scope.messages = response;
+            })
+        }
 
+        $scope.loadHistory = loadHistory;
         $scope.data = {};
-        $scope.myId = AppData.User.ID;
-        $scope.messages = ChatSvc.all();
+        $scope.myId = user.id;
+        loadHistory();
 
     })
-    .controller("RelatedCaseCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+    .controller("RelatedCaseCtrl", function ($scope, $ionicActionSheet, $ionicPopover, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
-         $scope.rcList=[];
-         $scope.rcSelected={};
+        $scope.rcList = [];
+        $scope.rcSelected = {};
 
         $ionicPopover.fromTemplateUrl('modallist.html', {
             scope: $scope,
@@ -631,24 +696,24 @@ angular.module('starter.controllers', [])
         });
 
         $scope.clickItem = function (id) {
-            for(var i=0;i<$scope.rcList.length;i++){
-                if($scope.rcList[i].id==id){
-                    $scope.rcSelected=$scope.rcList[i];
+            for (var i = 0; i < $scope.rcList.length; i++) {
+                if ($scope.rcList[i].id == id) {
+                    $scope.rcSelected = $scope.rcList[i];
                 }
             }
             $scope.closeSelectModal();
         };
 
-        SolutionSvc.getRelatedCase(sNo).then(function(data){
-            $scope.rcList=data;
-            $scope.rcSelected=data[0];
+        SolutionSvc.getRelatedCase(sNo).then(function (data) {
+            $scope.rcList = data;
+            $scope.rcSelected = data[0];
         });
 
     })
-    .controller("MainViewCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+    .controller("MainViewCtrl", function ($scope, $ionicActionSheet, $ionicPopover, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
-        $scope.rcList=[];
-        $scope.rcSelected={};
+        $scope.rcList = [];
+        $scope.rcSelected = {};
 
         $ionicPopover.fromTemplateUrl('modallist.html', {
             scope: $scope,
@@ -669,24 +734,24 @@ angular.module('starter.controllers', [])
         });
 
         $scope.clickItem = function (id) {
-            for(var i=0;i<$scope.rcList.length;i++){
-                if($scope.rcList[i].id==id){
-                    $scope.rcSelected=$scope.rcList[i];
+            for (var i = 0; i < $scope.rcList.length; i++) {
+                if ($scope.rcList[i].id == id) {
+                    $scope.rcSelected = $scope.rcList[i];
                 }
             }
             $scope.closeSelectModal();
         };
 
-        SolutionSvc.getMainView(sNo).then(function(data){
-            $scope.rcList=data;
-            $scope.rcSelected=data[0];
+        SolutionSvc.getMainView(sNo).then(function (data) {
+            $scope.rcList = data;
+            $scope.rcSelected = data[0];
         });
 
     })
-    .controller("LegalBasisCtrl", function ($scope, $ionicActionSheet, $ionicPopover,$stateParams,SolutionSvc) {
+    .controller("LegalBasisCtrl", function ($scope, $ionicActionSheet, $ionicPopover, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
-        $scope.rcList=[];
-        $scope.rcSelected={};
+        $scope.rcList = [];
+        $scope.rcSelected = {};
 
         $ionicPopover.fromTemplateUrl('modallist.html', {
             scope: $scope,
@@ -707,39 +772,61 @@ angular.module('starter.controllers', [])
         });
 
         $scope.clickItem = function (id) {
-            for(var i=0;i<$scope.rcList.length;i++){
-                if($scope.rcList[i].id==id){
-                    $scope.rcSelected=$scope.rcList[i];
+            for (var i = 0; i < $scope.rcList.length; i++) {
+                if ($scope.rcList[i].id == id) {
+                    $scope.rcSelected = $scope.rcList[i];
                 }
             }
             $scope.closeSelectModal();
         };
 
-        SolutionSvc.getLegalBasis(sNo).then(function(data){
-            $scope.rcList=data;
-            $scope.rcSelected=data[0];
+        SolutionSvc.getLegalBasis(sNo).then(function (data) {
+            $scope.rcList = data;
+            $scope.rcSelected = data[0];
         });
 
     })
 
+    .controller("FavoriteCtrl",function($scope,$stateParams,FavoriteSvc){
+        var type=$stateParams.type;
+        $scope.keyWords="";
+        $scope.favorites=[];
+        FavoriteSvc.getMyFavorite(type).then(function(res){
+            $scope.favorites=res;
+        });
 
-    .controller("SFocusCtrl", function ($scope,$stateParams, SolutionSvc) {
+        $scope.onInputSearchNews=function(key){
+            FavoriteSvc.getMyFavorite(type,key).then(function(res){
+                $scope.favorites=res;
+            });
+        }
+    })
+
+    .controller("SFocusCtrl", function ($scope, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
-        $scope.Focus="";
-        SolutionSvc.getFocus(sNo).then(function(data){
-            $scope.Focus=data;
+        $scope.Focus = "";
+        SolutionSvc.getFocus(sNo).then(function (data) {
+            $scope.Focus = data;
         })
 
     })
-    .controller("SJudgeGistCtrl", function ($scope,$stateParams, SolutionSvc) {
+    .controller("SJudgeGistCtrl", function ($scope, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
-        $scope.JudgeGist="";
-        SolutionSvc.getJudgeGist(sNo).then(function(data){
-            $scope.JudgeGist=data;
+        $scope.JudgeGist = "";
+        SolutionSvc.getJudgeGist(sNo).then(function (data) {
+            $scope.JudgeGist = data;
         })
 
     })
 
+    .controller("ApplyCertificateCtrl", function ($scope, $stateParams, SolutionSvc) {
+        var sNo = $stateParams.sNo;
+        $scope.JudgeGist = "";
+        SolutionSvc.getJudgeGist(sNo).then(function (data) {
+            $scope.JudgeGist = data;
+        })
+
+    })
     .controller("LoginCtrl", function ($scope, $ionicModal, $timeout, $http, $state, $ionicHistory, AppData, LoadingScreenService, authService) {
 
         $scope.loginData = {};
@@ -784,6 +871,78 @@ angular.module('starter.controllers', [])
                 }
             }
         }
+
+    })
+
+    .controller("ChangePwd", function ($scope, $ionicModal, $timeout, $http, $state, $ionicHistory, $ionicPopup, AppData, LoadingScreenService, authService) {
+        $scope.loginData = {};
+
+        $scope.formModel = {};
+        $scope.doChange = changePwd;
+
+
+        function changePwd() {
+            $scope.formModel.erro = "";
+            var data = {
+                oldPwd: $scope.formModel.oldpwd,
+                newPwd: $scope.formModel.newpwd
+            }
+
+            if ($scope.formModel.newpwd !== $scope.formModel.newpwd2) {
+                $scope.formModel.error = "两次输入密码不一致！！！";
+                return;
+            }
+
+            authService.changePasswordWord(data).then(success, error);
+
+            function success(response) {
+                if (response == "0") {
+                    $scope.formModel.error = "原密码输入错误！！！";
+                    return;
+                }
+                clearForm();
+
+                var alertPopup = $ionicPopup.alert({
+                    title: '提示！',
+                    template: '您需要重新登陆'
+                });
+                alertPopup.then(function (res) {
+
+                    //提示重新登陆 todo
+                    $ionicHistory.nextViewOptions({
+                        disableAnimate: false,
+                        disableBack: true
+                    });
+                    $ionicHistory.clearHistory();
+                    $ionicHistory.clearCache();
+                    $state.go('app.login', null, {location: 'replace'});
+                });
+            };
+
+
+        }
+
+        function error(data, status) {
+            $scope.formModel.errors = {};
+            clearForm();
+            //$ionicHistory.clearHistory()
+            // $ionicHistory.clearCache();
+
+            if (status == 401 || status == 400) {
+                $scope.formModel.error = "用户名或者密码错误!!!";
+            } else if (status === 0 || status === 404) {
+                $scope.formModel.error = "连接错误!!!";
+            } else {
+                $scope.formModel.error = "意外错误!!!错误码：" + status;
+            }
+        }
+
+        function clearForm() {
+            $scope.formModel.error = "";
+            $scope.formModel.oldpwd = "";
+            $scope.formModel.newpwd = "";
+        }
+
 
     })
 ;

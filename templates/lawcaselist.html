@@ -12,7 +12,7 @@
 
             <select class="item"  ng-model="orderType" style="border: none;margin-left: 1em;">
                 <option selected value="0">默认排序</option>
-                <option value="1">发生地</option>
+                <!--<option value="1">发生地</option>-->
                 <option value="2">关注度</option>
                 <option value="3">评论数</option>
             </select>
@@ -21,6 +21,11 @@
     <ion-content class="has-subheader">
 
         <ion-list>
+            <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="MyLawCase.length==0">
+                <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+                <br/><br/>没有案件
+            </div>
+
             <ion-item
                     ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.lcNo}}">
                     <span class="caseTitle">
@@ -34,7 +39,7 @@
 
         </ion-list>
         <div  ng-show="display">
-            <button class="button button-outline  button-block button-small" ng-click="getMyLawCase()">
+            <button class="button button-outline  button-block button-small" ng-click="loadLCPages()">
                 加载更多...
             </button>
         </div>

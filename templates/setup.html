@@ -3,16 +3,18 @@
         <div class="card">
             <div class="item head-img">
                 <div><img class="my-img" src="img/unknow.gif"></div>
-                <p>张三</p>
-
+                <p  ng-if="!!User.name">{{User.realName}}
+                    <i ng-if="User.type==='Lawer'" class="ion-ribbon-a" style="color:rgb(219, 186, 17);font-size: 18px;"></i>
+                </p>
+                <p>{{User.name}}</p>
             </div>
             <div class="item tabs tabs-secondary ">
-                <a class="tab-item has-badge" href="#">
+                <a class="tab-item has-badge" href="#/app/favorites/1">
                     <i class=" ion-star">
                         收藏
                     </i>
                 </a>
-                <a class="tab-item has-badge" href="#">
+                <a class="tab-item has-badge" href="#/app/focus/2">
                     <i class=" ion-eye">
                         关注
                     </i>
@@ -45,8 +47,14 @@
                     </a>
                     <a class="item item-icon-right"
                        href="#/app/help-note">
-                        <i class="menu-icon ion-person-stalker"></i>
+                        <i class="menu-icon ion-heart"></i>
                         申请救助
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </a>
+                    <a class="item item-icon-right"
+                       href="#/app/contact">
+                        <i class="menu-icon ion-person-stalker"></i>
+                        律透客服
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
                 </ion-list>
@@ -58,8 +66,8 @@
             <div class="item item-body">
                 <ion-list>
                     <a class="item item-icon-right"
-                       href="#">
-                        <i class="ion-android-star menu-icon"></i>
+                       href="#/app/apply-certificate">
+                        <i class="ion-ribbon-a menu-icon"></i>
                         律师认证
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
@@ -75,7 +83,7 @@
 
 
                     <a class="item item-icon-right"
-                       href="#">
+                       href="#/app/changePassword">
                         <i class="ion-wrench menu-icon"></i>
                         修改密码
                         <i class="icon ion-chevron-right icon-accessory"></i>

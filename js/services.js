@@ -116,7 +116,7 @@ angular.module("starter.services", [])
             },
             getNewsById: function (id) {
                 var deferred = $q.defer();
-                $http.get(serviceBase + 'api/News/'+id, {}, { })
+                $http.get(serviceBase + 'api/News/GetById/'+id, {}, { })
                     .success(function (response) {
                         deferred.resolve(response);
                     }).error(function (err, status) {
@@ -126,15 +126,24 @@ angular.module("starter.services", [])
             }
         }
     })
-    .factory("LawCaseSvc", function ($q,$http,AppHttp,AppData) {
+    .factory("LawCaseSvc", function ($q,$http,LoadingScreenService,AppHttp,AppData) {
         var serviceBase = AppData.ApiUrl;
         return {
-
-            getAllLawCase:function(pageIndex, pageSize,keyWords){
-                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
-
+            voteLawCase:function(data){
+            LoadingScreenService.show(false);
+            var deferred = $q.defer();
+            $http.post(serviceBase + 'api/Favorite/VoteLawCase', data).success(function (response) {
+                LoadingScreenService.hide();
+                deferred.resolve(response);
+            }).error(function (err, status) {
+                LoadingScreenService.hide();
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        },
+            getLawCaseFavorite:function(lcNo){
                 var deferred = $q.defer();
-                $http.get(serviceBase + 'api/LawCase/GetAllLcList', {params:data}, { })
+                $http.get(serviceBase + 'api/LawCase/GetLawCaseFavorite/'+lcNo, {}, { })
                     .success(function (response) {
                         deferred.resolve(response);
 
@@ -143,17 +152,35 @@ angular.module("starter.services", [])
                     });
 
                 return deferred.promise;
-        },
-            getMyLawCase:function(pageIndex, pageSize,keyWords){
-                var userid=AppData.User.ID;
-                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords,UserId:userid};
+            },
 
+            getAllLawCase:function(pageIndex, pageSize,keyWords){
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+                LoadingScreenService.show(false);
                 var deferred = $q.defer();
-                $http.get(serviceBase + 'api/LawCase/GetMyLcList', {params:data}, { })
+                $http.get(serviceBase + 'api/LawCase/GetAllLcList', {params:data}, { })
                     .success(function (response) {
+                        LoadingScreenService.hide();
                         deferred.resolve(response);
 
                     }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+        },
+            getMyLawCase:function(pageIndex, pageSize,keyWords){
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LawCase/GetMyLcList', {params:data}, { })
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
                         deferred.reject(err);
                     });
 
@@ -243,77 +270,126 @@ angular.module("starter.services", [])
             }
         }
     })
-    .factory("CaseLogSvc", function () {
-        var data = {
-            "list": {
-                "2015-06-28": [{
-                    "id": "142",
-                    "account_id": "26",
-                    "type": "6",
-                    "title": "",
-                    "content": "递交的材料有...",
-                    "piclist": "2015-6-28-A.jpg,2015-6-28-B.jpg,2015-6-28-C.jpg",
-                    "author": "ajjz.png",
-                    "link": "ajjz.jpg",
-                    "date": "2015-06-26",
-                    "uin": "2117428798",
-                    "dateline": "1435285186"
-                },
-                    {
-                        "id": "143",
-                        "account_id": "26",
-                        "type": "1",
-                        "title": "",
-                        "content": "我们已经接收案件，并将案件的相关材料递交法院",
-                        "piclist": "2015-6-28-A.jpg,2015-6-28-B.jpg,2015-6-28-C.jpg",
-                        "author": "lsxx.png",
-                        "link": "",
-                        "date": "2015-06-26",
-                        "uin": "2117428798",
-                        "dateline": "1435306940"
-                    }]
-
-            },
-            "pages": {
-                "page": 1,
-                "total": 16
-            }
-        };
+    .factory("CaseLogSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
         return {
             all: function () {
                 var d = new Array();
                 d = data;
                 return d;
+            },
+            getLogState: function (caseNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/CaseLog/GetLogState/' + caseNo)
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
+            }, getAllLogs: function (caseNo) {
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/CaseLog/GetAllLogs/' + caseNo)
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
+            }, getRecentlyLog: function (caseNo) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/CaseLog/GetRecentlyLog/' + caseNo)
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
             }
         }
     })
-    .factory("ChatSvc", function () {
-        var messages = [{
-            userId: 1,
-            text: "张律师现在什么情况了？",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            userId: 2,
-            text: "一切正常",
-            time: "2015-01-02 12:01:12",
-            username: "张律师"
-        }, {
-            userId: 2,
-            text: "不要着急",
-            time: "2015-01-03 12:01:12",
-            username: "张律师"
-        }, {
-            userId: 1,
-            text: "谢谢",
-            time: "2015-01-04 12:01:12",
-            username: "张三"
-        }
-        ];
-
+    .factory("ChatSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
         return {
-            all: function () {
-                return messages;
+            getHistory: function (lcNo) {
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LcChat/GetChatList/'+lcNo, {}, { })
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            sendMessage:function(data){
+                LoadingScreenService.show(false);
+                var data = {message:data.message,lcNo:data.lcNo};
+                var deferred = $q.defer();
+                $http.post(serviceBase + 'api/LcChat/SendMessage', data).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
+
+    .factory("FavoriteSvc",function(AppData,$q,$http,LoadingScreenService){
+        var serviceBase = AppData.ApiUrl;
+        return{
+            addFavorite:function(data){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.post(serviceBase + 'api/Favorite/AddFavorite', data).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            },
+            getMyFavorite:function(type,keyword){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                var key={key:keyword};
+                $http.get(serviceBase + 'api/Favorite/GetByType/'+type,  {params:key}, { })
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            deleteFavorite:function(fid){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.delete(serviceBase + 'api/Favorite/'+fid, {}, { })
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
             }
         }
     })
@@ -532,10 +608,10 @@ angular.module("starter.services", [])
             $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
                 LoadingScreenService.hide();
                 if (loginData.useRefreshTokens) {
-                    localStorageService.setObject('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: response.refresh_token, useRefreshTokens: true });
+                    localStorageService.setObject('authorizationData', {userId:response.userid, userType:response.userType, token: response.access_token, userName: loginData.userName,realName:response.realName, refreshToken: response.refresh_token, useRefreshTokens: true });
                 }
                 else {
-                    localStorageService.setObject('authorizationData', { token: response.access_token, userName: loginData.userName,userId:loginData.userid, refreshToken: "", useRefreshTokens: false });
+                    localStorageService.setObject('authorizationData', {userId:response.userid,userType:response.userType, token: response.access_token, userName: loginData.userName,realName:response.realName, refreshToken: "", useRefreshTokens: false });
                 }
                 _authentication.isAuth = true;
                 _authentication.userName = loginData.userName;
@@ -655,6 +731,25 @@ angular.module("starter.services", [])
 
         };
 
+       var _changePasswordWord=function(loginData){
+           LoadingScreenService.show(false);
+           var data = {oldPwd:loginData.oldPwd,newPwd:loginData.newPwd};
+
+           var deferred = $q.defer();
+
+           $http.post(serviceBase + 'api/Account/ChangePwd', data).success(function (response) {
+               LoadingScreenService.hide();
+               deferred.resolve(response);
+           }).error(function (err, status) {
+               LoadingScreenService.hide();
+               deferred.reject(err);
+           });
+
+           return deferred.promise;
+
+       };
+
+        authServiceFactory.changePasswordWord=_changePasswordWord;
         authServiceFactory.saveRegistration = _saveRegistration;
         authServiceFactory.login = _login;
         authServiceFactory.logOut = _logOut;

@@ -1,0 +1,26 @@
+<ion-view view-title="我的关注">
+
+    <div id="search-box" class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchNews(keyWords)">
+
+        </div>
+
+    </div>
+    <ion-content  class="has-subheader">
+        <ion-list>
+            <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="!favorites.length||favorites.length==0">
+                <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+                <br/><br/>没有找到关注的案件
+            </div>
+            <ion-item class=" item-icon-right"
+                      type="item-text-wrap"   ng-repeat="lc in favorites" href="#/app/lawcase-details/{{lc.lawCaseNo}}">
+                {{lc.objectTitle}}
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>

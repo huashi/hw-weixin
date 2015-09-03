@@ -183,7 +183,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                 }
             })
             .state("app.caselog", {
-                url: "/caselog/:lcId",
+                url: "/caselog/:lcNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/caselog.html",
@@ -238,7 +238,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
             })
 
             .state("app.chatforLC", {
-                url: "/chatforLC",
+                url: "/chatforLC/:lcNo",
                 views: {
                     "menuContent": {
                         templateUrl: "templates/chatforLC.html",
@@ -299,6 +299,49 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     "menuContent": {
                         templateUrl: "templates/lcJudgeGist.html",
                         controller: "SJudgeGistCtrl"
+                    }
+                }
+            }) .state("app.changePassword", {
+                url: "/changePassword",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/changePassword.html",
+                        controller: "ChangePwd"
+                    }
+                }
+            }).state("app.apply-certificate", {
+                url: "/apply-certificate",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/apply-certificate.html",
+                        controller: "ApplyCertificateCtrl"
+                    }
+                }
+            })
+            .state("app.favorites",{
+                url: "/favorites/:type",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/MyFavorites.html",
+                        controller: "FavoriteCtrl"
+                    }
+                }
+            })
+            .state("app.contact",{
+                url: "/contact",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/contact.html",
+                        controller: ""
+                    }
+                }
+            })
+            .state("app.focus",{
+                url: "/focus/:type",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/myFocus.html",
+                        controller: "FavoriteCtrl"
                     }
                 }
             })

@@ -5,10 +5,14 @@
                 选择案件
             </div>
             <ion-list>
+                <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="MyLawCase.error">
+                    <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+                    <br/><br/>没有与您相关的案件
+                </div>
                 <ion-item  ng-repeat="lc in MyLawCase">
 
-                    <ion-checkbox ng-model="isChecked"> {{lc.LC_Name}}</ion-checkbox>
-
+                    <ion-checkbox ng-model="isChecked"> </ion-checkbox>
+                    {{lc.name}}
                 </ion-item>
 
             </ion-list>
@@ -27,7 +31,7 @@
             </label>
         </div>
         <div class="list-inset">
-        <button class="button button-positive button-full">
+        <button class="button button-positive button-full" ng-disabled="MyLawCase.error">
             提交申请
         </button>
             </div>
