@@ -345,6 +345,36 @@ angular.module("starter.services", [])
         }
     })
 
+    .factory("ApplyCertSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
+        return{
+            addApplyCert:function(data){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.post(serviceBase + 'api/ApplyCertificate/AddApplyCert', data).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            },
+            getUserApplyState:function(){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/ApplyCertificate/GetUserApplyState', {}).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
+
     .factory("FavoriteSvc",function(AppData,$q,$http,LoadingScreenService){
         var serviceBase = AppData.ApiUrl;
         return{

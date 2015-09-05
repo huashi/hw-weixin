@@ -819,12 +819,52 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller("ApplyCertificateCtrl", function ($scope, $stateParams, SolutionSvc) {
-        var sNo = $stateParams.sNo;
-        $scope.JudgeGist = "";
-        SolutionSvc.getJudgeGist(sNo).then(function (data) {
-            $scope.JudgeGist = data;
-        })
+    .controller("ApplyCertificateCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc) {
+
+        $scope.ApplyState=-1;
+        function loadPage(){
+            ApplyCertSvc.getUserApplyState().then(function(res){
+                $scope.ApplyState=res;
+            });
+        }
+        $scope.formModel = {
+            city:0,
+            address:"",
+            realName:"",
+            sex:1,
+            contact:"",
+            certificateNo:"",
+            lawerType:1,
+            workYears:1,
+            majors:""
+        };
+        $scope.cities=[{id:1,name:"长治"},{id:2,name:"北京"}];
+        $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
+        $scope.majors=[{id:1,name:"专业一"},{id:2,name:"专业二"}];
+
+        $scope.doApply=function(){
+
+            var mid=[];
+            $scope.majors.forEach(function(e,i){
+                if(e.checked){
+                    mid.push(e.id);
+                }
+            });
+            $scope.formModel.majors=mid.join(",");
+            console.log($scope.formModel);
+
+            ApplyCertSvc.addApplyCert($scope.formModel).then(function(res){
+                var alertPopup = $ionicPopup.alert({
+                    title: '提示',
+                    template: '提交成功，请等待审核。'
+                });
+                alertPopup.then(function(res) {
+                    $state.go('app.setup', {}, {location:'replace'});
+                });
+            })
+        };
+
+        loadPage();
 
     })
     .controller("LoginCtrl", function ($scope, $ionicModal, $timeout, $http, $state, $ionicHistory, AppData, LoadingScreenService, authService) {

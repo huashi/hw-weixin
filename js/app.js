@@ -310,6 +310,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             }).state("app.apply-certificate", {
+                cache: false,
                 url: "/apply-certificate",
                 views: {
                     "menuContent": {

@@ -629,7 +629,7 @@ websites
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     text-decoration: none;
-    color: ##387ef5;
+    color: #387ef5;
     line-height: 37px;
 }
 .wsWrap .row{
@@ -685,12 +685,6 @@ websites
     font-weight: bold;
     font-size: 18px;
 }
-
-
-////////////////////
-.pane, .view, .modal, .popup, .item {
-    background-color: #f6f8fb; }
-
 
 
 body.platform-android .action-sheet-backdrop.active {
@@ -1219,101 +1213,6 @@ form .error {
 .settings .list .item.logout {
     color: #d56363; }
 
-/*.popup-container .popup {*/
-    /*width: 80%;*/
-    /*border-radius: 2px;*/
-    /*-webkit-box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3), 0px 0px 14px rgba(0, 0, 0, 0.1);*/
-    /*box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3), 0px 0px 14px rgba(0, 0, 0, 0.1);*/
-    /*background-color: #f6f8fb; }*/
-/*.popup-container .popup .popup-head {*/
-    /*padding: 25px;*/
-    /*border: none;*/
-    /*text-align: left; }*/
-/*.popup-container .popup .popup-head .popup-title, .popup-container .popup .popup-head .popup-sub-title {*/
-    /*/!*font-weight: 400;*!/ }*/
-/*.popup-container .popup .popup-head .popup-title {*/
-    /*font-size: 20px;*/
-    /*color: #525863; }*/
-/*.popup-container .popup .popup-head .popup-sub-title {*/
-    /*letter-spacing: 1px;*/
-    /*font-size: 12px;*/
-    /*color: #767f8d; }*/
-/*.popup-container .popup .popup-body, .popup-container .popup .popup-buttons {*/
-    /*padding: 0px;*/
-    /*overflow: hidden; }*/
-/*.popup-container .popup .popup-body .list, .popup-container .popup .popup-buttons .list {*/
-    /*padding-bottom: 20px; }*/
-/*.popup-container .popup .popup-body .list .item, .popup-container .popup .popup-buttons .list .item {*/
-    /*font-size: 16px;*/
-    /*color: #4e8ef7;*/
-    /*border: none;*/
-    /*padding: 6px 10px 6px 23px; }*/
-/*.popup-container .popup .popup-body .list .item.done-button, .popup-container .popup .popup-buttons .list .item.done-button {*/
-    /*color: #525863;*/
-    /*border-bottom: none; }*/
-/*.popup-container .popup .popup-body .list .item.disabled, .popup-container .popup .popup-buttons .list .item.disabled {*/
-    /*pointer-events: none;*/
-    /*opacity: .5; }*/
-/*.popup-container .popup .popup-body .list .item.activated, .popup-container .popup .popup-buttons .list .item.activated {*/
-    /*border-color: #dddddd;*/
-    /*background-color: #e9ecf3; }*/
-/*.popup-container .popup .popup-body .list .item img, .popup-container .popup .popup-buttons .list .item img {*/
-    /*display: inline;*/
-    /*width: 46px;*/
-    /*height: 46px; }*/
-/*.popup-container .popup .popup-body .list .item .status, .popup-container .popup .popup-buttons .list .item .status {*/
-    /*display: inline;*/
-    /*position: absolute;*/
-    /*width: 100%;*/
-    /*margin: 11px 0px 0px 15px; }*/
-/*.popup-container .popup .popup-body .list .item .fade, .popup-container .popup .popup-buttons .list .item .fade {*/
-    /*-webkit-transition: opacity .2s linear;*/
-    /*opacity: 0; }*/
-/*.popup-container .popup .popup-body .list .item .fade.fade-active, .popup-container .popup .popup-buttons .list .item .fade.fade-active {*/
-    /*/!* need it here so $animate can parse the duration before firing the*/
-       /*done callback *!/*/
-    /*-webkit-transition: opacity .2s linear;*/
-    /*opacity: 1; }*/
-/*.popup-container .popup .popup-body .list .item .success, .popup-container .popup .popup-buttons .list .item .success {*/
-    /*color: #5bc77f; }*/
-/*.popup-container .popup .popup-body .list .item img.blank, .popup-container .popup .popup-buttons .list .item img.blank {*/
-    /*position: absolute;*/
-    /*left: 23px; }*/
-/*.popup-container .popup .popup-body .list .item .sync-loading-icon .loading-icon, .popup-container .popup .popup-buttons .list .item .sync-loading-icon .loading-icon {*/
-    /*display: none;*/
-    /*position: absolute;*/
-    /*left: -49px; }*/
-/*.popup-container .popup .popup-body .list .item .sync-loading-icon .loading-icon svg, .popup-container .popup .popup-buttons .list .item .sync-loading-icon .loading-icon svg {*/
-    /*width: 22px;*/
-    /*height: 22px; }*/
-/*.popup-container .popup .popup-buttons {*/
-    /*display: none; }*/
-
-/*.confirm-delete-open .popup-container .popup .popup-head {*/
-    /*padding: 20px 20px 0px 20px; }*/
-/*.confirm-delete-open .popup-container .popup .popup-body {*/
-    /*padding: 5px 20px 10px 20px;*/
-    /*color: #2f3236; }*/
-/*.confirm-delete-open .popup-container .popup .popup-buttons {*/
-    /*display: flex;*/
-    /*justify-content: flex-end;*/
-    /*min-height: 0px;*/
-    /*padding: 0px 20px 10px 20px; }*/
-/*.confirm-delete-open .popup-container .popup .popup-buttons .button {*/
-    /*flex: 0 0 auto !important;*/
-    /*border: none;*/
-    /*min-height: 36px;*/
-    /*font-size: 14px;*/
-    /*width: 80px; }*/
-/*.confirm-delete-open .popup-container .popup .popup-buttons .button.error:hover {*/
-    /*color: #d56363; }*/
-/*.confirm-delete-open .popup-container .popup .popup-buttons .button.activated {*/
-    /*opacity: 1;*/
-    /*box-shadow: none;*/
-    /*background-color: #EBEEF3; }*/
-
-
-
 
 .loadingscreen {
     width: 100%;
@@ -1437,3 +1336,12 @@ form .error {
 
 
 
+.ad{
+    height:150px;
+}
+@media (min-width: 768px) {
+
+    .ad{
+        height:200px;
+    }
+}

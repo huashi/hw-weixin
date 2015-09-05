@@ -84,7 +84,7 @@
 
                     <a class="item item-icon-right"
                        href="#/app/changePassword">
-                        <i class="ion-wrench menu-icon"></i>
+                        <i class="ion-unlocked menu-icon"></i>
                         修改密码
                         <i class="icon ion-chevron-right icon-accessory"></i>
                     </a>
@@ -95,9 +95,9 @@
         </div>
 
         <ion-list>
-            <lable class="item item-icon-right">
-                <button class="button button-positive button-full" ng-show="!isLogined" type="submit" ng-click="goToLogin()">登录</button>
-                <button class="button button-positive button-full" ng-show="isLogined" type="submit" ng-click="goToSignout()">注销</button>
+            <lable class="item">
+                <button class="button button-assertive button-full" ng-if="!isLogined" type="submit" ng-click="goToLogin()">登录</button>
+                <button class="button button-stable button-full" ng-if="isLogined" type="submit" ng-click="goToSignout()">注销</button>
             </lable>
 
         </ion-list>

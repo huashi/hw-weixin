@@ -10,11 +10,9 @@
                     <br/><br/>没有与您相关的案件
                 </div>
                 <ion-item  ng-repeat="lc in MyLawCase">
-
                     <ion-checkbox ng-model="isChecked"> </ion-checkbox>
                     {{lc.name}}
                 </ion-item>
-
             </ion-list>
         </div>
         <div class="card">
@@ -23,11 +21,11 @@
             </div>
             <label class="item item-input">
                 <span class="input-label">申请理由：</span>
-                <input type="text" ng-model="loginData.username" placeholder="">
+                <input type="text" ng-model="applyData.reason" placeholder="">
             </label>
             <label class="item item-input">
                 <span class="input-label">所需金额（元）：</span>
-                <input type="text" ng-model="loginData.username" placeholder="">
+                <input type="text" ng-model="applyData.money" placeholder="">
             </label>
         </div>
         <div class="list-inset">

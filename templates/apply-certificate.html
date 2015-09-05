@@ -1,102 +1,106 @@
 <ion-view view-title="申请认证" cache-view="true">
     <!--cache-view="true"-->
-    <ion-content class="padding" has-bouncing="false">
-        <h4 >
-            请认真填写各项信息，我们会尽快审核，谢谢！
-        </h4>
-            <div class="list">
+    <ion-content class="" has-bouncing="false">
+        <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="ApplyState>0">
+            <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+            <br/><br/>{{ApplyState==1?"您的申请正在审核中...":(ApplyState==2?"恭喜！您的申请已通过。":"很遗憾，您的申请没有通过审核。")}}
+        </div>
+
+        <div ng-if="ApplyState==0">
+        <p class="assertive small-title">
+            请认真填写各项信息，我们会尽快审核您的信息。
+        </p>
+
+        <div class="list">
 
 
-                <div class="item item-divider">
-                    所在地区
-                </div>
-                <label class="item item-select">
-                    <span class="input-label">所在省：</span>
-                    <ion-select
-                            ng-model="my_array_used_to_iterate_through_items"
-                            selected-text="'Selected text for label'"
-                            multiple-select=true
-                            animate="slide-in-up"
-                            />
-                </label>
+            <div class="item item-divider">
+                所在地区
+            </div>
+            <label class="item item-select">
+                <span class="input-label"><i>所在省</i><i class="small-title assertive">（必填）</i></span>
+                <select ng-model="formModel.province">
+                    <option ng-repeat="p in provinces" value="{{p.id}}">{{p.name}}</option>
+                </select>
+            </label>
 
-                <label class="item  item-select">
-                    <div class="input-label">所在市：</div>
-                    <select >
-                        <option>Chrome Canary</option>
-                        <option>Firefox Nightly</option>
-                        <option>Chrome Canary</option>
-                        <option>Firefox Nightly</option>
-                        <option>Chrome Canary</option>
-                        <option>Firefox Nightly</option>
-                        <option>Chrome Canary</option>
-                    </select>
-                </label>
+            <label class="item  item-select">
+                <div class="input-label"><i>所在市</i><i class="small-title assertive">（必填）</i></div>
+                <select ng-model="formModel.city">
+                <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                </select>
+            </label>
+            <label class="item item-input">
+                <span class="input-label"><i>住 址</i></span>
+                <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                       ng-model="formModel.address">
+            </label>
 
-                <div class="item item-divider">
-                    个人信息
-                </div>
+            <div class="item item-divider">
+                个人信息
+            </div>
 
-                <label class="item item-input">
-                    <span class="input-label">姓  名：</span>
-                    <input class="md-input" type="text"  autocorrect="off" autocapitalize="off"
-                           ng-model="formModel.uname">
+            <label class="item item-input">
+                <span class="input-label"><i>姓  名</i><i class="small-title assertive">（必填）</i></span>
+                <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                       ng-model="formModel.realName">
 
-                </label>
-                <label class="item item-select">
-                <span class="input-label">性  别：</span>
-                <select >
-                    <option selected>男</option>
-                    <option>女</option>
+            </label>
+            <label class="item item-select">
+                <span class="input-label"><i>性  别</i><i class="small-title assertive">（必填）</i></span>
+                <select ng-model="formModel.sex">
+                    <option selected value="1">男</option>
+                    <option value="0">女</option>
 
                 </select>
 
             </label>
 
-                <label class="item item-input">
-                    <span class="input-label">联系方式：</span>
-                    <input class="md-input" type="text"  placeholder="邮箱、手机或QQ" autocorrect="off" autocapitalize="off"
-                           ng-model="formModel.uname">
-                </label>
+            <label class="item item-input">
+                <span class="input-label"><i>联系方式</i><i class="small-title assertive">（必填）</i></span>
+                <input class="md-input" type="text" placeholder="邮箱、手机或QQ" autocorrect="off" autocapitalize="off"
+                       ng-model="formModel.contact">
+            </label>
 
-                <label class="item item-input">
-                    <span class="input-label">执业证号：</span>
-                    <input class="md-input" type="password"  ng-model="formModel.pass">
+            <label class="item item-input">
+                <span class="input-label"><i>执业证号</i><i class="small-title assertive">（必填）</i></span>
+                <input class="md-input" type="text" ng-model="formModel.certificateNo">
 
-                </label>
+            </label>
 
 
-                <label class="item item-input">
-                    <span class="input-label">律师类型：</span>
-                    <input class="md-input" type="password"  ng-model="formModel.pass">
+            <label class="item item-select">
+                <span class="input-label"><i>律师类型</i><i class="small-title assertive">（必填）</i></span>
+                <select ng-model="formModel.lawerType">
+                    <option  value="1"> 律师</option>
+                    <option  value="2">合伙人</option>
 
-                </label>
+                </select>
+            </label>
 
-                <label class="item item-input">
-                    <span class="input-label">执业年限：</span>
-                    <input class="md-input" type="password" ng-model="formModel.pass">
+            <label class="item item-select">
+                <span class="input-label"><i>执业年限</i><i class="small-title assertive">（必填）</i></span>
+                <select ng-model="formModel.workYears">
+                    <option  value="1">5年以下</option>
+                    <option  value="2">5--10年</option>
+                    <option  value="3">10年以上</option>
+                </select>
+            </label>
 
-                </label>
+            <div class="list">
 
-                <div class="list">
-
-                    <div class="item item-divider">
-                        专业方向
-                    </div>
-
-                    <ion-checkbox ng-model="pushNotification.checked">
-                        Push Notifications
-                    </ion-checkbox>
-
+                <div class="item item-divider">
+                    专业方向
                 </div>
 
-                <input type="submit" ng-disabled="!(formModel.pass && formModel.uname)"
-                       class="button button-block button-positive view-button" value="提交审核">
+                    <ion-checkbox ng-repeat="m in majors" ng-model="m.checked"> {{m.name}}</ion-checkbox>
+
             </div>
 
+            <input type="button" ng-disabled="!(formModel.city && formModel.realName && formModel.sex && formModel.contact && formModel.certificateNo && formModel.lawerType && formModel.workYears)" ng-click="doApply()"
+                   class="button button-block button-positive view-button" value="提交审核">
+        </div>
 
-
-
-
+        </div>
     </ion-content>
 </ion-view>
