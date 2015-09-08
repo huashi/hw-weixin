@@ -1,7 +1,7 @@
 <ion-view view-title="填写申请">
     <ion-content has-bouncing="true">
         <div class="card">
-            <div class="item item-divider">
+            <div class="item item-divider positive-bg">
                 选择案件
             </div>
             <ion-list>
@@ -9,27 +9,34 @@
                     <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
                     <br/><br/>没有与您相关的案件
                 </div>
-                <ion-item  ng-repeat="lc in MyLawCase">
-                    <ion-checkbox ng-model="isChecked"> </ion-checkbox>
-                    {{lc.name}}
+                <ion-item class="row-no-padding " ng-repeat="lc in MyLawCase">
+                    <ion-radio ng-model="applyData.lcNo" ng-value="lc.lcNo"  ng-disabled="lc.salvationState>0">  {{lc.name}}
+                    <span class="item-note" ng-if="lc.salvationState>0">
+                         {{lc.salvationState==1?"已提交申请":(lc.salvationState==2?"申请已通过。":"申请未通过")}}
+                     </span>
+                    </ion-radio>
+
+
                 </ion-item>
+
+
             </ion-list>
         </div>
         <div class="card">
-            <div class="item item-divider">
+            <div class="item item-divider  positive-bg">
                 申请信息
             </div>
             <label class="item item-input">
-                <span class="input-label">申请理由：</span>
-                <input type="text" ng-model="applyData.reason" placeholder="">
+                <span class="input-label"><i>申请理由</i><i class="small-title assertive">（必填）</i></span>
+                <input type="text" ng-model="applyData.reason" placeholder="填写申请救助的原因">
             </label>
             <label class="item item-input">
-                <span class="input-label">所需金额（元）：</span>
-                <input type="text" ng-model="applyData.money" placeholder="">
+                <span class="input-label"><i>所需金额</i><i class="small-title assertive">（必填）</i></span>
+                <input type="text" ng-model="applyData.money" placeholder="单位（元）">
             </label>
         </div>
         <div class="list-inset">
-        <button class="button button-positive button-full" ng-disabled="MyLawCase.error">
+        <button class="button button-assertive button-full" ng-disabled="!(applyData.lcNo&&applyData.reason&&applyData.money)" ng-click="doApplyHelp()">
             提交申请
         </button>
             </div>

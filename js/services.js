@@ -374,7 +374,86 @@ angular.module("starter.services", [])
             }
         }
     })
+    .factory("SalvationSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
+        return{
+            addApplySalvation:function(data){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.post(serviceBase + 'api/Salvation/ApplySalvation', data).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
 
+    .factory("RegionSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
+        return{
+            getProvinces:function(){
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Region/GetRegionByType/1').success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            },
+            getCities:function(pid){
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Region/GetRegionByParent/'+pid).success(function (response) {
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
+    .factory("MessageSvc",function(AppData,$q,$http,LoadingScreenService){
+        var serviceBase = AppData.ApiUrl;
+        return {
+            getMyMessages: function (pageIndex, pageSize, keyWords) {
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Message/GetMyMessage', {params:data}).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
+    .factory("CommentSvc",function(AppData,$q,$http,LoadingScreenService){
+        var serviceBase = AppData.ApiUrl;
+        return {
+            getMyMessages: function (pageIndex, pageSize, keyWords) {
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+                LoadingScreenService.show(false);
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/Message/GetMyMessage', {params:data}).success(function (response) {
+                    LoadingScreenService.hide();
+                    deferred.resolve(response);
+                }).error(function (err, status) {
+                    LoadingScreenService.hide();
+                    deferred.reject(err);
+                });
+                return deferred.promise;
+            }
+        }
+    })
     .factory("FavoriteSvc",function(AppData,$q,$http,LoadingScreenService){
         var serviceBase = AppData.ApiUrl;
         return{

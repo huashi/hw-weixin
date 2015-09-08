@@ -1,0 +1,32 @@
+<ion-view view-title="我的消息">
+
+    <div id="search-box" class="bar bar-subheader item-input-inset item-borderless">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchNews(keyWords)">
+
+        </div>
+    </div>
+    <ion-content  class="has-subheader">
+        <ion-list>
+            <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="!messageList.length||messageList.length==0">
+                <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
+                <br/><br/>没有找到任何消息
+            </div>
+
+            <ion-item class="row-no-padding  item-text-wrap"
+                      type="item-text-wrap"   ng-repeat="message in messageList" href="#">
+                {{message.message}}
+                 <span class="item-note">
+                          {{message.sendTime}}
+                     </span>
+            </ion-item>
+        </ion-list>
+        <div  ng-show="display">
+            <button class="button button-outline  button-block button-small" ng-click="loadPage()">
+                查看更多消息...
+            </button>
+        </div>
+    </ion-content>
+</ion-view>

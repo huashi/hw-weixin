@@ -227,7 +227,18 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
+            .state("app.message", {
+                cache: false,
+                url: "/message",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/myMessage.html",
+                        controller: "MessageCtrl"
+                    }
+                }
+            })
             .state("app.gethelp", {
+                cache: false,
                 url: "/gethelp",
                 views: {
                     "menuContent": {

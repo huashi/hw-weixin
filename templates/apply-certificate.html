@@ -19,13 +19,13 @@
             </div>
             <label class="item item-select">
                 <span class="input-label"><i>所在省</i><i class="small-title assertive">（必填）</i></span>
-                <select ng-model="formModel.province">
+                <select ng-model="formModel.province" ng-change="getCities(formModel.province)">
                     <option ng-repeat="p in provinces" value="{{p.id}}">{{p.name}}</option>
                 </select>
             </label>
 
             <label class="item  item-select">
-                <div class="input-label"><i>所在市</i><i class="small-title assertive">（必填）</i></div>
+                <div class="input-label"><i>所在市/区</i><i class="small-title assertive">（必填）</i></div>
                 <select ng-model="formModel.city">
                 <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
                 </select>

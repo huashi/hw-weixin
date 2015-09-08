@@ -587,19 +587,32 @@ angular.module('starter.controllers', [])
             $state.go('app.login');
         }
     })
-    .controller("GetHelpCtrl", function ($scope, $stateParams, LawCaseSvc) {
-        var userid = $stateParams.uid;
-        var start = 1, end = 10;
+    .controller("GetHelpCtrl", function ($scope, $state,$ionicPopup, LawCaseSvc,SalvationSvc) {
         $scope.MyLawCase = [];
         $scope.display = "";
+        $scope.applyData={};
         $scope.getMyLawCase = function () {
-                var tem = LawCaseSvc.getMyLawCase().then(function (res) {
+                var tem = LawCaseSvc.getMyLawCase(1,1000,"").then(function (res) {
                     $scope.MyLawCase=res;
                     $scope.MyLawCase.error=!res.length;
                 });
 
         };
         $scope.getMyLawCase();
+        $scope.doApplyHelp=function(){
+            SalvationSvc.addApplySalvation($scope.applyData).then(function(res){
+                if(res==1){
+                    var alertPopup = $ionicPopup.alert({
+                        title: '提示',
+                        template: '提交成功，请等待审核。'
+                    });
+                    alertPopup.then(function(res) {
+                        $state.go('app.setup', {}, {location:'replace'});
+                    });
+                }
+            })
+        }
+
 
     })
     .controller('ChatforLCCtrl', function ($scope, $timeout, $stateParams, $ionicScrollDelegate, ChatSvc, AppTools) {
@@ -802,6 +815,35 @@ angular.module('starter.controllers', [])
         }
     })
 
+    .controller("MessageCtrl",function($scope,MessageSvc){
+        var isAll = false, pageIndex = 1, pageSize = 10;
+        $scope.messageList=[];
+        $scope.loadPage=function() {
+          if (!isAll) {
+              MessageSvc.getMyMessages(pageIndex, pageSize, $scope.keyWords).then(function (res) {
+                  if (!res || res.length <10) {
+                      isAll = true;
+                      $scope.display = false;
+                      $scope.messageList = $scope.messageList.concat(res);
+                      return;
+                  }
+                  isAll = false;
+                  $scope.display = true;
+                  $scope.messageList = $scope.messageList.concat(res);
+                  pageIndex++;
+              });
+          }
+      }
+        $scope.onInputSearchNews = function (dom) {
+
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.messageList = [];
+            $scope.display = true;
+            $scope.loadPage();
+
+        };
+        $scope.loadPage();
+      })
     .controller("SFocusCtrl", function ($scope, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
         $scope.Focus = "";
@@ -819,14 +861,25 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller("ApplyCertificateCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc) {
+    .controller("ApplyCertificateCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc,RegionSvc) {
 
         $scope.ApplyState=-1;
         function loadPage(){
             ApplyCertSvc.getUserApplyState().then(function(res){
                 $scope.ApplyState=res;
             });
+
+            RegionSvc.getProvinces().then(function(res){
+                $scope.provinces=res;
+            });
         }
+
+        $scope.getCities=function(pid){
+            RegionSvc.getCities(pid).then(function(res){
+                $scope.cities=res;
+            });
+        }
+
         $scope.formModel = {
             city:0,
             address:"",
@@ -838,7 +891,7 @@ angular.module('starter.controllers', [])
             workYears:1,
             majors:""
         };
-        $scope.cities=[{id:1,name:"长治"},{id:2,name:"北京"}];
+        $scope.cities=[];
         $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
         $scope.majors=[{id:1,name:"专业一"},{id:2,name:"专业二"}];
 
