@@ -198,7 +198,8 @@ angular.module("starter.services", [])
             }
         };
     })
-    .factory("CommentsSvc", function () {
+    .factory("CommentsSvc", function ($q,$http,LoadingScreenService,AppHttp,AppData) {
+        var serviceBase = AppData.ApiUrl;
         var messages = [{
             id: 1,
             row: 1,
@@ -211,63 +212,45 @@ angular.module("starter.services", [])
             C_Content: "还可以，说的好",
             time: "2015-01-01 12:01:12",
             username: "张三"
-        }, {
-            id: 3,
-            row: 3,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 4,
-            row: 4,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 5,
-            row: 5,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 6,
-            row: 6,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 7,
-            row: 7,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 8,
-            row: 8,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 9,
-            row: 9,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
         }];
 
         return {
             all: function () {
                 return messages;
             },
-            getPageMessage: function (start, end) {
-                var a = [];
-                messages.forEach(function (e, i) {
-                    if (e.row && e.row >= start && e.row < end) {
-                        a.push(e);
-                    }
+            getPageComments: function (pageIndex, pageSize,type,id) {
+                var data = {pageIndex:pageIndex,pageSize:pageSize};
+
+                var deferred = $q.defer();
+                //type=1案件；type=2新闻；
+                var url=serviceBase+(type==1? 'api/Comment/GetLawCaseComments/':  'api/Comment/GetNewsComments/')+id;
+
+                $http.get(url, {params:data}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            addCommenet: function (message,type,id,replyId) {
+            var rid=replyId||0;
+                var data = {message:message,lcNo:id,replyId:replyId,newsId:id};
+
+            var deferred = $q.defer();
+                var url=serviceBase+(type==1? 'api/Comment/AddLawCaseComment':  'api/Comment/AddNewsComment');
+            $http.post(url, data)
+                .success(function (response) {
+                    deferred.resolve(response);
+
+                }).error(function (err, status) {
+                    deferred.reject(err);
                 });
-                return a;
-            }
+
+            return deferred.promise;
+        }
         }
     })
     .factory("CaseLogSvc", function (AppData,$q,$http,LoadingScreenService) {

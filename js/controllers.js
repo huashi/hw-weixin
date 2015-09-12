@@ -290,30 +290,37 @@ angular.module('starter.controllers', [])
                }
             });
         };
-
-        $scope.commentList = [{cnt: "好好", time: "2015-41-2"},
-            {cnt: "好好", time: "2015-1-2"}, {cnt: "好好", time: "2015-41-2"},
-            {cnt: "好好", time: "2015-41-2"}, {cnt: "好好", time: "2015-41-2"}];
-
-
-        $scope.Comments = [];
-        $scope.display = "";
+        $scope.display = true;
         $scope.queryVal = "";
-        var isAll = false, start = 1, end = 5;
-        $scope.getMessages = function () {
-            if (!isAll) {
-                var tem = CommentsSvc.getPageMessage(start, end);
-                if (!tem || tem.length == 0) {
+        $scope.Comments=[];
+        $scope.Message="";
+        var pageIndex = 1, pageSize = 10, isAll = false;
+
+        $scope.loadComments=function() {
+            CommentsSvc.getPageComments(pageIndex, pageSize, 2,id).then(function (tem) {
+                if (!tem || tem.length < 10) {
                     isAll = true;
-                    $scope.display = "none";
-                    return;
+                    $scope.display = false;
+                    // return;
                 }
-                $scope.Comments = $scope.Comments.concat(tem);
-                start = end;
-                end += 5;
-            }
-        };
-        $scope.getMessages();
+                $scope.Comments= $scope.Comments.concat(tem);
+                pageIndex++;
+            });
+        }
+
+        $scope.doSendComment=function(){
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.Comments=[];
+            CommentsSvc.addCommenet($scope.Message, 2,id,0).then(function (tem) {
+                if (tem==1){
+                    $scope.Message="";
+                    $scope.loadComments();
+                }
+            });
+
+        }
+
+        $scope.loadComments();
     })
     .controller("LawCaseCtrl", function ($scope, $stateParams, LawCaseSvc, AppData) {
 
@@ -369,8 +376,36 @@ angular.module('starter.controllers', [])
         $scope.sayWords=false;
         $scope.LawCase;
         $scope.lcId = 1;
-        $scope.display = "";
+        $scope.display = true;
         $scope.lcFav={};
+        $scope.Comments=[];
+        $scope.Message="";
+        var pageIndex = 1, pageSize = 10, isAll = false;
+
+        $scope.loadComments=function() {
+            CommentsSvc.getPageComments(pageIndex, pageSize, 1,lcId).then(function (tem) {
+                if (!tem || tem.length < 10) {
+                    isAll = true;
+                    $scope.display = false;
+                   // return;
+                }
+                $scope.Comments= $scope.Comments.concat(tem);
+                pageIndex++;
+            });
+        }
+
+        $scope.doSendComment=function(){
+            pageIndex = 1, pageSize = 10, isAll = false;
+            $scope.Comments=[];
+            CommentsSvc.addCommenet($scope.Message, 1,lcId,0).then(function (tem) {
+                if (tem==1){
+                    $scope.Message="";
+                    $scope.loadComments();
+                }
+            });
+
+        }
+
         $scope.getLawCaseByLcNo = function (no) {
             LawCaseSvc.getLawCaseByLcNo(no).then(function (lc) {
                 $scope.LawCase = lc;
@@ -434,6 +469,7 @@ angular.module('starter.controllers', [])
 
         $scope.getLawCaseByLcNo(lcId);
         getLcFavorite();
+        $scope.loadComments();
     })
     .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppData, CaseLogSvc) {
         var lcNo = $stateParams.lcNo;

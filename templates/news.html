@@ -42,10 +42,10 @@
             <div class="item item-body"  ng-show="sayWords">
 
                 <div class="texteara" style="display: block;">
-                    <textarea class="txtaeara" name="content" id="commentTextarea">我来说两句</textarea>
+                    <textarea class="txtaeara" name="content" ng-model="$parent.Message" id="commentTextarea" placeholder="我来说两句"></textarea>
 
-                    <p><input id="cancel_pl" class="ipt-cancel" type="button" value="取消">
-                        <input class="ipt-go" type="submit" value="发送"></p>
+                    <p><input id="cancel_pl" class="ipt-cancel" type="button" ng-click="sayWords=!sayWords" value="取消">
+                        <input class="ipt-go" type="submit" value="发送"  ng-click="doSendComment()"></p>
                 </div>
 
             </div>
@@ -53,19 +53,19 @@
             <div class="item item-body ">
                 <div class="list">
                     <div class="item row-no-padding " ng-repeat="message in Comments">
-                        <h3> {{message.C_Content}}</h3>
+                        <h3> {{message.c_Content}}</h3>
 
                         <div style="text-align: right">
-                            <span>{{message.username}}</span>&nbsp;
+                            <span>{{message.userName}}</span>&nbsp;
                             <span>{{message.time}}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="item tabs tabs-secondary tabs-icon-left" ng-style="{'display':display}">
-                <button class="button button-outline  button-block button-small" ng-click="getMessages()">
-                    加载更多...{{display}}
+            <div class="item tabs tabs-secondary tabs-icon-left" ng-show="display">
+                <button class="button button-outline  button-block button-small" ng-click="loadComments()">
+                    加载更多...
                 </button>
             </div>
         </div>
