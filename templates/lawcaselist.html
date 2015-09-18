@@ -1,14 +1,16 @@
 <ion-view view-title="{{navTitle}}" class="has-subheader">
 
     <div id="search-box" class="bar bar-subheader item-input-inset">
-        <div class="item-input-wrapper">
+
+
+        <div class="col-50 item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
             <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
                    ng-change="onInputSearchLC(keyWords)">
 
         </div>
 
-        <div class="button-bar">
+        <div class="col-50 button-bar">
 
             <select class="item"  ng-model="orderType" style="border: none;margin-left: 1em;">
                 <option selected value="0">默认排序</option>
@@ -17,6 +19,7 @@
                 <option value="3">评论数</option>
             </select>
         </div>
+
     </div>
     <ion-content class="has-subheader">
 

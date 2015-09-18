@@ -10,12 +10,12 @@
                 <i class="assertive small-title">
                     来自：{{News.source}}
                 </i>
-                <i class="ion-star assertive title " ng-click="addFavorite()" href="#" style="float: right;">
+                <i class="ion-star assertive title ion-defaultsize" ng-click="addFavorite()" href="#" style="float: right;">
                     {{News.favCount}} <i class="small-title" ng-if="News.isMyFav">已收藏</i>
                 </i>
             </div>
             <div class="item-body">
-                <div ng-bind-html="News.content">
+                <div class="article-text" ng-bind-html="News.content">
 
                 </div>
             </div>
@@ -23,9 +23,14 @@
 
         </div>
         <div class="list card">
-            <div class="item item-divider  positive-bg">相关阅读</div>
+            <div class="item item-divider  calm-bg">相关阅读</div>
             <div class="item item-body ">
                 <ion-list>
+                    <div style="text-align:center;padding:0px;width:100%;font-size:17px;color:#666;" ng-if="!News.reletedNews.length||News.reletedNews.length==0">
+                        <i class="icon ion-android-notifications-none" style="font-size:40px;color:#cccccc"></i>
+                        <br/><br/>没有相关新闻
+                    </div>
+
                     <ion-item class=" item-icon-right"
                               type="item-text-wrap" ng-repeat="news in News.reletedNews" href="#/app/newslist/{{news.id}}">
                         {{$index+1}}、{{news.title}}
@@ -35,7 +40,7 @@
             </div>
         </div>
         <div class="list card">
-            <div class="item item-divider  positive-bg">网友留言
+            <div class="item item-divider  stable-bg">网友留言
                 <a class="youhuashuo" style="float: right; text-decoration: none" href="javascript:void(0)"  ng-click="sayWords=!sayWords">我有话说</a>
             </div>
 
@@ -50,8 +55,14 @@
 
             </div>
 
+
+
             <div class="item item-body ">
                 <div class="list">
+                    <div style="text-align:center;padding:0px;width:100%;font-size:17px;color:#666;border: none" ng-if="!Comments.length||Comments.length==0">
+                        <i class="icon ion-android-notifications-none" style="font-size:40px;color:#cccccc"></i>
+                        <br/><br/>暂无留言
+                    </div>
                     <div class="item row-no-padding " ng-repeat="message in Comments">
                         <h3> {{message.c_Content}}</h3>
 

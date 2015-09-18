@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2015/3/31.
  */
-angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "starter.common"])
+angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "starter.common","starter.filter"])
 
     .run(function ($ionicPlatform, $ionicPopup, $rootScope, $location) {
 //todo 暂时不起作用
@@ -327,6 +327,16 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     "menuContent": {
                         templateUrl: "templates/apply-certificate.html",
                         controller: "ApplyCertificateCtrl"
+                    }
+                }
+            })
+            .state("app.upload-lawcase", {
+                cache: false,
+                url: "/upload-lawcase",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/upload-lawcase.html",
+                        controller: "UploadLcCtrl"
                     }
                 }
             })

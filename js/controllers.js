@@ -929,7 +929,7 @@ angular.module('starter.controllers', [])
         };
         $scope.cities=[];
         $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
-        $scope.majors=[{id:1,name:"专业一"},{id:2,name:"专业二"}];
+        $scope.majors=[{id:1,name:"商事"},{id:2,name:"民事"}];
 
         $scope.doApply=function(){
 
@@ -956,6 +956,75 @@ angular.module('starter.controllers', [])
         loadPage();
 
     })
+
+
+    .controller("UploadLcCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc,RegionSvc) {
+
+        $scope.ApplyState=-1;
+        function loadPage(){
+            ApplyCertSvc.getUserApplyState().then(function(res){
+                $scope.ApplyState=res;
+            });
+
+            RegionSvc.getProvinces().then(function(res){
+                $scope.provinces=res;
+            });
+        }
+
+        $scope.getCities=function(pid){
+            RegionSvc.getCities(pid).then(function(res){
+                $scope.cities=res;
+            });
+        }
+
+        $scope.getCounties=function(pid){
+            RegionSvc.getCities(pid).then(function(res){
+                $scope.counties=res;
+            });
+        }
+
+        $scope.formModel = {
+            city:0,
+            address:"",
+            realName:"",
+            sex:1,
+            contact:"",
+            certificateNo:"",
+            lawerType:1,
+            workYears:1,
+            majors:""
+        };
+        $scope.cities=[];
+        $scope.counties=[];
+        $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
+        $scope.majors=[{id:1,name:"闯红灯"},{id:2,name:"醉驾"}];
+
+        $scope.doApply=function(){
+
+            var mid=[];
+            $scope.majors.forEach(function(e,i){
+                if(e.checked){
+                    mid.push(e.id);
+                }
+            });
+            $scope.formModel.majors=mid.join(",");
+            console.log($scope.formModel);
+
+            ApplyCertSvc.addApplyCert($scope.formModel).then(function(res){
+                var alertPopup = $ionicPopup.alert({
+                    title: '提示',
+                    template: '提交成功，请等待审核。'
+                });
+                alertPopup.then(function(res) {
+                    $state.go('app.setup', {}, {location:'replace'});
+                });
+            })
+        };
+
+        loadPage();
+
+    })
+
     .controller("LoginCtrl", function ($scope, $ionicModal, $timeout, $http, $state, $ionicHistory, AppData, LoadingScreenService, authService) {
 
         $scope.loginData = {};

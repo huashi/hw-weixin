@@ -4,6 +4,23 @@
 body{
     font-family: 'microsoft yahei', »ªÎÄÏ¸ºÚ, Verdana, Arial, Helvetica, sans-serif;
 }
+
+.ion-defaultsize{
+    font-size: 20px;
+}
+
+.popover .item{
+    border-color: #ddd !important;
+    background-color: #fafafa;
+    color: #4d4d4d;
+    border-bottom: dotted 1px #ddd !important;
+}
+
+.article-text,.article >*{
+    font-size: 16px !important;
+    line-height: 1.7em !important;
+}
+
 .link-disabled{
     pointer-events: none; opacity: 0.5;
 }
@@ -376,15 +393,17 @@ textarea {
 .tile .tile-label {
     position: absolute;
     bottom: 0;
-    left: .625rem;
+    left: -0.2rem;
     padding: .425rem .25rem;
     z-index: 999;
+    width: 100%;
+    text-align: center;
 }
 .tile-content.iconic .icon {
     position: absolute;
     width: 64px;
     height: 64px;
-    font-size: 64px;
+    font-size: 55px;
     top: 50%;
     margin-top: -40px;
     left: 50%;
@@ -457,11 +476,11 @@ textarea {
 }
 #process {
     margin: 0 auto;
-    padding: 20px 0 50px 40px;
+    padding: 36px 0 60px 40px;
     border-bottom: 1px solid #eee;
 }
 .section4 {
-    width: 706px;
+    width: 1000px;
 }
 #process .node {
     width: 13px;
@@ -648,7 +667,7 @@ websites
 
 }
 .selectWrap .title{
-    color: #3271DC;
+    color: #000;
     font-size: 14px;
 }
 .selectWrap .value{
@@ -684,6 +703,7 @@ websites
 .pagetitle{
     font-weight: bold;
     font-size: 18px;
+    margin: 10px;
 }
 
 
@@ -1338,10 +1358,12 @@ form .error {
 
 .ad{
     height:150px;
+    width: 100%;
 }
 @media (min-width: 768px) {
 
     .ad{
         height:200px;
+        width: 100%;
     }
 }

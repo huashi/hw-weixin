@@ -1,0 +1,89 @@
+<ion-view view-title="上传案件" cache-view="true">
+    <!--cache-view="true"-->
+    <ion-content class="" has-bouncing="false">
+        <div class="padding">
+            <p class="assertive small-title">
+                请认真填写各项信息，以获得最准确的服务。
+            </p>
+
+            <div class="list">
+
+                <div class="item item-divider">
+                    案件发生地
+                </div>
+                <label class="item item-select">
+                    <span class="input-label"><i>所在省</i><i class="small-title assertive">（必填）</i></span>
+                    <select ng-model="formModel.province" ng-change="getCities(formModel.province)">
+                        <option ng-repeat="p in provinces" value="{{p.id}}">{{p.name}}</option>
+                    </select>
+                </label>
+
+                <label class="item  item-select">
+                    <div class="input-label"><i>所在市/区</i><i class="small-title assertive">（必填）</i></div>
+                    <select ng-model="formModel.city" ng-change="getCounties(formModel.city)">
+                        <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                    </select>
+                </label>
+
+                <label class="item  item-select">
+                    <div class="input-label"><i>所在县</i><i class="small-title assertive">（必填）</i></div>
+                    <select ng-model="formModel.county">
+                        <option ng-repeat="county in counties" value="{{county.id}}">{{county.name}}</option>
+                    </select>
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label"><i>详细地址</i></span>
+                    <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.address">
+                </label>
+
+                <div class="item item-divider">
+                    案件信息
+                </div>
+
+                <label class="item item-input">
+                    <span class="input-label"><i>争议问题</i><i class="small-title assertive">（必填）</i></span>
+                    <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.realName">
+
+                </label>
+                <label class="item item-input">
+                    <span class="input-label"><i>发生日期</i><i class="small-title assertive">（必填）</i></span>
+                    <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.realName">
+
+                </label>
+                <label class="item item-select">
+                    <span class="input-label"><i>类 别</i><i class="small-title assertive">（必填）</i></span>
+                    <select ng-model="formModel.sex">
+                        <option selected value="1">交通</option>
+                        <option value="2">保险</option>
+                        <option value="3">医疗</option>
+                    </select>
+
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label"><i>更多信息</i></span>
+                    <textarea class="md-input" style="height: 70px;border: 1px solid #ddd;  width: 65%;" type="text" autocorrect="off" autocapitalize="off" placeholder="案件发生经过、诉讼请求等"
+                           ng-model="formModel.des"></textarea>
+                </label>
+
+                <div class="list">
+
+                    <div class="item item-divider">
+                        标 签
+                    </div>
+
+                    <ion-checkbox ng-repeat="m in majors" ng-model="m.checked"> {{m.name}}</ion-checkbox>
+
+                </div>
+
+                <input type="button" ng-disabled="!formModel.realName" ng-click="doApply()"
+                       class="button button-block button-positive view-button" value="提 交">
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

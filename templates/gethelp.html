@@ -5,7 +5,7 @@
                 选择案件
             </div>
             <ion-list>
-                <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="MyLawCase.error">
+                <div style="text-align:center;padding:20px;margin-top:50px;width:100%;font-size:17px;color:#666;" ng-if="MyLawCase.error||!MyLawCase.length||MyLawCase.length<=0">
                     <i class="icon ion-android-notifications-none" style="font-size:80px;color:#cccccc"></i>
                     <br/><br/>没有与您相关的案件
                 </div>

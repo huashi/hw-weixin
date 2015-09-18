@@ -1,15 +1,15 @@
 <ion-view view-title="相关案例">
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-more " id="home-points"
+        <button class="button button-icon button-clear ion-android-list " id="home-points"
                 ng-click="modal.show($event)"></button>
     </ion-nav-buttons>
 
-    <ion-content has-bouncing="false" style="padding: 0 10px;">
+    <ion-content has-bouncing="false" style="padding: 15px 10px;">
         <div class="pagetitle">
             {{rcSelected.title}}
         </div>
         <hr>
-    <div class="" ng-bind-html="rcSelected.detail">
+    <div class="article-text" ng-bind-html="rcSelected.detail">
     </div>
     </ion-content>
 

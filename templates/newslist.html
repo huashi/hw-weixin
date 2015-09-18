@@ -1,14 +1,14 @@
 <ion-view view-title="法律新闻">
 
     <div id="search-box" class="bar bar-subheader item-input-inset">
-        <div class="item-input-wrapper">
+        <div class="col-50 item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
             <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
                    ng-change="onInputSearchNews(keyWords)">
 
         </div>
 
-        <div class="button-bar">
+        <div class="col-50 button-bar">
 
             <select class="item " ng-change="onSelectSearchNews()" ng-model="SourceId" style="border: none;margin-left: 1em;">
                 <option selected value="0">全部来源</option>

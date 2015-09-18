@@ -200,24 +200,7 @@ angular.module("starter.services", [])
     })
     .factory("CommentsSvc", function ($q,$http,LoadingScreenService,AppHttp,AppData) {
         var serviceBase = AppData.ApiUrl;
-        var messages = [{
-            id: 1,
-            row: 1,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }, {
-            id: 2,
-            row: 2,
-            C_Content: "还可以，说的好",
-            time: "2015-01-01 12:01:12",
-            username: "张三"
-        }];
-
         return {
-            all: function () {
-                return messages;
-            },
             getPageComments: function (pageIndex, pageSize,type,id) {
                 var data = {pageIndex:pageIndex,pageSize:pageSize};
 
