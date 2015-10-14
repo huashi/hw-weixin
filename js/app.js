@@ -321,7 +321,7 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             }).state("app.apply-certificate", {
-                cache: false,
+               // cache: false,
                 url: "/apply-certificate",
                 views: {
                     "menuContent": {
@@ -364,6 +364,24 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     "menuContent": {
                         templateUrl: "templates/myFocus.html",
                         controller: "FavoriteCtrl"
+                    }
+                }
+            })
+            .state("app.lawermajors",{
+                url: "/lawerMajors",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lawerMajors.html",
+                        controller: "ApplyCertificateCtrl"
+                    }
+                }
+            })
+            .state("app.legalKnowledge",{
+                url: "/legalKnowledge",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/legalKnowledge.html",
+                        controller: "lkListCtrl"
                     }
                 }
             })

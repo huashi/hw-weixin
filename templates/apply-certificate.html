@@ -35,6 +35,11 @@
                 <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
                        ng-model="formModel.address">
             </label>
+            <label class="item item-input">
+                <span class="input-label"><i>所在律所</i></span>
+                <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
+                       ng-model="formModel.lawoffice">
+            </label>
 
             <div class="item item-divider">
                 个人信息
@@ -93,7 +98,13 @@
                     专业方向
                 </div>
 
-                    <ion-checkbox ng-repeat="m in majors" ng-model="m.checked"> {{m.name}}</ion-checkbox>
+                <ion-list>
+
+                    <a class="item item-icon-right"  ng-click="openModal()"  ng-href="javascript:void(0)">
+                        {{MajorsName}}
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </a>
+                    </ion-list>
 
             </div>
 
@@ -102,5 +113,15 @@
         </div>
 
         </div>
+
+        <script id="my-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-content  has-bouncing="false">
+                    <ion-checkbox ng-repeat="m in majors" ng-model="m.checked"> {{m.name}}</ion-checkbox>
+                    <input type="button" ng-click="selectMajors()"   class="button button-block button-positive view-button" value="确 定">
+                </ion-content>
+
+            </ion-modal-view>
+        </script>
     </ion-content>
 </ion-view>

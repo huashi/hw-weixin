@@ -1,0 +1,36 @@
+<ion-view view-title="新闻内容">
+    <ion-content class="padding" has-bouncing="false" style="top: 25px;">
+
+        <div class="list card">
+            <div class="item item-body">
+                <h2>{{News.title}}</h2>
+            </div>
+            <div class="item-body">
+                <div class="article-text" ng-bind-html="News.content">
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="list card">
+            <div class="item item-divider  calm-bg">相关阅读</div>
+            <div class="item item-body ">
+                <ion-list>
+                    <div style="text-align:center;padding:0px;width:100%;font-size:17px;color:#666;" ng-if="!News.reletedNews.length||News.reletedNews.length==0">
+                        <i class="icon ion-android-notifications-none" style="font-size:40px;color:#cccccc"></i>
+                        <br/><br/>没有相关新闻
+                    </div>
+
+                    <ion-item class=" item-icon-right"
+                              type="item-text-wrap" ng-repeat="news in News.reletedNews" href="#/app/newslist/{{news.id}}">
+                        {{$index+1}}、{{news.title}}
+                        <i class="icon ion-chevron-right icon-accessory"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

@@ -268,52 +268,52 @@ angular.module('starter.controllers', [])
         }
         $scope.onSelectSearchNews();
     })
-    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc,FavoriteSvc) {
+    .controller("NewsCtrl", function ($scope, $stateParams, NewsSvc, CommentsSvc, FavoriteSvc) {
         var id = $stateParams.newsId;
-        $scope.sayWords=false;
+        $scope.sayWords = false;
         NewsSvc.getNewsById(id).then(function (news) {
             $scope.News = news;
         });
 
-        $scope.addFavorite=function(){
-            if($scope.News.isMyFav){
+        $scope.addFavorite = function () {
+            if ($scope.News.isMyFav) {
                 return;
             }
-          var data={};
-            data.keyId= $scope.News.id;
-            data.type=1;
+            var data = {};
+            data.keyId = $scope.News.id;
+            data.type = 1;
 
-            FavoriteSvc.addFavorite(data).then(function(res){
-               if(res=="1"){
-                   $scope.News.isMyFav=true;
-                   $scope.News.favCount++;
-               }
+            FavoriteSvc.addFavorite(data).then(function (res) {
+                if (res == "1") {
+                    $scope.News.isMyFav = true;
+                    $scope.News.favCount++;
+                }
             });
         };
         $scope.display = true;
         $scope.queryVal = "";
-        $scope.Comments=[];
-        $scope.Message="";
+        $scope.Comments = [];
+        $scope.Message = "";
         var pageIndex = 1, pageSize = 10, isAll = false;
 
-        $scope.loadComments=function() {
-            CommentsSvc.getPageComments(pageIndex, pageSize, 2,id).then(function (tem) {
+        $scope.loadComments = function () {
+            CommentsSvc.getPageComments(pageIndex, pageSize, 2, id).then(function (tem) {
                 if (!tem || tem.length < 10) {
                     isAll = true;
                     $scope.display = false;
                     // return;
                 }
-                $scope.Comments= $scope.Comments.concat(tem);
+                $scope.Comments = $scope.Comments.concat(tem);
                 pageIndex++;
             });
         }
 
-        $scope.doSendComment=function(){
+        $scope.doSendComment = function () {
             pageIndex = 1, pageSize = 10, isAll = false;
-            $scope.Comments=[];
-            CommentsSvc.addCommenet($scope.Message, 2,id,0).then(function (tem) {
-                if (tem==1){
-                    $scope.Message="";
+            $scope.Comments = [];
+            CommentsSvc.addCommenet($scope.Message, 2, id, 0).then(function (tem) {
+                if (tem == 1) {
+                    $scope.Message = "";
                     $scope.loadComments();
                 }
             });
@@ -371,35 +371,35 @@ angular.module('starter.controllers', [])
         $scope.loadLCPages();
 
     })
-    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams, LawCaseSvc, CommentsSvc,FavoriteSvc) {
+    .controller("LawCaseDetailsCtrl", function ($scope, $stateParams, LawCaseSvc, CommentsSvc, FavoriteSvc) {
         var lcId = $stateParams.lcId;
-        $scope.sayWords=false;
+        $scope.sayWords = false;
         $scope.LawCase;
         $scope.lcId = 1;
         $scope.display = true;
-        $scope.lcFav={};
-        $scope.Comments=[];
-        $scope.Message="";
+        $scope.lcFav = {};
+        $scope.Comments = [];
+        $scope.Message = "";
         var pageIndex = 1, pageSize = 10, isAll = false;
 
-        $scope.loadComments=function() {
-            CommentsSvc.getPageComments(pageIndex, pageSize, 1,lcId).then(function (tem) {
+        $scope.loadComments = function () {
+            CommentsSvc.getPageComments(pageIndex, pageSize, 1, lcId).then(function (tem) {
                 if (!tem || tem.length < 10) {
                     isAll = true;
                     $scope.display = false;
-                   // return;
+                    // return;
                 }
-                $scope.Comments= $scope.Comments.concat(tem);
+                $scope.Comments = $scope.Comments.concat(tem);
                 pageIndex++;
             });
         }
 
-        $scope.doSendComment=function(){
+        $scope.doSendComment = function () {
             pageIndex = 1, pageSize = 10, isAll = false;
-            $scope.Comments=[];
-            CommentsSvc.addCommenet($scope.Message, 1,lcId,0).then(function (tem) {
-                if (tem==1){
-                    $scope.Message="";
+            $scope.Comments = [];
+            CommentsSvc.addCommenet($scope.Message, 1, lcId, 0).then(function (tem) {
+                if (tem == 1) {
+                    $scope.Message = "";
                     $scope.loadComments();
                 }
             });
@@ -412,55 +412,56 @@ angular.module('starter.controllers', [])
             });
         };
 
-     function getLcFavorite(){
-         LawCaseSvc.getLawCaseFavorite(lcId).then(function(res){
-             $scope.lcFav=res;
-         })
-     }
-        $scope.addFavorite= function () {
-            if($scope.lcFav.isMyFav){
+        function getLcFavorite() {
+            LawCaseSvc.getLawCaseFavorite(lcId).then(function (res) {
+                $scope.lcFav = res;
+            })
+        }
+
+        $scope.addFavorite = function () {
+            if ($scope.lcFav.isMyFav) {
                 return;
             }
-            var data={};
-            data.keyId= lcId;
-            data.type=2;
+            var data = {};
+            data.keyId = lcId;
+            data.type = 2;
 
-            FavoriteSvc.addFavorite(data).then(function(res){
-                if(res=="1"){
-                    $scope.lcFav.isMyFav=true;
+            FavoriteSvc.addFavorite(data).then(function (res) {
+                if (res == "1") {
+                    $scope.lcFav.isMyFav = true;
                     $scope.lcFav.favCount++;
                 }
             });
         };
 
-        $scope.likeLc=function(){
-            var data={};
-            data.lcNo=lcId;
-            data.vote=1;
-            LawCaseSvc.voteLawCase(data).then(function(res){
-                if(res!=0){
-                    if(res==1){
+        $scope.likeLc = function () {
+            var data = {};
+            data.lcNo = lcId;
+            data.vote = 1;
+            LawCaseSvc.voteLawCase(data).then(function (res) {
+                if (res != 0) {
+                    if (res == 1) {
                         $scope.lcFav.unlikeCount--;
                         $scope.lcFav.likeCount++;
                     }
-                    else if(res==2){
+                    else if (res == 2) {
                         $scope.lcFav.likeCount++;
                     }
                 }
             });
         };
 
-        $scope.unlikeLc=function(){
-            var data={};
-            data.lcNo=lcId;
-            data.vote=0;
-            LawCaseSvc.voteLawCase(data).then(function(res){
-                if(res!=0){
-                    if(res==1){
+        $scope.unlikeLc = function () {
+            var data = {};
+            data.lcNo = lcId;
+            data.vote = 0;
+            LawCaseSvc.voteLawCase(data).then(function (res) {
+                if (res != 0) {
+                    if (res == 1) {
                         $scope.lcFav.unlikeCount++;
                         $scope.lcFav.likeCount--;
                     }
-                    else if(res==2){
+                    else if (res == 2) {
                         $scope.lcFav.unlikeCount++;
                     }
                 }
@@ -471,7 +472,7 @@ angular.module('starter.controllers', [])
         getLcFavorite();
         $scope.loadComments();
     })
-    .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppData, CaseLogSvc) {
+    .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppData,LawerSvc, CaseLogSvc) {
         var lcNo = $stateParams.lcNo;
         var rUrl = AppData.RemoteUrl;
         $scope.LogList = "";
@@ -479,6 +480,13 @@ angular.module('starter.controllers', [])
         $scope.isShowBtn = true;
         $scope.logStates = [];
         $scope.lcNo = lcNo;
+
+
+        $scope.active_content = 'record';
+        $scope.setActiveContent = function (active_content) {
+            $scope.active_content = active_content;
+        }
+
         function loadSates() {
             CaseLogSvc.getLogState(lcNo).then(function (data) {
                 $scope.logStates = data;
@@ -511,10 +519,14 @@ angular.module('starter.controllers', [])
                             var piclist = tempData[j].images.split('|');
                             var piclist_str = '';
                             for (var a = 0; a < piclist.length; a++) {
-
+                                if (piclist[a].length < 3) continue;
                                 var img = rUrl + "Files/LogImg/" + piclist[a];
 
-                                piclist_str += '<li><a href="' + img + '" class="swipebox" title=""><img src="' + img + '" alt="image"></a></li>';
+                                if (/.+\.pdf/.test(piclist[a].toLowerCase())) {
+                                    piclist_str += '<li><a href="' + img + '" class="" target="_blank"><image src="/img/pdfImg.jpg"></a></li>';
+                                } else {
+                                    piclist_str += '<li><a href="' + img + '" class="swipebox" title=""><img src="' + img + '" alt="图片"></a></li>';
+                                }
                             }
                             append_str += '<div class="item0 item5"><div class="pic"><img src="' + author + '"></div><div class="txt"><h2>' + tempData[j].text + '</h2><ul>' + piclist_str + '</ul><span class="sj sj1"></span><span class="sj sj2"></span></div></div>';
                             break;
@@ -530,6 +542,9 @@ angular.module('starter.controllers', [])
         function loadPage() {
             CaseLogSvc.getRecentlyLog(lcNo).then(function (data) {
                 getList(data);
+            });
+            LawerSvc.getLawerInfo(lcNo).then(function(res){
+               $scope.LawerInfo=res;
             });
         }
 
@@ -623,27 +638,27 @@ angular.module('starter.controllers', [])
             $state.go('app.login');
         }
     })
-    .controller("GetHelpCtrl", function ($scope, $state,$ionicPopup, LawCaseSvc,SalvationSvc) {
+    .controller("GetHelpCtrl", function ($scope, $state, $ionicPopup, LawCaseSvc, SalvationSvc) {
         $scope.MyLawCase = [];
         $scope.display = "";
-        $scope.applyData={};
+        $scope.applyData = {};
         $scope.getMyLawCase = function () {
-                var tem = LawCaseSvc.getMyLawCase(1,1000,"").then(function (res) {
-                    $scope.MyLawCase=res;
-                    $scope.MyLawCase.error=!res.length;
-                });
+            var tem = LawCaseSvc.getMyLawCase(1, 1000, "").then(function (res) {
+                $scope.MyLawCase = res;
+                $scope.MyLawCase.error = !res.length;
+            });
 
         };
         $scope.getMyLawCase();
-        $scope.doApplyHelp=function(){
-            SalvationSvc.addApplySalvation($scope.applyData).then(function(res){
-                if(res==1){
+        $scope.doApplyHelp = function () {
+            SalvationSvc.addApplySalvation($scope.applyData).then(function (res) {
+                if (res == 1) {
                     var alertPopup = $ionicPopup.alert({
                         title: '提示',
                         template: '提交成功，请等待审核。'
                     });
-                    alertPopup.then(function(res) {
-                        $state.go('app.setup', {}, {location:'replace'});
+                    alertPopup.then(function (res) {
+                        $state.go('app.setup', {}, {location: 'replace'});
                     });
                 }
             })
@@ -836,40 +851,40 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller("FavoriteCtrl",function($scope,$stateParams,FavoriteSvc){
-        var type=$stateParams.type;
-        $scope.keyWords="";
-        $scope.favorites=[];
-        FavoriteSvc.getMyFavorite(type).then(function(res){
-            $scope.favorites=res;
+    .controller("FavoriteCtrl", function ($scope, $stateParams, FavoriteSvc) {
+        var type = $stateParams.type;
+        $scope.keyWords = "";
+        $scope.favorites = [];
+        FavoriteSvc.getMyFavorite(type).then(function (res) {
+            $scope.favorites = res;
         });
 
-        $scope.onInputSearchNews=function(key){
-            FavoriteSvc.getMyFavorite(type,key).then(function(res){
-                $scope.favorites=res;
+        $scope.onInputSearchNews = function (key) {
+            FavoriteSvc.getMyFavorite(type, key).then(function (res) {
+                $scope.favorites = res;
             });
         }
     })
 
-    .controller("MessageCtrl",function($scope,MessageSvc){
+    .controller("MessageCtrl", function ($scope, MessageSvc) {
         var isAll = false, pageIndex = 1, pageSize = 10;
-        $scope.messageList=[];
-        $scope.loadPage=function() {
-          if (!isAll) {
-              MessageSvc.getMyMessages(pageIndex, pageSize, $scope.keyWords).then(function (res) {
-                  if (!res || res.length <10) {
-                      isAll = true;
-                      $scope.display = false;
-                      $scope.messageList = $scope.messageList.concat(res);
-                      return;
-                  }
-                  isAll = false;
-                  $scope.display = true;
-                  $scope.messageList = $scope.messageList.concat(res);
-                  pageIndex++;
-              });
-          }
-      }
+        $scope.messageList = [];
+        $scope.loadPage = function () {
+            if (!isAll) {
+                MessageSvc.getMyMessages(pageIndex, pageSize, $scope.keyWords).then(function (res) {
+                    if (!res || res.length < 10) {
+                        isAll = true;
+                        $scope.display = false;
+                        $scope.messageList = $scope.messageList.concat(res);
+                        return;
+                    }
+                    isAll = false;
+                    $scope.display = true;
+                    $scope.messageList = $scope.messageList.concat(res);
+                    pageIndex++;
+                });
+            }
+        }
         $scope.onInputSearchNews = function (dom) {
 
             pageIndex = 1, pageSize = 10, isAll = false;
@@ -879,7 +894,7 @@ angular.module('starter.controllers', [])
 
         };
         $scope.loadPage();
-      })
+    })
     .controller("SFocusCtrl", function ($scope, $stateParams, SolutionSvc) {
         var sNo = $stateParams.sNo;
         $scope.Focus = "";
@@ -897,58 +912,97 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller("ApplyCertificateCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc,RegionSvc) {
+    .controller("ApplyCertificateCtrl", function ($scope, $window, $ionicModal, $ionicPopup, $state, LawerSvc, ApplyCertSvc, RegionSvc) {
 
-        $scope.ApplyState=-1;
-        function loadPage(){
-            ApplyCertSvc.getUserApplyState().then(function(res){
-                $scope.ApplyState=res;
+        $scope.ApplyState = -1;
+        $scope.MajorsName = "请选择专业";
+        function loadPage() {
+            $ionicModal.fromTemplateUrl('my-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
             });
 
-            RegionSvc.getProvinces().then(function(res){
-                $scope.provinces=res;
+            $scope.openModal = function () {
+                $scope.modal.show();
+            };
+            $scope.closeModal = function () {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function () {
+                $scope.modal.remove();
             });
+
+
+            ApplyCertSvc.getUserApplyState().then(function (res) {
+                $scope.ApplyState = res;
+            });
+
+            RegionSvc.getProvinces().then(function (res) {
+                $scope.provinces = res;
+            });
+
+            LawerSvc.getLawerMajors().then(function (res) {
+                $scope.majors = res;
+            })
         }
 
-        $scope.getCities=function(pid){
-            RegionSvc.getCities(pid).then(function(res){
-                $scope.cities=res;
+        $scope.getCities = function (pid) {
+            RegionSvc.getCities(pid).then(function (res) {
+                $scope.cities = res;
             });
         }
 
         $scope.formModel = {
-            city:0,
-            address:"",
-            realName:"",
-            sex:1,
-            contact:"",
-            certificateNo:"",
-            lawerType:1,
-            workYears:1,
-            majors:""
+            city: 0,
+            address: "",
+            realName: "",
+            sex: 1,
+            contact: "",
+            certificateNo: "",
+            lawerType: 1,
+            workYears: 1,
+            majors: "",
+            lawoffice:""
         };
-        $scope.cities=[];
-        $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
-        $scope.majors=[{id:1,name:"商事"},{id:2,name:"民事"}];
 
-        $scope.doApply=function(){
+        $scope.selectMajors = function () {
+            var mid = [];
+            $scope.majors.forEach(function (e, i) {
+                if (e.checked) {
+                    mid.push(e.name);
+                }
+            });
+            if (mid.length == 0)
+                $scope.MajorsName = "请选择专业";
+            else
+                $scope.MajorsName = mid.join(",");
+            $scope.closeModal();
+        };
 
-            var mid=[];
-            $scope.majors.forEach(function(e,i){
-                if(e.checked){
+        $scope.doApply = function () {
+
+            var mid = [];
+            $scope.majors.forEach(function (e, i) {
+                if (e.checked) {
                     mid.push(e.id);
                 }
             });
-            $scope.formModel.majors=mid.join(",");
+            $scope.formModel.majors = mid.join(",");
             console.log($scope.formModel);
 
-            ApplyCertSvc.addApplyCert($scope.formModel).then(function(res){
+            ApplyCertSvc.addApplyCert($scope.formModel).then(function (res) {
                 var alertPopup = $ionicPopup.alert({
                     title: '提示',
                     template: '提交成功，请等待审核。'
                 });
-                alertPopup.then(function(res) {
-                    $state.go('app.setup', {}, {location:'replace'});
+                alertPopup.then(function (res) {
+                    loadPage();
+                    // $window.location.reload(true)
+                    //$state.go($state.current, {}, {reload: true});
+                    // $state.go('app.setup', {}, {reload: true,cache: false});
                 });
             })
         };
@@ -957,66 +1011,94 @@ angular.module('starter.controllers', [])
 
     })
 
+    .controller("lkListCtrl", function ($scope, LegalKnowledgeSvc) {
+        var pageIndex = 1, pageSize = 100, isAll = false;
+        $scope.lkList = [];
+        $scope.display = false;
+        $scope.keyWords = "";
+        $scope.getPagelkList = function () {
+            if (!isAll) {
+                LegalKnowledgeSvc.getPagelkList(pageIndex, pageSize, $scope.keyWords).then(function (tem) {
+                    if (!tem || tem.length < 1) {
+                        isAll = true;
+                        $scope.display = false;
+                        return;
+                    }
+                    $scope.lkList = $scope.lkList.concat(tem);
+                    pageIndex++;
+                });
 
-    .controller("UploadLcCtrl", function ($scope,$window,$ionicPopup, $state, ApplyCertSvc,RegionSvc) {
+            }
+        };
+        $scope.onInputSearchlkList = function (dom) {
+            pageIndex = 1, pageSize = 100, isAll = false;
+            $scope.lkList = [];
+            $scope.display = true;
+            $scope.getPageNews();
 
-        $scope.ApplyState=-1;
-        function loadPage(){
-            ApplyCertSvc.getUserApplyState().then(function(res){
-                $scope.ApplyState=res;
+        }
+        $scope.getPagelkList();
+    })
+
+    .controller("UploadLcCtrl", function ($scope, $window, $ionicPopup, $state, ApplyCertSvc, RegionSvc) {
+
+        $scope.ApplyState = -1;
+        function loadPage() {
+            ApplyCertSvc.getUserApplyState().then(function (res) {
+                $scope.ApplyState = res;
             });
 
-            RegionSvc.getProvinces().then(function(res){
-                $scope.provinces=res;
+            RegionSvc.getProvinces().then(function (res) {
+                $scope.provinces = res;
             });
         }
 
-        $scope.getCities=function(pid){
-            RegionSvc.getCities(pid).then(function(res){
-                $scope.cities=res;
+        $scope.getCities = function (pid) {
+            RegionSvc.getCities(pid).then(function (res) {
+                $scope.cities = res;
             });
         }
 
-        $scope.getCounties=function(pid){
-            RegionSvc.getCities(pid).then(function(res){
-                $scope.counties=res;
+        $scope.getCounties = function (pid) {
+            RegionSvc.getCities(pid).then(function (res) {
+                $scope.counties = res;
             });
         }
 
         $scope.formModel = {
-            city:0,
-            address:"",
-            realName:"",
-            sex:1,
-            contact:"",
-            certificateNo:"",
-            lawerType:1,
-            workYears:1,
-            majors:""
+            city: 0,
+            address: "",
+            realName: "",
+            sex: 1,
+            contact: "",
+            certificateNo: "",
+            lawerType: 1,
+            workYears: 1,
+            majors: ""
         };
-        $scope.cities=[];
-        $scope.counties=[];
-        $scope.provinces=[{id:1,name:"北京"},{id:2,name:"山西"}];
-        $scope.majors=[{id:1,name:"闯红灯"},{id:2,name:"醉驾"}];
+        $scope.cities = [];
+        $scope.counties = [];
+        $scope.provinces = [{id: 1, name: "北京"}, {id: 2, name: "山西"}];
+        $scope.majors = [{id: 1, name: "闯红灯"}, {id: 2, name: "醉驾"}];
 
-        $scope.doApply=function(){
+        $scope.doApply = function () {
 
-            var mid=[];
-            $scope.majors.forEach(function(e,i){
-                if(e.checked){
+            var mid = [];
+            $scope.majors.forEach(function (e, i) {
+                if (e.checked) {
                     mid.push(e.id);
                 }
             });
-            $scope.formModel.majors=mid.join(",");
+            $scope.formModel.majors = mid.join(",");
             console.log($scope.formModel);
 
-            ApplyCertSvc.addApplyCert($scope.formModel).then(function(res){
+            ApplyCertSvc.addApplyCert($scope.formModel).then(function (res) {
                 var alertPopup = $ionicPopup.alert({
                     title: '提示',
                     template: '提交成功，请等待审核。'
                 });
-                alertPopup.then(function(res) {
-                    $state.go('app.setup', {}, {location:'replace'});
+                alertPopup.then(function (res) {
+                    $state.go('app.setup', {}, {location: 'replace'});
                 });
             })
         };

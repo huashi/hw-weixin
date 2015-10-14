@@ -187,11 +187,14 @@ angular.module("starter.services", [])
                 return deferred.promise;
             },
             getLawCaseByLcNo: function (no) {
+                LoadingScreenService.show(false);
                 var deferred = $q.defer();
                 $http.get(serviceBase + 'api/LawCase/GetByNo/'+no, {}, { })
                     .success(function (response) {
+                        LoadingScreenService.hide();
                         deferred.resolve(response);
                     }).error(function (err, status) {
+                        LoadingScreenService.hide();
                         deferred.reject(err);
                     });
                 return deferred.promise;
@@ -246,10 +249,13 @@ angular.module("starter.services", [])
             },
             getLogState: function (caseNo) {
                 var deferred = $q.defer();
+                LoadingScreenService.show(false);
                 $http.get(serviceBase + 'api/CaseLog/GetLogState/' + caseNo)
                     .success(function (response) {
+                        LoadingScreenService.hide();
                         deferred.resolve(response);
                     }).error(function (err, status) {
+                        LoadingScreenService.hide();
                         deferred.reject(err);
                     });
                 return deferred.promise;
@@ -469,6 +475,70 @@ angular.module("starter.services", [])
         }
     })
 
+
+    .factory("LawerSvc", function ($q,$http,LoadingScreenService,AppHttp,AppData) {
+        var serviceBase = AppData.ApiUrl;
+        return {
+            getLawerMajors: function () {
+                var deferred = $q.defer();
+                var url=serviceBase+ 'api/Lawer/GetLawerMajors/';
+                $http.get(url, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getLawerInfo: function (lcNo) {
+                var deferred = $q.defer();
+                var url=serviceBase+ 'api/Lawer/GetLawerInfo/'+lcNo;
+                $http.get(url, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            }
+        }
+    })
+    .factory("LegalKnowledgeSvc", function (AppData,$q,$http,LoadingScreenService) {
+        var serviceBase = AppData.ApiUrl;
+        return {
+            getPagelkList: function (pageIndex, pageSize,keyWords) {
+                var data = {pageIndex:pageIndex,pageSize:pageSize,keyWords:keyWords};
+
+                var deferred = $q.defer();
+                LoadingScreenService.show(false);
+                $http.get(serviceBase + 'api/LegalKnowledge', {params:data}, { })
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
+            },
+            getlkById: function (id) {
+                var deferred = $q.defer();
+                $http.get(serviceBase + 'api/LegalKnowledge/GetById/'+id, {}, { })
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                    });
+                return deferred.promise;
+            }
+        }
+    })
     .factory("SolutionSvc",function(AppData,$q,$http){
         var serviceBase = AppData.ApiUrl;
         return {

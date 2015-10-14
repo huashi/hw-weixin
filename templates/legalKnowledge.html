@@ -1,0 +1,28 @@
+<ion-view view-title="知识问答">
+
+    <div id="search-box" class="bar bar-subheader item-input-inset">
+        <div class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input id="queryReg" type="search" placeholder="输入关键词" ng-model="keyWords"
+                   ng-change="onInputSearchNews(keyWords)">
+
+        </div>
+
+
+    </div>
+    <ion-content  class="has-subheader">
+        <ion-list>
+            <ion-item class=" item-icon-right"
+                      type="item-text-wrap"   ng-repeat="lk in lkList" href="#/app/lkDetail/{{lk.id}}">
+                <i class="ion-ios-help menu-icon"></i>
+                {{lk.title}}
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+        <div  ng-show="display">
+            <button class="button button-outline  button-block button-small" ng-click="getPageNews()">
+                查看更多...
+            </button>
+        </div>
+    </ion-content>
+</ion-view>
