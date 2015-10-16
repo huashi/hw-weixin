@@ -280,6 +280,21 @@ angular.module("starter.services", [])
                         deferred.reject(err);
                     });
                 return deferred.promise;
+            },createLog: function (data) {
+                var deferred = $q.defer();
+                var url=serviceBase+ 'api/CaseLog/CreateLog';
+                LoadingScreenService.show(false);
+                $http.post(url, data)
+                    .success(function (response) {
+                        deferred.resolve(response);
+                        LoadingScreenService.hide();
+
+                    }).error(function (err, status) {
+                        deferred.reject(err);
+                        LoadingScreenService.hide();
+                    });
+
+                return deferred.promise;
             }
         }
     })
@@ -529,11 +544,14 @@ angular.module("starter.services", [])
             },
             getlkById: function (id) {
                 var deferred = $q.defer();
+                LoadingScreenService.show(false);
                 $http.get(serviceBase + 'api/LegalKnowledge/GetById/'+id, {}, { })
                     .success(function (response) {
+                        LoadingScreenService.hide();
                         deferred.resolve(response);
                     }).error(function (err, status) {
                         deferred.reject(err);
+                        LoadingScreenService.hide();
                     });
                 return deferred.promise;
             }

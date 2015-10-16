@@ -1,6 +1,6 @@
 <ion-view view-title="案件进展" >
     <ion-nav-buttons side="right">
-        <a  class="button button-icon button-clear ion-chatbox-working " id="home-points"   ng-href="#/app/chatforLC/{{lcNo}}"></a>
+        <a  class="button button-icon button-clear ion-chatboxes" id="home-points"   ng-href="#/app/chatforLC/{{lcNo}}"></a>
     </ion-nav-buttons>
 
     <link href="../css/caselog.css" type="text/css" rel="stylesheet">
@@ -36,6 +36,14 @@
             </div>
 
         </ion-content>
+    <ion-footer-bar keyboard-attach ng-if="CurrentUser.type=='Lawer'" class="bar-stable item-input-inset">
+        <label class="item-input-wrapper">
+            <input type="text" placeholder="请填写案件日志"   ng-model="Log.logText"/>
+        </label>
+        <button class="button" ng-disabled="!Log.logText" ng-click="sendLog()">
+            提 交
+        </button>
+    </ion-footer-bar>
         <ion-content has-header="true"  has-bouncing="false"  class="has-subheader" padding="true" ng-show="active_content=='lawerinfo'">
             <div class="card" style="margin:0">
                 <div class="item item-body">

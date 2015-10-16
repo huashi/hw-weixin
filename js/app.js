@@ -385,6 +385,15 @@ angular.module('starter', ['ionic', 'starter.controllers', "starter.services", "
                     }
                 }
             })
+            .state("app.lkDetail",{
+                url: "/lkDetail/:lkid",
+                views: {
+                    "menuContent": {
+                        templateUrl: "templates/lkDetail.html",
+                        controller: "lkDetailCtrl"
+                    }
+                }
+            })
             .state("app.undowork", {
                 url: "/undowork",
                 views: {

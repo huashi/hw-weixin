@@ -472,15 +472,17 @@ angular.module('starter.controllers', [])
         getLcFavorite();
         $scope.loadComments();
     })
-    .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppData,LawerSvc, CaseLogSvc) {
+    .controller("CaseLogCtrl", function ($scope, $window, $stateParams, AppTools, AppData, LawerSvc, CaseLogSvc) {
         var lcNo = $stateParams.lcNo;
         var rUrl = AppData.RemoteUrl;
+        $scope.CurrentUser = AppTools.getCurrentUser();
+
         $scope.LogList = "";
         $scope.loadAllLog = loadAllLog;
         $scope.isShowBtn = true;
         $scope.logStates = [];
         $scope.lcNo = lcNo;
-
+        $scope.Log = {};
 
         $scope.active_content = 'record';
         $scope.setActiveContent = function (active_content) {
@@ -493,6 +495,22 @@ angular.module('starter.controllers', [])
             });
         }
 
+        $scope.sendLog = createLog;
+        function createLog() {
+            var log = {};
+            log.log = $scope.Log.logText;
+            log.lcNo = lcNo;
+            CaseLogSvc.createLog(log).then(function (res) {
+                if (res != "0") {
+                    $scope.Log.logText="";
+                    CaseLogSvc.getRecentlyLog(lcNo).then(function (data) {
+                        getList(data);
+                    });
+                    $('.swipebox').swipebox();
+                }
+            });
+        }
+
         function loadAllLog() {
             CaseLogSvc.getAllLogs(lcNo).then(function (data) {
                 getList(data);
@@ -501,6 +519,7 @@ angular.module('starter.controllers', [])
         }
 
         function getList(data) {
+            $('#maindata').empty();
             for (var i = 0; i < data.length; i++) {
                 var date = data[i].date;
                 var append_str = '';
@@ -535,7 +554,7 @@ angular.module('starter.controllers', [])
                     }
                 }
                 append_str += '</div></div>';
-                $('#maindata').empty().append(append_str);
+                $('#maindata').append(append_str);
             }
         }
 
@@ -543,8 +562,8 @@ angular.module('starter.controllers', [])
             CaseLogSvc.getRecentlyLog(lcNo).then(function (data) {
                 getList(data);
             });
-            LawerSvc.getLawerInfo(lcNo).then(function(res){
-               $scope.LawerInfo=res;
+            LawerSvc.getLawerInfo(lcNo).then(function (res) {
+                $scope.LawerInfo = res;
             });
         }
 
@@ -965,7 +984,7 @@ angular.module('starter.controllers', [])
             lawerType: 1,
             workYears: 1,
             majors: "",
-            lawoffice:""
+            lawoffice: ""
         };
 
         $scope.selectMajors = function () {
@@ -1039,7 +1058,13 @@ angular.module('starter.controllers', [])
         }
         $scope.getPagelkList();
     })
+    .controller("lkDetailCtrl", function ($scope, $stateParams, LegalKnowledgeSvc) {
+        var id = $stateParams.lkid;
+        LegalKnowledgeSvc.getlkById(id).then(function (news) {
+            $scope.News = news;
+        });
 
+    })
     .controller("UploadLcCtrl", function ($scope, $window, $ionicPopup, $state, ApplyCertSvc, RegionSvc) {
 
         $scope.ApplyState = -1;
