@@ -1,20 +1,43 @@
 <ion-view view-title="详细解答">
     <ion-content class="padding" has-bouncing="false" style="top: 25px;">
 
-        <div class="list card">
-            <div class="item item-body">
-                <h3>{{News.title}}</h3>
+        <div class="card no-padding">
+            <div class="item item-divider  calm-bg">
+                <i class="ion-ios-help-outline"></i>
+                问题
             </div>
+
+            <div class="pagetitle">
+                <h3 style="font-weight: bold;">{{News.title}}</h3>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+            <div class="item item-divider  calm-bg">
+                <i class=" ion-ios-search"></i>
+                详解
+            </div>
+
             <div class="item-body">
                 <div class="article-text" ng-bind-html="News.detail">
 
                 </div>
+
+                <div class="item  tabs-secondary ">
+                    <i class="item-note item-text-wrap" >
+                       作者：{{News.author}} &nbsp; 时间：{{News.createTime}}
+                    </i>
+                </div>
             </div>
 
-
         </div>
-        <div class="list card">
-            <div class="item item-divider  calm-bg">相关阅读</div>
+
+        <div class="card">
+            <div class="item item-divider  calm-bg">
+                <i class=" ion-ios-book-outline"></i> 相关阅读
+            </div>
             <div class="item item-body ">
                 <ion-list>
                     <div style="text-align:center;padding:0px;width:100%;font-size:17px;color:#666;" ng-if="!News.releteLks.length||News.releteLks.length==0">

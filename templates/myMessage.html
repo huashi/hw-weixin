@@ -17,10 +17,11 @@
 
             <ion-item class="row-no-padding  item-text-wrap"
                       type="item-text-wrap"   ng-repeat="message in messageList" href="#">
-                {{message.message}}
-                 <span class="item-note">
+
+               <i class="ion-speakerphone"></i>&nbsp;&nbsp;{{message.message}}
+                 <p>
                           {{message.sendTime}}
-                     </span>
+                     </p>
             </ion-item>
         </ion-list>
         <div  ng-show="display">

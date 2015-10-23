@@ -9,6 +9,7 @@
             <div class="list">
 
                 <div class="item item-divider">
+                    <i class="ion-location"></i>
                     案件发生地
                 </div>
                 <label class="item item-select">
@@ -26,7 +27,7 @@
                 </label>
 
                 <label class="item  item-select">
-                    <div class="input-label"><i>所在县</i><i class="small-title assertive">（必填）</i></div>
+                    <div class="input-label"><i>所在县</i></div>
                     <select ng-model="formModel.county">
                         <option ng-repeat="county in counties" value="{{county.id}}">{{county.name}}</option>
                     </select>
@@ -39,24 +40,25 @@
                 </label>
 
                 <div class="item item-divider">
+                    <i class="ion-document-text"></i>
                     案件信息
                 </div>
 
                 <label class="item item-input">
                     <span class="input-label"><i>争议问题</i><i class="small-title assertive">（必填）</i></span>
                     <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
-                           ng-model="formModel.realName">
+                           ng-model="formModel.lcName">
 
                 </label>
                 <label class="item item-input">
                     <span class="input-label"><i>发生日期</i><i class="small-title assertive">（必填）</i></span>
-                    <input class="md-input" type="text" autocorrect="off" autocapitalize="off"
-                           ng-model="formModel.realName">
+                    <input class="md-input" type="date" autocorrect="off" autocapitalize="off"
+                           ng-model="formModel.occurDate">
 
                 </label>
                 <label class="item item-select">
                     <span class="input-label"><i>类 别</i><i class="small-title assertive">（必填）</i></span>
-                    <select ng-model="formModel.sex">
+                    <select ng-model="formModel.type">
                         <option selected value="1">交通</option>
                         <option value="2">保险</option>
                         <option value="3">医疗</option>
@@ -64,13 +66,20 @@
 
                 </label>
 
-                <label class="item item-input">
-                    <span class="input-label"><i>更多信息</i></span>
-                    <textarea class="md-input" style="height: 70px;border: 1px solid #ddd;  width: 65%;" type="text" autocorrect="off" autocapitalize="off" placeholder="案件发生经过、诉讼请求等"
-                           ng-model="formModel.des"></textarea>
-                </label>
 
                 <div class="list">
+
+                    <div class="item item-divider">
+                        <i class="ion-more"></i>
+                        更多信息
+                    </div>
+
+                    <textarea class="md-input" style="height: 70px;border: 1px solid #ddd;  width: 100%;" type="text" autocorrect="off" autocapitalize="off" placeholder="案件发生经过、诉讼请求等"
+                              ng-model="formModel.describe"></textarea>
+
+                </div>
+
+                <div class="list" ng-if="false">
 
                     <div class="item item-divider">
                         标 签
@@ -80,7 +89,7 @@
 
                 </div>
 
-                <input type="button" ng-disabled="!formModel.realName" ng-click="doApply()"
+                <input type="button" ng-disabled="!(formModel.province&&formModel.city&&formModel.lcName&&formModel.occurDate)" ng-click="doApply()"
                        class="button button-block button-positive view-button" value="提 交">
             </div>
 

@@ -198,6 +198,22 @@ angular.module("starter.services", [])
                         deferred.reject(err);
                     });
                 return deferred.promise;
+            },
+            uploadLawCase: function (data) {
+                var deferred = $q.defer();
+                LoadingScreenService.show(false);
+                var url=serviceBase+'api/LawCase/UpLoadLawCase';
+                $http.post(url, data)
+                    .success(function (response) {
+                        LoadingScreenService.hide();
+                        deferred.resolve(response);
+
+                    }).error(function (err, status) {
+                        LoadingScreenService.hide();
+                        deferred.reject(err);
+                    });
+
+                return deferred.promise;
             }
         };
     })

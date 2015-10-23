@@ -43,6 +43,17 @@ angular.module('starter.controllers', [])
     })
     .controller("CatalogsCtrl", function ($scope, $ionicActionSheet, $ionicHistory, Catalogs) {
 
+        function is_weixn(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if(!is_weixn()){
+           // window.location.href="../error.html";
+        }
         //  $ionicHistory.clearHistory();
         $scope.getAll = function () {
             return Catalogs.all();
@@ -330,7 +341,17 @@ angular.module('starter.controllers', [])
         $scope.navTitle = ismy ? "我的案件" : "所有案件";
         $scope.keyWords = "";
         $scope.orderType = 0;
-
+        $scope.onChangeOrder=function(t){
+            $scope.MyLawCase=$scope.MyLawCase.sort(function(a,b){
+                if(t==2){
+                    return a.c_Favorites< b.c_Favorites;
+                }
+                if(t==3){
+                    return a.c_Comments< b.c_Comments;
+                }
+                return a.createTime< b.createTime;
+            })
+        }
         function getMyLawCase() {
             isAll = true;
             $scope.display = false;
@@ -502,6 +523,7 @@ angular.module('starter.controllers', [])
             log.lcNo = lcNo;
             CaseLogSvc.createLog(log).then(function (res) {
                 if (res != "0") {
+                    $scope.isShowBtn = true;
                     $scope.Log.logText="";
                     CaseLogSvc.getRecentlyLog(lcNo).then(function (data) {
                         getList(data);
@@ -1050,10 +1072,9 @@ angular.module('starter.controllers', [])
             }
         };
         $scope.onInputSearchlkList = function (dom) {
-            pageIndex = 1, pageSize = 100, isAll = false;
+            pageIndex = 1, pageSize = 100, isAll = false;;
             $scope.lkList = [];
-            $scope.display = true;
-            $scope.getPageNews();
+            $scope.getPagelkList();
 
         }
         $scope.getPagelkList();
@@ -1065,13 +1086,10 @@ angular.module('starter.controllers', [])
         });
 
     })
-    .controller("UploadLcCtrl", function ($scope, $window, $ionicPopup, $state, ApplyCertSvc, RegionSvc) {
+    .controller("UploadLcCtrl", function ($scope, $window, $ionicPopup, $state, LawCaseSvc, RegionSvc) {
 
         $scope.ApplyState = -1;
         function loadPage() {
-            ApplyCertSvc.getUserApplyState().then(function (res) {
-                $scope.ApplyState = res;
-            });
 
             RegionSvc.getProvinces().then(function (res) {
                 $scope.provinces = res;
@@ -1092,18 +1110,10 @@ angular.module('starter.controllers', [])
 
         $scope.formModel = {
             city: 0,
-            address: "",
-            realName: "",
-            sex: 1,
-            contact: "",
-            certificateNo: "",
-            lawerType: 1,
-            workYears: 1,
-            majors: ""
+            address: ""
         };
         $scope.cities = [];
         $scope.counties = [];
-        $scope.provinces = [{id: 1, name: "北京"}, {id: 2, name: "山西"}];
         $scope.majors = [{id: 1, name: "闯红灯"}, {id: 2, name: "醉驾"}];
 
         $scope.doApply = function () {
@@ -1117,10 +1127,10 @@ angular.module('starter.controllers', [])
             $scope.formModel.majors = mid.join(",");
             console.log($scope.formModel);
 
-            ApplyCertSvc.addApplyCert($scope.formModel).then(function (res) {
+            LawCaseSvc.uploadLawCase($scope.formModel).then(function (res) {
                 var alertPopup = $ionicPopup.alert({
                     title: '提示',
-                    template: '提交成功，请等待审核。'
+                    template: '提交成功！'
                 });
                 alertPopup.then(function (res) {
                     $state.go('app.setup', {}, {location: 'replace'});
@@ -1140,6 +1150,15 @@ angular.module('starter.controllers', [])
         $scope.formModel = {};
         $scope.doLogin = login;
 
+        $scope.cancleLogin=function(){
+            $ionicHistory.nextViewOptions({
+                disableAnimate: false,
+                disableBack: true
+            });
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache();
+            $state.go('app.catalogs', null, {location: 'replace'});
+        }
 
         function login() {
 

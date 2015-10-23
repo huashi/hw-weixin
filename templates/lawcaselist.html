@@ -12,7 +12,7 @@
 
         <div class="col-50 button-bar">
 
-            <select class="item"  ng-model="orderType" style="border: none;margin-left: 1em;">
+            <select class="item"  ng-model="orderType" style="border: none;margin-left: 1em;" ng-change="onChangeOrder(orderType)">
                 <option selected value="0">默认排序</option>
                 <!--<option value="1">发生地</option>-->
                 <option value="2">关注度</option>
@@ -29,14 +29,18 @@
                 <br/><br/>没有案件
             </div>
 
-            <ion-item
-                    ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.lcNo}}">
-                    <span class="caseTitle">
+            <ion-item  class="item-text-wrap"
+                       ng-repeat="lc in MyLawCase" href="#/app/lawcase-details/{{lc.lcNo}}">
+                    <p class="caseTitle ">
                         {{lc.name}}
-                    </span>
-                         <span class="item-note">
-                          {{lc.stateName}}
-                     </span>
+                    </p>
+
+                <p><i class=" ion-chatbox-working " style="  margin-right: 20px;">
+                    {{lc.c_Comments}}
+                </i><i class=" ion-star ">
+                    {{lc.c_Favorites}}
+                </i> <i style="float: right" class="item-note"> {{lc.stateName}}</i></p>
+
 
             </ion-item>
 

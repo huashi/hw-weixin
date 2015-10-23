@@ -16,8 +16,11 @@
 
                     <div class="highlight"></div>
                 </label>
+                <div class="item">
                 <input type="submit" ng-disabled="!(formModel.pass && formModel.uname)"
                        class="button button-block button-positive view-button" value="登 录">
+                    <a href="javascript:void(0);" style="text-decoration: none; font-size: 1px;" ng-click="cancleLogin()">取消登录</a>
+                </div>
             </div>
         </form>
     </ion-content>

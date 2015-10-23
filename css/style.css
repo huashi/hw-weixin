@@ -9,6 +9,12 @@ body{
     font-size: 20px;
 }
 
+.item.active, .item.activated, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .item .item-content.activated {
+    border-color: #ccc;
+    background-color: #D9D9D9;
+    color: #33FF00;
+}
+
 .popover .item{
     border-color: #ddd !important;
     background-color: #fafafa;
